@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import CombinedBrandLogo from '../branding/CombinedBrandLogo';
-import { Menu, X, User, ChevronRight, Award, Calendar, BookOpen, MapPin, Shield } from 'lucide-react';
+import { Menu, X, Phone, User, ChevronDown } from 'lucide-react';
 
 interface NavbarProps {
   examYear?: string;
@@ -12,18 +12,18 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [phoneMenuOpen, setPhoneMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-    { label: 'Exam Details', href: '/exam-details' },
-    { label: 'Exam Pattern', href: '/exam-pattern' },
-    { label: 'Scholarships', href: '/scholarships', badge: 'ISRO Tour' },
-    { label: 'Important Dates', href: '/important-dates' },
+    { label: 'Classroom Courses', href: '/about' },
+    { label: 'Online Courses', href: '/exam-details' },
+    { label: 'CBT Test Series', href: '/exam-pattern' },
+    { label: 'Results', href: '/results' },
+    { label: 'Study Materials', href: '/#syllabus' },
+    { label: 'Scholarships', href: '/scholarships', badge: 'NEW' },
     { label: 'Centres', href: '/centres' },
-    { label: 'FAQs', href: '/faqs' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'More', href: '/faqs' },
   ];
 
   const isActive = (href: string) => {
@@ -32,29 +32,29 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all">
+    <header className="sticky top-0 z-40 bg-white border-b border-slate-200/80 shadow-sm transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo Unit */}
+        <div className="flex items-center justify-between h-18 sm:h-20">
+          {/* Brand Logo on Left */}
           <div className="flex-shrink-0 py-2">
             <CombinedBrandLogo size="md" year={examYear} />
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center space-x-1 lg:space-x-1.5">
+          {/* Desktop Navigation Links (Exact Allen Style) */}
+          <nav className="hidden xl:flex items-center space-x-1 lg:space-x-3">
             {navLinks.map((link) => (
               <Link
-                key={link.href}
+                key={link.label}
                 href={link.href}
-                className={`relative px-3 py-1.5 text-xs lg:text-[13px] font-semibold rounded-md transition-colors ${
+                className={`relative px-2.5 py-1.5 text-[13px] font-medium transition-colors ${
                   isActive(link.href)
-                    ? 'text-euro-royal bg-blue-50/80'
-                    : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
+                    ? 'text-blue-600 font-bold'
+                    : 'text-slate-700 hover:text-blue-600'
                 }`}
               >
                 {link.label}
                 {link.badge && (
-                  <span className="ml-1.5 px-1.5 py-0.5 text-[10px] font-bold bg-amber-100 text-amber-800 rounded-full border border-amber-300">
+                  <span className="ml-1.5 px-1.5 py-0.2 text-[9px] font-extrabold bg-[#EAB308] text-slate-900 rounded-full uppercase tracking-tighter">
                     {link.badge}
                   </span>
                 )}
@@ -62,45 +62,71 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
             ))}
           </nav>
 
-          {/* Right Action Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Link
-              href="/results"
-              className="text-xs font-semibold text-slate-700 hover:text-euro-royal px-2.5 py-1.5 rounded-md transition-colors border border-slate-200 hover:border-slate-300"
-            >
-              Results
-            </Link>
+          {/* Right Action Icons & Buttons (Exact Allen Style) */}
+          <div className="hidden md:flex items-center space-x-3 relative">
+            {/* Blue Round Telephone Button */}
+            <div className="relative">
+              <button
+                onClick={() => setPhoneMenuOpen(!phoneMenuOpen)}
+                className="w-9 h-9 rounded-full bg-[#0066FF] hover:bg-blue-700 text-white flex items-center justify-center transition-colors shadow-sm focus:outline-none"
+                title="Call EURO Campus Helplines"
+              >
+                <Phone className="w-4 h-4" />
+              </button>
 
+              {phoneMenuOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 p-3 z-50 text-xs space-y-2">
+                  <p className="font-bold text-slate-800 border-b border-slate-100 pb-1">EURO Campus Helplines</p>
+                  <div>
+                    <span className="text-[10px] text-slate-500 uppercase font-semibold">PCMC Campus:</span>
+                    <a href="tel:9112223354" className="block font-bold text-blue-600 hover:underline">
+                      9112223354 / 9112233995
+                    </a>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-500 uppercase font-semibold">Shikrapur Campus:</span>
+                    <a href="tel:9607035688" className="block font-bold text-blue-600 hover:underline">
+                      9607035688
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* White Pill Login Button with Blue Border */}
             <Link
               href="/student/login"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-euro-navy hover:text-euro-royal px-3 py-2 rounded-lg transition-colors border border-euro-navy/20 hover:bg-slate-50"
+              className="px-6 py-1.5 rounded-full border-2 border-[#0066FF] text-[#0066FF] hover:bg-blue-50 text-xs sm:text-[13px] font-bold transition-all shadow-sm"
             >
-              <User className="w-3.5 h-3.5" />
-              Student Login
+              Login
             </Link>
 
+            {/* Register Now Pill */}
             <Link
               href="/student/register"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-euro-royal to-blue-700 hover:from-blue-700 hover:to-euro-navy px-4 py-2.5 rounded-lg shadow-sm hover:shadow transition-all transform active:scale-95"
+              className="px-5 py-2 rounded-full bg-[#0066FF] hover:bg-blue-700 text-white text-xs sm:text-[13px] font-bold transition-all shadow-sm"
             >
-              Register Now
-              <ChevronRight className="w-3.5 h-3.5" />
+              Register
             </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="flex xl:hidden items-center space-x-2">
+          {/* Mobile Menu Hamburger */}
+          <div className="flex md:hidden items-center space-x-2">
+            <a
+              href="tel:9112223354"
+              className="w-8 h-8 rounded-full bg-[#0066FF] text-white flex items-center justify-center"
+            >
+              <Phone className="w-3.5 h-3.5" />
+            </a>
             <Link
               href="/student/login"
-              className="p-2 text-euro-navy hover:text-euro-royal rounded-lg md:hidden"
-              aria-label="Login"
+              className="px-3 py-1 rounded-full border border-[#0066FF] text-[#0066FF] text-xs font-bold"
             >
-              <User className="w-5 h-5" />
+              Login
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:text-euro-navy hover:bg-slate-100 focus:outline-none"
-              aria-label="Toggle navigation menu"
+              className="p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -110,64 +136,29 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 shadow-xl animate-in slide-in-from-top-4 duration-200">
-          <div className="grid grid-cols-1 gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
-                  isActive(link.href)
-                    ? 'text-euro-royal bg-blue-50 font-semibold'
-                    : 'text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                <span>{link.label}</span>
-                {link.badge && (
-                  <span className="px-2 py-0.5 text-[10px] font-bold bg-amber-100 text-amber-800 rounded-full border border-amber-300">
-                    {link.badge}
-                  </span>
-                )}
-              </Link>
-            ))}
+        <div className="md:hidden bg-white border-t border-slate-200 px-4 pt-2 pb-6 space-y-1 shadow-lg">
+          {navLinks.map((link) => (
             <Link
-              href="/results"
+              key={link.label}
+              href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50"
+              className="block px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg"
             >
-              <span>View Results & Merit List</span>
+              {link.label}
+              {link.badge && (
+                <span className="ml-2 px-1.5 py-0.5 text-[10px] font-bold bg-[#EAB308] text-slate-900 rounded-full">
+                  {link.badge}
+                </span>
+              )}
             </Link>
-            <Link
-              href="/verify-admit-card"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
-              <span>Verify Admit Card</span>
-            </Link>
-          </div>
-
-          <div className="pt-4 border-t border-slate-200 flex flex-col gap-2.5">
+          ))}
+          <div className="pt-3 border-t border-slate-100 space-y-2">
             <Link
               href="/student/register"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 px-4 bg-euro-royal hover:bg-blue-700 text-white rounded-lg font-bold text-sm shadow-sm"
+              className="block w-full py-2.5 text-center bg-[#0066FF] text-white font-bold text-xs rounded-xl shadow-sm"
             >
               Register for ETHEX 2026
-            </Link>
-            <Link
-              href="/student/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 px-4 border border-slate-300 text-euro-navy rounded-lg font-semibold text-sm hover:bg-slate-50"
-            >
-              Student Portal Login
-            </Link>
-            <Link
-              href="/admin/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-4 text-slate-500 hover:text-slate-800 text-xs font-medium flex items-center justify-center gap-1"
-            >
-              <Shield className="w-3.5 h-3.5" /> Staff & Administrator Portal
             </Link>
           </div>
         </div>
