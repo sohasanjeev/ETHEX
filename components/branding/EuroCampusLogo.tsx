@@ -12,68 +12,28 @@ export const EuroCampusLogo: React.FC<LogoProps> = ({
   showMotto = true,
 }) => {
   const dimensions = {
-    sm: { h: 36, w: 120, icon: 28 },
-    md: { h: 48, w: 160, icon: 38 },
-    lg: { h: 64, w: 210, icon: 52 },
-    xl: { h: 80, w: 260, icon: 66 },
+    sm: { icon: 32, title: "text-[0.95rem]", sub: "text-[0.7rem]" },
+    md: { icon: 44, title: "text-[1.12rem]", sub: "text-[0.8rem]" },
+    lg: { icon: 56, title: "text-[1.35rem]", sub: "text-[0.95rem]" },
+    xl: { icon: 72, title: "text-[1.65rem]", sub: "text-[1.15rem]" },
   }[size];
 
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
-      {/* EURO CAMPUS Shield Crest */}
-      <svg
-        width={dimensions.icon}
-        height={dimensions.icon}
-        viewBox="0 0 100 110"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="flex-shrink-0 drop-shadow-sm"
-      >
-        {/* Shield Outer Gold Border */}
-        <path
-          d="M50 5L92 22V55C92 82 50 105 50 105C50 105 8 82 8 55V22L50 5Z"
-          fill="#0C1B3D"
-          stroke="#F59E0B"
-          strokeWidth="4"
-          strokeLinejoin="round"
-        />
-        {/* Inner Shield Accent */}
-        <path
-          d="M50 12L85 26V54C85 76 50 96 50 96C50 96 15 76 15 54V26L50 12Z"
-          fill="#142852"
-        />
-        {/* Mortarboard / Graduation Cap */}
-        <path
-          d="M50 26L74 38L50 50L26 38L50 26Z"
-          fill="#F59E0B"
-        />
-        <path
-          d="M32 43V54C32 58 40 62 50 62C60 62 68 58 68 54V43L50 52L32 43Z"
-          fill="#FBBF24"
-        />
-        <path
-          d="M71 40V56"
-          stroke="#F59E0B"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-        <circle cx="71" cy="58" r="2" fill="#F59E0B" />
-
-        {/* Greco-Roman Columns / Pillars */}
-        <rect x="30" y="66" width="7" height="22" rx="1" fill="#F59E0B" />
-        <rect x="42" y="66" width="7" height="22" rx="1" fill="#F59E0B" />
-        <rect x="54" y="66" width="7" height="22" rx="1" fill="#F59E0B" />
-        <rect x="66" y="66" width="7" height="22" rx="1" fill="#F59E0B" />
-        {/* Base Pedestal */}
-        <rect x="25" y="88" width="50" height="4" rx="1" fill="#F59E0B" />
-      </svg>
+      {/* Authentic EURO CAMPUS Shield Crest */}
+      <img
+        src="/branding/euro_campus_shield.png"
+        alt="EURO Campus Crest"
+        className="flex-shrink-0 object-contain drop-shadow-sm"
+        style={{ height: `${dimensions.icon}px`, width: "auto" }}
+      />
 
       {/* Typography */}
       <div className="flex flex-col">
-        <span className="font-extrabold tracking-wider text-euro-navy uppercase leading-none text-[1.1rem]">
+        <span className={`font-extrabold tracking-wider text-euro-navy uppercase leading-none ${dimensions.title}`}>
           EURO
         </span>
-        <span className="font-bold tracking-widest text-euro-royal uppercase text-[0.85rem] leading-tight">
+        <span className={`font-bold tracking-widest text-euro-royal uppercase leading-tight ${dimensions.sub}`}>
           CAMPUS
         </span>
         {showMotto && (
