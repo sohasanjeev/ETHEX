@@ -59,8 +59,8 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="bg-white/10 p-3 rounded-xl inline-block backdrop-blur-sm border border-white/10">
-              <CombinedBrandLogo size="md" />
+            <div>
+              <CombinedBrandLogo size="md" variant="card" />
             </div>
             <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
               ETHEX 2026 (EURO TALENT HUNT EXAM) is the flagship talent identification, diagnostic, and

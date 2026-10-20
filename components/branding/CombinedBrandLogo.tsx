@@ -8,6 +8,8 @@ interface CombinedBrandLogoProps {
   size?: "sm" | "md" | "lg";
   year?: string;
   href?: string;
+  theme?: "light" | "dark";
+  variant?: "inline" | "card";
 }
 
 export const CombinedBrandLogo: React.FC<CombinedBrandLogoProps> = ({
@@ -15,17 +17,29 @@ export const CombinedBrandLogo: React.FC<CombinedBrandLogoProps> = ({
   size = "md",
   year = "2026",
   href = "/",
+  theme = "light",
+  variant = "inline",
 }) => {
   const content = (
-    <div className={`inline-flex items-center gap-3 sm:gap-5 ${className}`}>
-      {/* EURO CAMPUS Logo */}
-      <EuroCampusLogo size={size} showMotto={size !== "sm"} />
+    <div
+      className={`inline-flex items-center gap-3 sm:gap-4 transition-all ${
+        variant === "card"
+          ? "bg-white px-4 py-2.5 rounded-2xl shadow-md border border-slate-200 hover:shadow-lg"
+          : ""
+      } ${className}`}
+    >
+      {/* EURO CAMPUS Crest & Typography */}
+      <EuroCampusLogo size={size} showMotto={size !== "sm"} theme={variant === "card" ? "light" : theme} />
 
       {/* Elegant Vertical Divider */}
-      <div className="h-8 sm:h-10 w-[1.5px] bg-slate-300 dark:bg-slate-700"></div>
+      <div
+        className={`h-8 sm:h-10 w-[1.5px] ${
+          theme === "dark" && variant !== "card" ? "bg-white/20" : "bg-slate-300"
+        }`}
+      ></div>
 
-      {/* ETHEX Logo */}
-      <EthexLogo size={size} year={year} />
+      {/* Official ETHEX Logo */}
+      <EthexLogo size={size} year={year} theme={variant === "card" ? "light" : theme} />
     </div>
   );
 

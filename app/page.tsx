@@ -22,7 +22,12 @@ import {
   Trophy,
   Phone,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck,
+  Star,
+  CheckCircle2,
+  BookOpen,
+  Award
 } from 'lucide-react';
 import { SiteSettings, Exam } from '@/lib/types';
 import CombinedBrandLogo from '@/components/branding/CombinedBrandLogo';
@@ -40,6 +45,9 @@ export default function HomePage() {
   const [quickClass, setQuickClass] = useState('10');
   const [quickMode, setQuickMode] = useState<'ONLINE' | 'OFFLINE'>('ONLINE');
   const [agreedTerms, setAgreedTerms] = useState(true);
+
+  // Mini sample question test state for student engagement
+  const [quizSelected, setQuizSelected] = useState<number | null>(null);
 
   // Accordion FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -74,7 +82,7 @@ export default function HomePage() {
   };
 
   const syllabusData = [
-    { grade: 'Class 5', tag: 'Middle School', subjects: 'Maths, Science, Mental Ability', pattern: '60 Qs • 240 Marks' },
+    { grade: 'Class 5', tag: 'Middle School', subjects: 'Maths, General Science, Mental Ability', pattern: '60 Qs • 240 Marks' },
     { grade: 'Class 6', tag: 'Middle School', subjects: 'Physics, Chem, Bio, Maths, MAT', pattern: '60 Qs • 240 Marks' },
     { grade: 'Class 7', tag: 'Middle School', subjects: 'Physics, Chem, Bio, Maths, MAT', pattern: '60 Qs • 240 Marks' },
     { grade: 'Class 8', tag: 'Foundation', subjects: 'Physics, Chem, Bio, Maths, MAT', pattern: '60 Qs • 240 Marks' },
@@ -121,9 +129,13 @@ export default function HomePage() {
       {/* 1. TOP HERO SECTION (ALLEN TALLENTEX BANNER REPLICA) */}
       <section className="px-3 sm:px-6 lg:px-8 pt-4 pb-8 max-w-7xl mx-auto w-full">
         {/* Soft Sky-Blue / Lavender Curved Card Container */}
-        <div className="relative rounded-2xl sm:rounded-3xl border border-blue-200/70 bg-gradient-to-r from-[#EFF6FF] via-[#F2F6FE] to-[#E6EEFB] p-6 sm:p-10 lg:p-12 overflow-hidden shadow-sm">
+        <div className="relative rounded-2xl sm:rounded-3xl border border-blue-200/80 bg-gradient-to-r from-[#EFF6FF] via-[#F3F7FF] to-[#E5EDFD] p-6 sm:p-10 lg:p-12 overflow-hidden shadow-sm">
+          {/* Subtle Ambient Glowing Orbs */}
+          <div className="absolute -top-16 -right-16 w-80 h-80 bg-blue-400/15 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute -bottom-16 -left-16 w-80 h-80 bg-amber-400/15 rounded-full blur-3xl pointer-events-none"></div>
+
           {/* Top-Right Yellow/Gold Ribbon Badge (Exact Allen style) */}
-          <div className="absolute top-0 right-6 sm:right-10 bg-[#EAB308] text-slate-900 font-extrabold px-3 sm:px-4 pt-2 pb-3 rounded-b-xl shadow-md text-center leading-tight z-20">
+          <div className="absolute top-0 right-6 sm:right-10 bg-[#EAB308] text-slate-900 font-extrabold px-3.5 sm:px-4 pt-2 pb-3 rounded-b-xl shadow-md text-center leading-tight z-20">
             <span className="block text-[9px] sm:text-[10px] tracking-wider uppercase font-bold text-slate-800">FOR CLASS</span>
             <span className="block text-xl sm:text-2xl font-black">5-12</span>
             <span className="block text-[9px] sm:text-[10px] tracking-wider uppercase font-bold text-slate-800">STUDENTS</span>
@@ -132,13 +144,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Column: Branding, Headings & Reward Cards */}
             <div className="lg:col-span-7 space-y-5">
-              {/* ETHEX 2026 Logo */}
-              <div className="pt-2">
+              {/* ETHEX 2026 Transparent Logo (Seamlessly blended with background) */}
+              <div className="pt-1">
                 <EthexLogo size="lg" year={settings?.exam_edition || '2026'} />
               </div>
 
               {/* Countdown Tagline */}
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                 The countdown has begun.
               </h1>
 
@@ -150,7 +162,7 @@ export default function HomePage() {
               </div>
 
               {/* White Dual Reward Card (Exact Allen Design) */}
-              <div className="bg-white/95 rounded-2xl p-4 sm:p-5 shadow-sm border border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-blue-100/80 flex flex-col sm:flex-row items-center justify-between gap-4">
                 {/* Left Reward: Up to 90% Scholarship */}
                 <div className="flex items-center gap-3 w-full sm:w-1/2">
                   <div className="w-12 h-12 rounded-full bg-[#0066FF] text-white flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -192,7 +204,7 @@ export default function HomePage() {
               </div>
 
               {/* Dashed Border Exam Date Box (Exact Allen Design) */}
-              <div className="inline-flex items-center gap-3 bg-white/90 border-2 border-dashed border-[#0066FF]/60 rounded-xl px-4 py-2.5 shadow-sm">
+              <div className="inline-flex items-center gap-3 bg-white border-2 border-dashed border-[#0066FF]/60 rounded-xl px-4 py-2.5 shadow-sm">
                 <div className="p-1.5 rounded-lg bg-blue-50 text-[#0066FF]">
                   <Calendar className="w-5 h-5" />
                 </div>
@@ -210,21 +222,27 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: High-Impact Visual Composition (Students & Floating Badge) */}
+            {/* Right Column: 3D Visual & Engagement Card */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
-              {/* 3D Floating "LAST FEW DAYS" Badge */}
-              <div className="relative w-full max-w-sm sm:max-w-md bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-blue-200 shadow-xl space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-xs font-black text-[#0066FF] uppercase tracking-wider">Admissions Open</span>
+              {/* 3D Modern Card Unit */}
+              <div className="relative w-full max-w-sm sm:max-w-md bg-white rounded-2xl p-5 border border-blue-200 shadow-xl space-y-4">
+                {/* 3D "LAST FEW DAYS" Calendar Ribbon & Alarm Clock */}
+                <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 rounded-xl p-3.5 text-white flex items-center justify-between shadow-md relative overflow-hidden">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded-lg bg-white/20 backdrop-blur-sm text-amber-300">
+                      <Clock className="w-5 h-5 animate-spin" style={{ animationDuration: '8s' }} />
+                    </div>
+                    <div>
+                      <span className="block text-[10px] uppercase font-bold tracking-wider text-blue-200">Admissions Open</span>
+                      <h4 className="text-base font-black tracking-wide">LAST FEW DAYS</h4>
+                    </div>
                   </div>
-                  <span className="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                    Academic Year {settings?.academic_year || '2027–2028'}
+                  <span className="text-[11px] font-black bg-amber-400 text-slate-900 px-2.5 py-1 rounded-full uppercase shadow-sm">
+                    Free Entry
                   </span>
                 </div>
 
-                {/* ISRO Educational Tour Showcase */}
+                {/* ISRO Educational Tour High Achievers Highlight */}
                 <div className="relative rounded-xl overflow-hidden aspect-video border border-blue-100 shadow-inner group">
                   <Image
                     src="/branding/isro_tour_instagram_flyer.jpg"
@@ -232,22 +250,57 @@ export default function HomePage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-3">
-                    <div>
-                      <span className="bg-[#0066FF] text-white text-[10px] font-extrabold px-2 py-0.5 rounded uppercase">
-                        Exclusive Reward
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-3.5">
+                    <div className="space-y-1">
+                      <span className="bg-[#0066FF] text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
+                        Exclusive EURO Incentive
                       </span>
-                      <p className="text-white text-xs font-bold mt-1">
-                        Top Performers Earn an ISRO Educational Tour 🚀
+                      <p className="text-white text-xs sm:text-[13px] font-black leading-snug">
+                        Selected Toppers Earn a Fully Sponsored ISRO Educational Tour 🚀
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-slate-600 pt-1">
-                  <span>Centre: PCMC & Shikrapur</span>
+                {/* Interactive Mini Aptitude Teaser */}
+                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-700">
+                    <span className="flex items-center gap-1 text-[#0066FF]">
+                      <Sparkles className="w-3.5 h-3.5" /> Sample Question Preview:
+                    </span>
+                    <span className="text-slate-400">Class 10 MAT</span>
+                  </div>
+                  <p className="text-xs text-slate-800 font-medium">
+                    If speed of light in vacuum is 3 × 10⁸ m/s, refractive index in glass (v = 2 × 10⁸ m/s) is?
+                  </p>
+                  <div className="grid grid-cols-2 gap-1.5 pt-1">
+                    {['A) 1.33', 'B) 1.50', 'C) 1.66', 'D) 0.67'].map((opt, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setQuizSelected(idx)}
+                        className={`py-1 px-2 rounded-lg text-[11px] font-bold text-left border transition-all ${
+                          quizSelected === idx
+                            ? idx === 1
+                              ? 'bg-emerald-100 border-emerald-500 text-emerald-800'
+                              : 'bg-rose-100 border-rose-500 text-rose-800'
+                            : 'bg-white border-slate-200 text-slate-700 hover:border-blue-400'
+                        }`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                  {quizSelected !== null && (
+                    <p className={`text-[10px] font-bold ${quizSelected === 1 ? 'text-emerald-700' : 'text-rose-600'}`}>
+                      {quizSelected === 1 ? '✓ Correct! n = c / v = 1.50' : '✗ Incorrect. Formula is n = c / v = 1.50'}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between text-xs text-slate-600 pt-1 border-t border-slate-100">
+                  <span className="font-semibold">Centres: PCMC & Shikrapur</span>
                   <Link href="/centres" className="font-bold text-[#0066FF] hover:underline flex items-center gap-0.5">
-                    View Centres <ChevronRight className="w-3.5 h-3.5" />
+                    View Centre Details <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
@@ -271,7 +324,7 @@ export default function HomePage() {
                     <Clock className="w-4 h-4" />
                   </div>
                   <p className="leading-relaxed">
-                    Trusted by ambitious students across Maharashtra as an early step towards <strong>JEE, NEET, Olympiads, and Foundation</strong> excellence. A talent search exam aimed at recognising talent, encouraging ambition, and rewarding excellence.
+                    Trusted by thousands of ambitious students across Maharashtra as an early step towards <strong>JEE, NEET, Olympiads, and Foundation</strong> excellence. A national-calibre talent hunt exam aimed at recognising talent, encouraging ambition, and rewarding excellence.
                   </p>
                 </div>
               </div>
@@ -279,8 +332,8 @@ export default function HomePage() {
               {/* The 4 Feature Points (Exact Allen Style) */}
               <div className="space-y-6">
                 {/* 1. Rankings */}
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-blue-400 transition-colors">
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-blue-400 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <BarChart3 className="w-5 h-5 text-[#0066FF]" />
                     National & State Rankings
                   </h3>
@@ -290,8 +343,8 @@ export default function HomePage() {
                 </div>
 
                 {/* 2. CSI */}
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-amber-400 transition-colors">
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-amber-400 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <Target className="w-5 h-5 text-amber-500" />
                     Competitive Success Index (CSI)
                   </h3>
@@ -301,8 +354,8 @@ export default function HomePage() {
                 </div>
 
                 {/* 3. ISRO Tour */}
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-purple-400 transition-colors">
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-purple-400 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <Rocket className="w-5 h-5 text-purple-600" />
                     ISRO Educational Tour (Exclusive EURO Feature)
                   </h3>
@@ -312,8 +365,8 @@ export default function HomePage() {
                 </div>
 
                 {/* 4. Rewards */}
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-emerald-400 transition-colors">
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-emerald-400 transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <Trophy className="w-5 h-5 text-emerald-600" />
                     Exciting Rewards & Scholarships
                   </h3>
@@ -343,6 +396,19 @@ export default function HomePage() {
                   {/* Progress Bar */}
                   <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
                     <div className="bg-emerald-500 h-full w-1/3 rounded-full"></div>
+                  </div>
+
+                  {/* Value Highlights Mini Strip */}
+                  <div className="flex items-center justify-between text-[10px] font-bold text-slate-600 bg-slate-50 p-2 rounded-xl border border-slate-100">
+                    <span className="flex items-center gap-1 text-emerald-700">
+                      <CheckCircle2 className="w-3 h-3" /> Free Entry
+                    </span>
+                    <span className="flex items-center gap-1 text-blue-700">
+                      <CheckCircle2 className="w-3 h-3" /> Admit Card
+                    </span>
+                    <span className="flex items-center gap-1 text-amber-700">
+                      <CheckCircle2 className="w-3 h-3" /> Scholarships
+                    </span>
                   </div>
 
                   <form onSubmit={handleQuickRegister} className="space-y-4">
@@ -390,12 +456,12 @@ export default function HomePage() {
                         onChange={(e) => setQuickClass(e.target.value)}
                         className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0066FF] text-sm bg-slate-50 font-medium"
                       >
-                        <option value="5">Class 5</option>
-                        <option value="6">Class 6</option>
-                        <option value="7">Class 7</option>
-                        <option value="8">Class 8</option>
-                        <option value="9">Class 9</option>
-                        <option value="10">Class 10</option>
+                        <option value="5">Class 5 (Middle School Foundation)</option>
+                        <option value="6">Class 6 (Middle School Foundation)</option>
+                        <option value="7">Class 7 (Middle School Foundation)</option>
+                        <option value="8">Class 8 (Pre-Foundation)</option>
+                        <option value="9">Class 9 (Pre-JEE / Pre-NEET)</option>
+                        <option value="10">Class 10 (Pre-JEE / Pre-NEET)</option>
                         <option value="11-JEE">Class 11 (JEE Engineering)</option>
                         <option value="11-NEET">Class 11 (NEET Medical)</option>
                         <option value="12-JEE">Class 12 (JEE Engineering)</option>
