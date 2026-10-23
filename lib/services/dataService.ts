@@ -587,28 +587,152 @@ export const dataService = {
     }));
   },
 
+  getQuestionsForAdmin: async (examId: string): Promise<Question[]> => {
+    if (!questionsState[examId]) {
+      questionsState[examId] = examId === 'e1111111-1111-1111-1111-111111111111'
+        ? [...(questionsState['e1111111-1111-1111-1111-111111111111'] || [])]
+        : [];
+    }
+    return [...questionsState[examId]];
+  },
+
+  addQuestionToExam: async (examId: string, questionData: {
+    subject_id: string;
+    class_category?: string;
+    target_stream?: string;
+    question_text: string;
+    difficulty?: 'easy' | 'medium' | 'hard';
+    marks?: number;
+    negative_marks?: number;
+    explanation?: string;
+    options: Array<{
+      option_label: 'A' | 'B' | 'C' | 'D';
+      option_text: string;
+      is_correct: boolean;
+    }>;
+  }): Promise<Question> => {
+    if (!questionsState[examId]) {
+      questionsState[examId] = [];
+    }
+
+    const qId = `q_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+    const newQuestion: Question = {
+      id: qId,
+      subject_id: questionData.subject_id || 'GEN',
+      class_category: questionData.class_category || 'Class 10',
+      target_stream: questionData.target_stream || 'Foundation',
+      question_text: questionData.question_text,
+      difficulty: questionData.difficulty || 'medium',
+      marks: questionData.marks ?? 4,
+      negative_marks: questionData.negative_marks ?? 1,
+      explanation: questionData.explanation || '',
+      options: questionData.options.map((opt) => ({
+        id: `opt_${qId}_${opt.option_label.toLowerCase()}`,
+        question_id: qId,
+        option_label: opt.option_label,
+        option_text: opt.option_text,
+        is_correct: opt.is_correct,
+      })),
+    };
+
+    questionsState[examId].push(newQuestion);
+
+    // Update exam total questions & marks
+    const exam = examsState.find((e) => e.id === examId);
+    if (exam) {
+      exam.total_questions = questionsState[examId].length;
+      exam.total_marks = questionsState[examId].reduce((acc, q) => acc + q.marks, 0);
+    }
+
+    return newQuestion;
+  },
+
+  bulkAddQuestions: async (examId: string, questionsList: any[]): Promise<Question[]> => {
+    if (!questionsState[examId]) {
+      questionsState[examId] = [];
+    }
+
+    const created: Question[] = [];
+
+    for (const q of questionsList) {
+      const qId = `q_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+      const options = (q.options || []).map((opt: any) => ({
+        id: `opt_${qId}_${(opt.option_label || 'A').toLowerCase()}`,
+        question_id: qId,
+        option_label: opt.option_label,
+        option_text: opt.option_text,
+        is_correct: !!opt.is_correct,
+      }));
+
+      const newQ: Question = {
+        id: qId,
+        subject_id: q.subject_id || 'GEN',
+        class_category: q.class_category || 'Class 10',
+        target_stream: q.target_stream || 'Foundation',
+        question_text: q.question_text,
+        difficulty: q.difficulty || 'medium',
+        marks: q.marks !== undefined ? Number(q.marks) : 4,
+        negative_marks: q.negative_marks !== undefined ? Number(q.negative_marks) : 1,
+        explanation: q.explanation || '',
+        options,
+      };
+
+      questionsState[examId].push(newQ);
+      created.push(newQ);
+    }
+
+    // Update exam total questions & marks
+    const exam = examsState.find((e) => e.id === examId);
+    if (exam) {
+      exam.total_questions = questionsState[examId].length;
+      exam.total_marks = questionsState[examId].reduce((acc, q) => acc + q.marks, 0);
+    }
+
+    return created;
+  },
+
+  deleteQuestion: async (examId: string, questionId: string): Promise<boolean> => {
+    if (!questionsState[examId]) return false;
+    const initialLen = questionsState[examId].length;
+    questionsState[examId] = questionsState[examId].filter((q) => q.id !== questionId);
+
+    // Update exam total questions & marks
+    const exam = examsState.find((e) => e.id === examId);
+    if (exam) {
+      exam.total_questions = questionsState[examId].length;
+      exam.total_marks = questionsState[examId].reduce((acc, q) => acc + q.marks, 0);
+    }
+
+    return questionsState[examId].length < initialLen;
+  },
+
   startExamAttempt: async (applicationId: string, studentId: string, examId: string): Promise<ExamAttempt> => {
     const existing = Object.values(attemptsState).find(
       (a) => a.application_id === applicationId && a.student_id === studentId
     );
     if (existing) return existing;
 
-    const exam = examsState.find((e) => e.id === examId);
+    const app = applicationsState.find((a) => a.id === applicationId);
+    const resolvedExamId = examId || app?.exam_id || examsState[0]?.id;
+
+    const exam = examsState.find((e) => e.id === resolvedExamId);
     const durationMin = exam?.duration_minutes || 90;
     const deadline = new Date(Date.now() + durationMin * 60 * 1000).toISOString();
+
+    const questions = questionsState[resolvedExamId] || questionsState['e1111111-1111-1111-1111-111111111111'] || [];
 
     const attempt: ExamAttempt = {
       id: `att-${Date.now()}`,
       application_id: applicationId,
       student_id: studentId,
-      exam_id: examId,
+      exam_id: resolvedExamId,
       start_time: new Date().toISOString(),
       server_deadline: deadline,
       status: 'in_progress',
       total_score: 0,
       total_correct: 0,
       total_incorrect: 0,
-      total_unattempted: exam?.total_questions || 5,
+      total_unattempted: questions.length,
       percentage: 0,
       qualifying_status: 'pending',
     };
@@ -676,6 +800,21 @@ export const dataService = {
     attempt.total_unattempted = unattempted;
     attempt.percentage = percentage;
     attempt.qualifying_status = percentage >= 50 ? 'qualified' : 'not_qualified';
+
+    return attempt;
+  },
+
+  disqualifyAttempt: async (attemptId: string, reason: string): Promise<ExamAttempt | null> => {
+    const attempt = attemptsState[attemptId];
+    if (!attempt) return null;
+
+    attempt.status = 'disqualified';
+    attempt.submitted_at = new Date().toISOString();
+    attempt.total_score = 0;
+    attempt.percentage = 0;
+    attempt.qualifying_status = 'disqualified_unfair_means';
+    attempt.disqualification_reason = reason || '3 Tab switch / Window departure violations recorded during proctoring.';
+    attempt.violations_count = 3;
 
     return attempt;
   },

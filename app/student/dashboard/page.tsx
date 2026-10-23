@@ -340,7 +340,7 @@ export default function StudentDashboardPage() {
                     {/* Online Test Engine Access */}
                     {app.selected_mode === 'online' && app.application_status === 'confirmed' && (
                       <Link
-                        href={`/student/exam/${app.id}`}
+                        href={`/student/exam/${app.id}?examId=${app.exam_id}`}
                         className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold text-xs rounded-xl shadow-sm flex items-center gap-1.5 transition-all"
                       >
                         <PlayCircle className="w-3.5 h-3.5" />
@@ -409,10 +409,18 @@ export default function StudentDashboardPage() {
                     </div>
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-2 flex items-center gap-2">
+                    <Link
+                      href={`/student/exam/mock-${exam.id}?examId=${exam.id}`}
+                      className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors flex items-center gap-1.5"
+                    >
+                      <PlayCircle className="w-4 h-4 text-euro-royal" />
+                      Take CBT Test
+                    </Link>
+
                     {isApplied ? (
-                      <span className="w-full text-center py-2.5 px-3 bg-emerald-50 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 border border-emerald-200">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Already Registered
+                      <span className="flex-1 text-center py-2.5 px-3 bg-emerald-50 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 border border-emerald-200">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Registered
                       </span>
                     ) : (
                       <button
@@ -420,9 +428,9 @@ export default function StudentDashboardPage() {
                           setApplyingExam(exam);
                           setSelectedMode('online');
                         }}
-                        className="w-full text-center py-2.5 px-3 bg-euro-royal hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                        className="flex-1 text-center py-2.5 px-3 bg-euro-royal hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                       >
-                        Apply for this Exam <ChevronRight className="w-3.5 h-3.5" />
+                        Register Free <ChevronRight className="w-3.5 h-3.5" />
                       </button>
                     )}
                   </div>

@@ -3,11 +3,10 @@ import { dataService } from '@/lib/services/dataService';
 
 export async function POST(req: Request) {
   try {
-    const { applicationId, studentId, examId } = await req.json();
-
-    if (!applicationId || !studentId || !examId) {
-      return NextResponse.json({ error: 'Missing required exam session parameters' }, { status: 400 });
-    }
+    const body = await req.json();
+    const studentId = body.studentId || 'demo-student-id';
+    const examId = body.examId || 'e1111111-1111-1111-1111-111111111111';
+    const applicationId = body.applicationId || `sim-${Date.now()}`;
 
     const attempt = await dataService.startExamAttempt(applicationId, studentId, examId);
     const existingAnswers = await dataService.getAttemptAnswers(attempt.id);

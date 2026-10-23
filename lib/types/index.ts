@@ -193,13 +193,15 @@ export interface ExamAttempt {
   start_time: string;
   server_deadline: string;
   submitted_at?: string;
-  status: 'in_progress' | 'submitted' | 'auto_submitted' | 'evaluated';
+  status: 'in_progress' | 'submitted' | 'auto_submitted' | 'evaluated' | 'disqualified' | 'banned';
   total_score: number;
   total_correct: number;
   total_incorrect: number;
   total_unattempted: number;
   percentage: number;
   qualifying_status: string;
+  violations_count?: number;
+  disqualification_reason?: string;
 }
 
 export interface AttemptAnswer {

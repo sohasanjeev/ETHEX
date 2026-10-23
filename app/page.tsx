@@ -27,7 +27,9 @@ import {
   Star,
   CheckCircle2,
   BookOpen,
-  Award
+  Award,
+  PlayCircle,
+  Zap,
 } from 'lucide-react';
 import { SiteSettings, Exam } from '@/lib/types';
 import CombinedBrandLogo from '@/components/branding/CombinedBrandLogo';
@@ -93,6 +95,45 @@ export default function HomePage() {
     { grade: 'Class 12 / Aspirants', tag: 'JEE & NEET Target', subjects: 'Physics, Chemistry, Maths/Bio', pattern: '60 Qs • 240 Marks' },
   ];
 
+  const achievers = [
+    {
+      name: 'Aarav Patil',
+      grade: 'Class 10 (Foundation)',
+      rank: 'AIR 4',
+      score: '99.8%ile',
+      badge: 'ISRO Study Tour Winner',
+      quote: 'ETHEX gave me real CBT exam exposure before my actual Class 10 boards and Olympiads. The detailed solution review was invaluable!',
+      avatar: '👨‍🎓',
+    },
+    {
+      name: 'Priya Deshmukh',
+      grade: 'Class 11 (JEE Main + Adv)',
+      rank: 'AIR 12',
+      score: '99.4%ile',
+      badge: '90% Tuition Scholarship',
+      quote: 'The Competitive Success Index (CSI) pinpointed my weak spots in Physics Mechanics. EURO Campus mentors helped me clear my doubts.',
+      avatar: '👩‍🎓',
+    },
+    {
+      name: 'Rohan Kulkarni',
+      grade: 'Class 9 (Pre-Foundation)',
+      rank: 'AIR 19',
+      score: '98.9%ile',
+      badge: '75% Admission Waiver',
+      quote: 'Testing with a real countdown timer and seeing immediate marks (+4/-1) made me super confident for state talent search exams.',
+      avatar: '👨‍🎓',
+    },
+    {
+      name: 'Ananya Joshi',
+      grade: 'Class 11 (NEET Medical)',
+      rank: 'AIR 26',
+      score: '98.6%ile',
+      badge: 'Cash Award Winner',
+      quote: 'The Biology and Chemistry questions closely mirrored NCERT conceptual depth. Highly recommended for every serious medical aspirant!',
+      avatar: '👩‍🎓',
+    },
+  ];
+
   const faqs = [
     {
       q: 'How do I register for ETHEX 2026?',
@@ -103,12 +144,12 @@ export default function HomePage() {
       a: 'Registrations for the upcoming ETHEX 2026 testing cycle are currently free for eligible students across Classes 5 to 12.',
     },
     {
-      q: 'What is the duration and medium of the exam?',
-      a: 'ETHEX 2026 is a 2-hour (120 minutes) objective test conducted in English comprising 60 multiple-choice questions for 240 marks.',
+      q: 'Can I take a sample / practice online test before the actual exam?',
+      a: 'Yes! ETHEX features a built-in Online CBT Simulator with live countdown timer, 60-question palette, and instant answer evaluations that you can try for free anytime.',
     },
     {
-      q: 'What is the marking scheme?',
-      a: 'Each correct response carries +4 marks, while -1 mark is deducted for each incorrect answer. Unattempted questions carry zero penalty.',
+      q: 'What is the duration and medium of the exam?',
+      a: 'ETHEX 2026 is an objective test conducted in English comprising multiple-choice questions with marks per correct response (+4) and negative marking (-1).',
     },
     {
       q: 'What is the Competitive Success Index (CSI)?',
@@ -144,15 +185,28 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Column: Branding, Headings & Reward Cards */}
             <div className="lg:col-span-7 space-y-5">
-              {/* ETHEX 2026 Transparent Logo (Seamlessly blended with background) */}
-              <div className="pt-1">
-                <EthexLogo size="lg" year={settings?.exam_edition || '2026'} />
+              {/* Official Scholarship Portal Accreditation Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/90 text-blue-900 font-extrabold text-[11px] sm:text-xs tracking-wide shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="uppercase tracking-wider font-black">OFFICIAL SCHOLARSHIP PORTAL</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-[#0066FF] font-black">AY 2027–2028</span>
+              </div>
+
+              {/* ETHEX 2026 Transparent Logo (Hero Scale, High Resolution, Pristine Contrast) */}
+              <div className="pt-0.5">
+                <EthexLogo size="hero" year={settings?.exam_edition || '2026'} />
               </div>
 
               {/* Countdown Tagline */}
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-                The countdown has begun.
-              </h1>
+              <div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                  The countdown has begun.
+                </h1>
+                <p className="text-sm sm:text-base text-slate-600 font-medium mt-1">
+                  National level talent assessment & scholarship exam for Classes 5 to 12.
+                </p>
+              </div>
 
               {/* Blue Pill */}
               <div className="inline-block">
@@ -162,7 +216,7 @@ export default function HomePage() {
               </div>
 
               {/* White Dual Reward Card (Exact Allen Design) */}
-              <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-blue-100/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-blue-100/80 flex flex-col sm:flex-row items-center justify-between gap-4 card-hover-effect">
                 {/* Left Reward: Up to 90% Scholarship */}
                 <div className="flex items-center gap-3 w-full sm:w-1/2">
                   <div className="w-12 h-12 rounded-full bg-[#0066FF] text-white flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -201,6 +255,25 @@ export default function HomePage() {
                     </span>
                   </div>
                 </div>
+              </div>
+
+              {/* Action Buttons: Register Free & Try Live CBT Simulator */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <Link
+                  href="/student/register"
+                  className="px-6 py-3 bg-[#0066FF] hover:bg-blue-700 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 group active:scale-98"
+                >
+                  <span>Register Free Now</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+
+                <Link
+                  href="/student/exam/simulation"
+                  className="px-5 py-3 bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm rounded-xl border border-slate-300 shadow-sm transition-all flex items-center gap-2 active:scale-98 group"
+                >
+                  <PlayCircle className="w-4 h-4 text-[#0066FF] transition-transform group-hover:scale-110" />
+                  <span>Try Online Mock CBT (Free)</span>
+                </Link>
               </div>
 
               {/* Dashed Border Exam Date Box (Exact Allen Design) */}
@@ -242,22 +315,62 @@ export default function HomePage() {
                   </span>
                 </div>
 
-                {/* ISRO Educational Tour High Achievers Highlight */}
-                <div className="relative rounded-xl overflow-hidden aspect-video border border-blue-100 shadow-inner group">
-                  <Image
-                    src="/branding/isro_tour_instagram_flyer.jpg"
-                    alt="ETHEX ISRO Educational Tour"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-3.5">
-                    <div className="space-y-1">
-                      <span className="bg-[#0066FF] text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
-                        Exclusive EURO Incentive
+                {/* ISRO Educational Tour High Achievers Highlight - Custom Cosmic Card */}
+                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#060D1E] via-[#0B1E44] to-[#122A5E] border border-blue-400/30 shadow-lg text-white p-4 sm:p-5 group">
+                  {/* Subtle Cosmic Background Glows & Stars */}
+                  <div className="absolute -top-12 -right-12 w-36 h-36 bg-cyan-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                  <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-blue-600/25 rounded-full blur-2xl pointer-events-none"></div>
+                  <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+
+                  <div className="relative z-10 space-y-3">
+                    {/* Top Row: Mini Ethex Badge & Golden 100% Sponsored Tag */}
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                          <Rocket className="w-4 h-4 text-cyan-300" />
+                        </div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-widest text-cyan-300">
+                          ETHEX 2026 SPECIAL INCENTIVE
+                        </span>
+                      </div>
+                      <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-[10px] uppercase shadow-sm">
+                        100% SPONSORED
                       </span>
-                      <p className="text-white text-xs sm:text-[13px] font-black leading-snug">
-                        Selected Toppers Earn a Fully Sponsored ISRO Educational Tour 🚀
+                    </div>
+
+                    {/* Headline */}
+                    <div>
+                      <h3 className="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2">
+                        <span>ISRO Space Centre Study Tour</span>
+                        <span className="text-lg">🚀</span>
+                      </h3>
+                      <p className="text-xs text-blue-200/90 font-medium leading-relaxed mt-0.5">
+                        Selected national rankers receive an all-expenses-paid educational visit to India&apos;s premier space research laboratories.
                       </p>
+                    </div>
+
+                    {/* 2 Key Highlights Pills */}
+                    <div className="grid grid-cols-2 gap-2 pt-0.5 text-[11px]">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 border border-white/10 flex items-center gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" />
+                        <span className="font-semibold text-slate-100">Live Satellite Labs</span>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 border border-white/10 flex items-center gap-2">
+                        <Award className="w-3.5 h-3.5 text-cyan-300 flex-shrink-0" />
+                        <span className="font-semibold text-slate-100">Meet ISRO Scientists</span>
+                      </div>
+                    </div>
+
+                    {/* Bottom strip with Ethex Logo indicator */}
+                    <div className="pt-2 border-t border-white/15 flex items-center justify-between text-[11px]">
+                      <div className="flex items-center gap-1.5 text-slate-300">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span className="font-bold text-white">Top 50 Rankers</span>
+                        <span className="text-slate-400">Classes 5–12</span>
+                      </div>
+                      <span className="text-amber-300 font-black text-[10px] uppercase tracking-wider">
+                        Free Flights & Stay
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -332,7 +445,7 @@ export default function HomePage() {
               {/* The 4 Feature Points (Exact Allen Style) */}
               <div className="space-y-6">
                 {/* 1. Rankings */}
-                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-blue-400 transition-colors">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-blue-400 transition-colors card-hover-effect">
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <BarChart3 className="w-5 h-5 text-[#0066FF]" />
                     National & State Rankings
@@ -343,7 +456,7 @@ export default function HomePage() {
                 </div>
 
                 {/* 2. CSI */}
-                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-amber-400 transition-colors">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-amber-400 transition-colors card-hover-effect">
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <Target className="w-5 h-5 text-amber-500" />
                     Competitive Success Index (CSI)
@@ -354,7 +467,7 @@ export default function HomePage() {
                 </div>
 
                 {/* 3. ISRO Tour */}
-                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-purple-400 transition-colors">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-purple-400 transition-colors card-hover-effect">
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <Rocket className="w-5 h-5 text-purple-600" />
                     ISRO Educational Tour (Exclusive EURO Feature)
@@ -365,7 +478,7 @@ export default function HomePage() {
                 </div>
 
                 {/* 4. Rewards */}
-                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-emerald-400 transition-colors">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-1.5 hover:border-emerald-400 transition-colors card-hover-effect">
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2.5">
                     <Trophy className="w-5 h-5 text-emerald-600" />
                     Exciting Rewards & Scholarships
@@ -541,8 +654,62 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. SYLLABUS & SAMPLE PAPERS GRID (EXACT ALLEN LAYOUT) */}
-      <section className="py-16 bg-white border-t border-slate-200" id="syllabus">
+      {/* 3. ACHIEVERS SPOTLIGHT & WALL OF FAME (ALLEN TALLENTEX FEATURE) */}
+      <section className="py-16 bg-white border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2 mb-12">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+              Proven Track Record
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+              ETHEX Achievers & ISRO Tour Winners
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600">
+              Hear from students who converted their ETHEX performance into top ranks and EURO Campus scholarships.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {achievers.map((achiever, idx) => (
+              <div
+                key={idx}
+                className="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between space-y-4 card-hover-effect"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl">{achiever.avatar}</span>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-900 uppercase">
+                      {achiever.rank}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="font-black text-slate-900 text-base">{achiever.name}</h3>
+                    <p className="text-[11px] font-bold text-slate-500">{achiever.grade}</p>
+                    <span className="text-xs font-black text-[#0066FF]">{achiever.score}</span>
+                  </div>
+
+                  <span className="inline-block text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    {achiever.badge}
+                  </span>
+
+                  <p className="text-xs text-slate-600 leading-relaxed italic border-t border-slate-200/80 pt-2">
+                    &ldquo;{achiever.quote}&rdquo;
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-slate-200 flex items-center gap-1 text-[11px] text-slate-500 font-semibold">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Verified EURO Candidate</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. SYLLABUS & SAMPLE PAPERS GRID (EXACT ALLEN LAYOUT) */}
+      <section className="py-16 bg-[#F8FAFC] border-t border-slate-200" id="syllabus">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:text-left">
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
@@ -557,7 +724,7 @@ export default function HomePage() {
             {syllabusData.map((item) => (
               <div
                 key={item.grade}
-                className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 transition-all flex items-center justify-between"
+                className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 transition-all flex items-center justify-between card-hover-effect"
               >
                 <div>
                   <h3 className="text-lg font-black text-slate-900">{item.grade}</h3>
@@ -579,8 +746,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. TEST CENTRES / CITIES (EXACT ALLEN LAYOUT) */}
-      <section className="py-16 bg-[#F8FAFC] border-t border-slate-200" id="centres">
+      {/* 5. TEST CENTRES / CITIES (EXACT ALLEN LAYOUT) */}
+      <section className="py-16 bg-white border-t border-slate-200" id="centres">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
             <div>
@@ -601,7 +768,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* PCMC Campus */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 card-hover-effect">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 uppercase">
                   Centre: EC-PCMC
@@ -613,7 +780,7 @@ export default function HomePage() {
                 <MapPin className="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" />
                 Empire Estate, 4th Floor, Above Vijay Sales, Old Mumbai-Pune Highway, Pimpri-Chinchwad, Pune — 411019
               </p>
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
                 <span className="text-slate-500">Helpline:</span>
                 <a href="tel:9112223354" className="font-extrabold text-[#0066FF] hover:underline">
                   9112223354 / 9112233995
@@ -622,7 +789,7 @@ export default function HomePage() {
             </div>
 
             {/* Shikrapur Campus */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 card-hover-effect">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 uppercase">
                   Centre: EC-SHIK
@@ -634,7 +801,7 @@ export default function HomePage() {
                 <MapPin className="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" />
                 Kalamkar Vasti, Near Gunjian Theatre, Hivare Road, Pune-Nagar Highway, Shikrapur, Pune — 412208
               </p>
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
                 <span className="text-slate-500">Helpline:</span>
                 <a href="tel:9607035688" className="font-extrabold text-[#0066FF] hover:underline">
                   9607035688
@@ -645,8 +812,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. FREQUENTLY ASKED QUESTIONS (EXACT ALLEN ACCORDION) */}
-      <section className="py-16 bg-white border-t border-slate-200" id="faqs">
+      {/* 6. FREQUENTLY ASKED QUESTIONS (EXACT ALLEN ACCORDION) */}
+      <section className="py-16 bg-[#F8FAFC] border-t border-slate-200" id="faqs">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="text-center sm:text-left">
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
@@ -658,7 +825,7 @@ export default function HomePage() {
             {faqs.map((faq, idx) => (
               <div
                 key={idx}
-                className="border border-slate-200 rounded-xl overflow-hidden transition-all"
+                className="border border-slate-200 rounded-xl overflow-hidden transition-all bg-white"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
