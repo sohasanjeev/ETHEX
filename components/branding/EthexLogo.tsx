@@ -18,9 +18,9 @@ export const EthexLogo: React.FC<EthexLogoProps> = ({
   const heightMap = {
     sm: 36,
     md: 48,
-    lg: 64,
-    xl: 82,
-    hero: 96,
+    lg: 68,
+    xl: 92,
+    hero: 125,
   }[size];
 
   const actualHeight = height || heightMap;

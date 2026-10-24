@@ -1,10 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import CombinedBrandLogo from '../branding/CombinedBrandLogo';
-import { Menu, X, Phone, User, ChevronDown, PlayCircle, Sparkles } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Phone,
+  User,
+  ChevronDown,
+  PlayCircle,
+  Sparkles,
+  LogOut,
+  LayoutDashboard,
+  ShieldCheck,
+} from 'lucide-react';
 
 interface NavbarProps {
   examYear?: string;
@@ -13,7 +24,32 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [phoneMenuOpen, setPhoneMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [student, setStudent] = useState<any>(null);
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Check login state on mount & route change
+  useEffect(() => {
+    try {
+      const sessionStr = localStorage.getItem('ethex_student_session');
+      if (sessionStr) {
+        setStudent(JSON.parse(sessionStr));
+      } else {
+        setStudent(null);
+      }
+    } catch {
+      setStudent(null);
+    }
+  }, [pathname]);
+
+  const handleSignOut = () => {
+    localStorage.removeItem('ethex_student_session');
+    setStudent(null);
+    setProfileDropdownOpen(false);
+    setMobileMenuOpen(false);
+    router.push('/');
+  };
 
   const navLinks = [
     { label: 'Courses & Foundation', href: '/about' },
@@ -104,21 +140,88 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
               )}
             </div>
 
-            {/* Login Pill Button */}
-            <Link
-              href="/student/login"
-              className="px-5 py-2 rounded-full border-2 border-euro-royal text-euro-royal hover:bg-blue-50 text-xs sm:text-[13px] font-bold transition-all shadow-xs"
-            >
-              Login
-            </Link>
+            {/* If Student is Logged In: Show Profile & Dashboard instead of Login/Register */}
+            {student ? (
+              <div className="flex items-center space-x-2">
+                {/* Candidate Profile Pill & Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 hover:bg-blue-100 border border-blue-200 text-slate-800 transition-all shadow-xs"
+                  >
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-euro-navy to-euro-royal text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                      {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
+                    </div>
+                    <span className="text-xs font-bold text-slate-800 max-w-[110px] truncate">
+                      {student.full_name || student.name || 'Candidate'}
+                    </span>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+                  </button>
 
-            {/* Register Now Pill */}
-            <Link
-              href="/student/register"
-              className="px-5 py-2 rounded-full bg-gradient-to-r from-euro-royal to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs sm:text-[13px] font-bold transition-all shadow-md hover:shadow-lg active:scale-98"
-            >
-              Register Free
-            </Link>
+                  {profileDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 text-xs space-y-1 animate-in fade-in zoom-in-95 duration-150">
+                      <div className="px-3 py-2 border-b border-slate-100 mb-1">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Signed in as</span>
+                        <p className="font-extrabold text-slate-900 truncate">{student.full_name || student.name || 'Student'}</p>
+                        <p className="text-[11px] text-slate-500 truncate">{student.email || 'Candidate Account'}</p>
+                      </div>
+
+                      <Link
+                        href="/student/dashboard"
+                        onClick={() => setProfileDropdownOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-euro-royal font-bold transition-colors"
+                      >
+                        <LayoutDashboard className="w-4 h-4 text-euro-royal" />
+                        <span>Candidate Dashboard</span>
+                      </Link>
+
+                      <Link
+                        href="/student/profile"
+                        onClick={() => setProfileDropdownOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-euro-royal font-bold transition-colors"
+                      >
+                        <User className="w-4 h-4 text-euro-royal" />
+                        <span>My Profile & Enrollment</span>
+                      </Link>
+
+                      <button
+                        onClick={handleSignOut}
+                        className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-bold transition-colors text-left"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Direct Dashboard Link */}
+                <Link
+                  href="/student/dashboard"
+                  className="px-4 py-2 rounded-full bg-euro-royal hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm"
+                >
+                  Dashboard
+                </Link>
+              </div>
+            ) : (
+              <>
+                {/* Login Pill Button */}
+                <Link
+                  href="/student/login"
+                  className="px-5 py-2 rounded-full border-2 border-euro-royal text-euro-royal hover:bg-blue-50 text-xs sm:text-[13px] font-bold transition-all shadow-xs"
+                >
+                  Login
+                </Link>
+
+                {/* Register Now Pill */}
+                <Link
+                  href="/student/register"
+                  className="px-5 py-2 rounded-full bg-gradient-to-r from-euro-royal to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs sm:text-[13px] font-bold transition-all shadow-md hover:shadow-lg active:scale-98"
+                >
+                  Register Free
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Hamburger */}
@@ -130,12 +233,22 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
             >
               <Phone className="w-3.5 h-3.5" />
             </a>
-            <Link
-              href="/student/login"
-              className="px-3 py-1 rounded-full border border-euro-royal text-euro-royal text-xs font-bold"
-            >
-              Login
-            </Link>
+            {student ? (
+              <Link
+                href="/student/dashboard"
+                className="w-8 h-8 rounded-full bg-euro-royal text-white flex items-center justify-center font-bold text-xs"
+                title="My Dashboard"
+              >
+                {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
+              </Link>
+            ) : (
+              <Link
+                href="/student/login"
+                className="px-3 py-1 rounded-full border border-euro-royal text-euro-royal text-xs font-bold"
+              >
+                Login
+              </Link>
+            )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
@@ -149,6 +262,27 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-slate-200 px-4 pt-3 pb-6 space-y-1.5 shadow-xl animate-in slide-in-from-top-2 duration-150">
+          {student && (
+            <div className="bg-blue-50/80 rounded-xl p-3 mb-2 flex items-center justify-between border border-blue-200/80">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-full bg-euro-royal text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                  {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
+                </div>
+                <div>
+                  <p className="font-extrabold text-slate-900 text-xs">{student.full_name || student.name || 'Candidate'}</p>
+                  <p className="text-[10px] text-slate-500">{student.email || 'Candidate Account'}</p>
+                </div>
+              </div>
+              <button
+                onClick={handleSignOut}
+                className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-bold"
+                title="Sign Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
           {navLinks.map((link) => (
             <Link
               key={link.label}
@@ -170,22 +304,42 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
               </div>
             </Link>
           ))}
-          <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
-            <Link
-              href="/student/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2.5 text-center border-2 border-euro-royal text-euro-royal font-bold text-xs rounded-xl"
-            >
-              Student Login
-            </Link>
-            <Link
-              href="/student/register"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2.5 text-center bg-euro-royal text-white font-bold text-xs rounded-xl shadow-sm"
-            >
-              Register Free
-            </Link>
-          </div>
+
+          {student ? (
+            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
+              <Link
+                href="/student/dashboard"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 text-center bg-euro-royal text-white font-bold text-xs rounded-xl shadow-xs"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/student/profile"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 text-center border-2 border-euro-royal text-euro-royal font-bold text-xs rounded-xl"
+              >
+                My Profile
+              </Link>
+            </div>
+          ) : (
+            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
+              <Link
+                href="/student/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 text-center border-2 border-euro-royal text-euro-royal font-bold text-xs rounded-xl"
+              >
+                Student Login
+              </Link>
+              <Link
+                href="/student/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 text-center bg-euro-royal text-white font-bold text-xs rounded-xl shadow-sm"
+              >
+                Register Free
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </header>

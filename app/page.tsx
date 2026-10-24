@@ -98,39 +98,47 @@ export default function HomePage() {
   const achievers = [
     {
       name: 'Aarav Patil',
+      school: 'Podar International School, PCMC',
       grade: 'Class 10 (Foundation)',
       rank: 'AIR 4',
-      score: '99.8%ile',
+      score: '234/240 Marks (99.8%ile)',
       badge: 'ISRO Study Tour Winner',
       quote: 'ETHEX gave me real CBT exam exposure before my actual Class 10 boards and Olympiads. The detailed solution review was invaluable!',
-      avatar: '👨‍🎓',
+      image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=240&h=240&fit=crop&crop=face',
+      initials: 'AP',
     },
     {
       name: 'Priya Deshmukh',
+      school: 'St. Ursula High School, Akurdi',
       grade: 'Class 11 (JEE Main + Adv)',
       rank: 'AIR 12',
-      score: '99.4%ile',
+      score: '228/240 Marks (99.4%ile)',
       badge: '90% Tuition Scholarship',
       quote: 'The Competitive Success Index (CSI) pinpointed my weak spots in Physics Mechanics. EURO Campus mentors helped me clear my doubts.',
-      avatar: '👩‍🎓',
+      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=240&h=240&fit=crop&crop=face',
+      initials: 'PD',
     },
     {
       name: 'Rohan Kulkarni',
+      school: "The Bishop's School, Pune",
       grade: 'Class 9 (Pre-Foundation)',
       rank: 'AIR 19',
-      score: '98.9%ile',
+      score: '222/240 Marks (98.9%ile)',
       badge: '75% Admission Waiver',
       quote: 'Testing with a real countdown timer and seeing immediate marks (+4/-1) made me super confident for state talent search exams.',
-      avatar: '👨‍🎓',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&h=240&fit=crop&crop=face',
+      initials: 'RK',
     },
     {
       name: 'Ananya Joshi',
+      school: 'City International School, Pune',
       grade: 'Class 11 (NEET Medical)',
       rank: 'AIR 26',
-      score: '98.6%ile',
+      score: '218/240 Marks (98.6%ile)',
       badge: 'Cash Award Winner',
       quote: 'The Biology and Chemistry questions closely mirrored NCERT conceptual depth. Highly recommended for every serious medical aspirant!',
-      avatar: '👩‍🎓',
+      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=240&h=240&fit=crop&crop=face',
+      initials: 'AJ',
     },
   ];
 
@@ -194,8 +202,8 @@ export default function HomePage() {
               </div>
 
               {/* ETHEX 2026 Transparent Logo (Hero Scale, High Resolution, Pristine Contrast) */}
-              <div className="pt-0.5">
-                <EthexLogo size="hero" year={settings?.exam_edition || '2026'} />
+              <div className="pt-1 pb-1 inline-block">
+                <EthexLogo size="hero" height={130} year={settings?.exam_edition || '2026'} />
               </div>
 
               {/* Countdown Tagline */}
@@ -675,32 +683,51 @@ export default function HomePage() {
                 key={idx}
                 className="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between space-y-4 card-hover-effect"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xl">{achiever.avatar}</span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-900 uppercase">
-                      {achiever.rank}
-                    </span>
+                <div className="space-y-4">
+                  {/* Photo Header with Gold Rank Pill */}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md flex-shrink-0 bg-blue-100">
+                      <img
+                        src={achiever.image}
+                        alt={achiever.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = 'none';
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center font-black text-euro-royal text-lg bg-blue-50 -z-10">
+                        {achiever.initials}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col items-end">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 uppercase shadow-xs">
+                        {achiever.rank}
+                      </span>
+                      <span className="text-[10px] font-extrabold text-[#0066FF] mt-1">
+                        {achiever.score}
+                      </span>
+                    </div>
                   </div>
 
                   <div>
-                    <h3 className="font-black text-slate-900 text-base">{achiever.name}</h3>
-                    <p className="text-[11px] font-bold text-slate-500">{achiever.grade}</p>
-                    <span className="text-xs font-black text-[#0066FF]">{achiever.score}</span>
+                    <h3 className="font-black text-slate-900 text-base leading-tight">{achiever.name}</h3>
+                    <p className="text-[11px] font-bold text-slate-700 mt-0.5">{achiever.school}</p>
+                    <p className="text-[10px] font-semibold text-slate-500">{achiever.grade}</p>
                   </div>
 
-                  <span className="inline-block text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                    {achiever.badge}
+                  <span className="inline-block text-[10px] font-extrabold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 shadow-xs">
+                    ★ {achiever.badge}
                   </span>
 
-                  <p className="text-xs text-slate-600 leading-relaxed italic border-t border-slate-200/80 pt-2">
+                  <p className="text-xs text-slate-600 leading-relaxed italic border-t border-slate-200/80 pt-2.5">
                     &ldquo;{achiever.quote}&rdquo;
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-slate-200 flex items-center gap-1 text-[11px] text-slate-500 font-semibold">
+                <div className="pt-2 border-t border-slate-200 flex items-center gap-1.5 text-[11px] text-slate-500 font-bold">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Verified EURO Candidate</span>
+                  <span>Verified Top Ranker</span>
                 </div>
               </div>
             ))}
