@@ -193,17 +193,18 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Column: Branding, Headings & Reward Cards */}
             <div className="lg:col-span-7 space-y-5">
-              {/* Official Scholarship Portal Accreditation Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/90 text-blue-900 font-extrabold text-[11px] sm:text-xs tracking-wide shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="uppercase tracking-wider font-black">OFFICIAL SCHOLARSHIP PORTAL</span>
-                <span className="text-slate-300">•</span>
-                <span className="text-[#0066FF] font-black">AY 2027–2028</span>
-              </div>
+              {/* Symmetrical Hero Branding Showcase Unit */}
+              <div className="inline-flex flex-col items-start gap-2.5">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-blue-200/90 text-blue-900 font-extrabold text-[11px] sm:text-xs tracking-wide shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span className="uppercase tracking-wider font-black">OFFICIAL SCHOLARSHIP PORTAL</span>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-[#0066FF] font-black">AY 2027–2028</span>
+                </div>
 
-              {/* ETHEX 2026 Transparent Logo (Hero Scale, High Resolution, Pristine Contrast) */}
-              <div className="pt-1 pb-1 inline-block">
-                <EthexLogo size="hero" height={130} year={settings?.exam_edition || '2026'} />
+                <div className="p-3 sm:p-4 rounded-2xl bg-white/80 backdrop-blur-sm border border-blue-100 shadow-sm inline-flex items-center">
+                  <EthexLogo size="hero" height={135} year={settings?.exam_edition || '2026'} />
+                </div>
               </div>
 
               {/* Countdown Tagline */}

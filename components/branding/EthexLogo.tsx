@@ -32,7 +32,7 @@ export const EthexLogo: React.FC<EthexLogoProps> = ({
       : "drop-shadow-[0_2px_8px_rgba(0,102,255,0.15)]";
 
   return (
-    <div className={`inline-flex items-center select-none ${className}`}>
+    <div className={`inline-flex items-center justify-center select-none ${className}`}>
       {/* Authentic High-Resolution Transparent ETHEX Official Logo */}
       <img
         src="/branding/ethex_logo_official_transparent.png"
