@@ -7,7 +7,7 @@ export type UserRole =
   | 'evaluator';
 
 export type ExamMode = 'online' | 'offline' | 'hybrid';
-export type ExamStatus = 'draft' | 'upcoming' | 'open' | 'closed' | 'in_progress' | 'completed' | 'results_published';
+export type ExamStatus = 'draft' | 'review' | 'approved' | 'upcoming' | 'open' | 'closed' | 'in_progress' | 'completed' | 'results_published';
 export type ApplicationStatus = 'draft' | 'pending_payment' | 'submitted' | 'confirmed' | 'under_review' | 'cancelled' | 'rejected';
 export type PaymentStatus = 'not_required' | 'pending' | 'successful' | 'failed' | 'refunded';
 
@@ -89,6 +89,17 @@ export interface Exam {
   status: ExamStatus;
   admit_card_available_from?: string;
   result_published_at?: string;
+  created_by?: string;
+  creator_role?: 'admin' | 'teacher';
+  creator_name?: string;
+  approval_status?: 'draft' | 'pending_approval' | 'approved' | 'rejected';
+  template_code?: string;
+  subjects_breakdown?: Array<{
+    subject: string;
+    questions_count: number;
+    marks_per_correct: number;
+    negative_marking: number;
+  }>;
 }
 
 export interface ExamCentre {
@@ -258,4 +269,69 @@ export interface Announcement {
   is_pinned: boolean;
   is_active: boolean;
   published_at: string;
+}
+
+export interface ExamCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon?: string;
+  badge?: string;
+  is_active: boolean;
+  sort_order: number;
+}
+
+export interface ExamTemplate {
+  id: string;
+  code: string;
+  name: string;
+  description: string;
+  category: string;
+  target_stream: 'Foundation' | 'JEE' | 'NEET' | 'MHT-CET';
+  duration_minutes: number;
+  total_questions: number;
+  total_marks: number;
+  subjects: Array<{
+    name: string;
+    code: string;
+    questions_count: number;
+    marks_per_correct: number;
+    negative_marking: number;
+  }>;
+  instructions: string;
+  is_active: boolean;
+}
+
+export interface Batch {
+  id: string;
+  name: string;
+  code: string;
+  description: string;
+  class_category: string;
+  target_stream: string;
+  fee_type: 'free' | 'paid';
+  fee_amount: number;
+  currency: string;
+  registration_start: string;
+  registration_end: string;
+  batch_start_date: string;
+  exam_id?: string;
+  max_capacity: number;
+  enrolled_count: number;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface TeacherAccount {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  subject_specialization: string;
+  assigned_classes: string[];
+  role: 'teacher' | 'lead_evaluator';
+  tests_created_count: number;
+  is_active: boolean;
+  created_at: string;
 }

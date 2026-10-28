@@ -12,7 +12,11 @@ import {
   ScholarshipRule,
   Announcement,
   UserProfile,
-  StudentDetails
+  StudentDetails,
+  ExamCategory,
+  ExamTemplate,
+  Batch,
+  TeacherAccount,
 } from '../types';
 
 // Default initial state matching official EURO Campus ETHEX 2026 specifications
@@ -420,6 +424,262 @@ let resultsState: Result[] = [
     isro_tour_eligible: true,
     is_published: true,
     published_at: '2026-10-18T10:00:00Z',
+  },
+];
+
+let examCategoriesState: ExamCategory[] = [
+  {
+    id: 'cat-1',
+    name: 'Class 9 & 10 (Foundation & Olympiad)',
+    slug: 'class-9-10-foundation',
+    description: 'Pre-JEE / Pre-NEET advanced conceptual training and Olympiad diagnostics',
+    icon: 'GraduationCap',
+    badge: 'POPULAR',
+    is_active: true,
+    sort_order: 1,
+  },
+  {
+    id: 'cat-2',
+    name: 'Class 11 & 12 (JEE Main + Advanced)',
+    slug: 'class-11-12-jee',
+    description: 'Engineering entrance diagnostic targeting premier IITs and NITs',
+    icon: 'Rocket',
+    badge: 'IIT TRACK',
+    is_active: true,
+    sort_order: 2,
+  },
+  {
+    id: 'cat-3',
+    name: 'Class 11 & 12 (NEET-UG Medical)',
+    slug: 'class-11-12-neet',
+    description: 'Specialized pre-medical assessment in Physics, Chemistry, and NCERT Biology',
+    icon: 'Award',
+    badge: 'MEDICAL',
+    is_active: true,
+    sort_order: 3,
+  },
+  {
+    id: 'cat-4',
+    name: 'Class 5 to 8 (Middle School Talent Search)',
+    slug: 'class-5-8-middle-school',
+    description: 'Building strong mathematical reasoning and scientific fundamentals',
+    icon: 'Sparkles',
+    badge: 'DISCOVERY',
+    is_active: true,
+    sort_order: 4,
+  },
+  {
+    id: 'cat-5',
+    name: 'MHT-CET (State Engineering & Pharmacy)',
+    slug: 'mht-cet',
+    description: 'Maharashtra state competitive entrance test assessment',
+    icon: 'Target',
+    is_active: true,
+    sort_order: 5,
+  },
+];
+
+let examTemplatesState: ExamTemplate[] = [
+  {
+    id: 'tpl-neet',
+    code: 'NEET-UG',
+    name: 'NEET-UG Standard Examination Template',
+    description: 'Official NTA pattern with Physics, Chemistry, and Biology sections (+4 / -1)',
+    category: 'Class 11 & 12 (NEET-UG Medical)',
+    target_stream: 'NEET',
+    duration_minutes: 180,
+    total_questions: 180,
+    total_marks: 720,
+    subjects: [
+      { name: 'Physics', code: 'PHY', questions_count: 45, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Chemistry', code: 'CHE', questions_count: 45, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Biology (Botany + Zoology)', code: 'BIO', questions_count: 90, marks_per_correct: 4, negative_marking: 1 },
+    ],
+    instructions: '1. Each correct answer carries 4 marks.\n2. For each wrong answer, 1 mark will be deducted.\n3. Unattempted questions yield 0 marks.\n4. Scientific calculators are strictly not permitted.',
+    is_active: true,
+  },
+  {
+    id: 'tpl-jee-main',
+    code: 'JEE-MAIN',
+    name: 'JEE Main Standard Examination Template',
+    description: 'NTA JEE Main pattern with Physics, Chemistry, and Mathematics (+4 / -1)',
+    category: 'Class 11 & 12 (JEE Main + Advanced)',
+    target_stream: 'JEE',
+    duration_minutes: 180,
+    total_questions: 75,
+    total_marks: 300,
+    subjects: [
+      { name: 'Physics', code: 'PHY', questions_count: 25, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Chemistry', code: 'CHE', questions_count: 25, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Mathematics', code: 'MAT', questions_count: 25, marks_per_correct: 4, negative_marking: 1 },
+    ],
+    instructions: '1. Test duration is 180 minutes.\n2. Correct answer: +4 marks, Incorrect answer: -1 mark.\n3. Negative marking applies to all objective questions.',
+    is_active: true,
+  },
+  {
+    id: 'tpl-jee-adv',
+    code: 'JEE-ADV',
+    name: 'JEE Advanced Diagnostic Pattern',
+    description: 'High rigor conceptual pattern with single & multi-correct questions',
+    category: 'Class 11 & 12 (JEE Main + Advanced)',
+    target_stream: 'JEE',
+    duration_minutes: 180,
+    total_questions: 54,
+    total_marks: 180,
+    subjects: [
+      { name: 'Physics', code: 'PHY', questions_count: 18, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Chemistry', code: 'CHE', questions_count: 18, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Mathematics', code: 'MAT', questions_count: 18, marks_per_correct: 4, negative_marking: 1 },
+    ],
+    instructions: '1. Multi-correct and single-correct objective questions.\n2. Strict negative marking applies.',
+    is_active: true,
+  },
+  {
+    id: 'tpl-foundation',
+    code: 'ETHEX-FND',
+    name: 'ETHEX Foundation & Talent Hunt Template',
+    description: 'Standard EURO Campus diagnostic test covering Science, Maths & Mental Ability',
+    category: 'Class 9 & 10 (Foundation & Olympiad)',
+    target_stream: 'Foundation',
+    duration_minutes: 90,
+    total_questions: 50,
+    total_marks: 200,
+    subjects: [
+      { name: 'Physics', code: 'PHY', questions_count: 12, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Chemistry', code: 'CHE', questions_count: 12, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Biology', code: 'BIO', questions_count: 12, marks_per_correct: 4, negative_marking: 1 },
+      { name: 'Mathematics', code: 'MAT', questions_count: 14, marks_per_correct: 4, negative_marking: 1 },
+    ],
+    instructions: '1. Complete test has 50 questions across Science and Mathematics.\n2. Each correct answer carries +4 marks, with -1 negative marking.',
+    is_active: true,
+  },
+  {
+    id: 'tpl-school',
+    code: 'SCHOOL-CBT',
+    name: 'Custom School / Institutional Assessment',
+    description: 'Flexible template for regular school term tests, unit tests, and quizzes',
+    category: 'School Examination',
+    target_stream: 'Foundation',
+    duration_minutes: 60,
+    total_questions: 40,
+    total_marks: 160,
+    subjects: [
+      { name: 'General Science', code: 'GEN', questions_count: 20, marks_per_correct: 4, negative_marking: 0 },
+      { name: 'Mathematics', code: 'MAT', questions_count: 20, marks_per_correct: 4, negative_marking: 0 },
+    ],
+    instructions: '1. No negative marking for school assessment tests.\n2. Attempt all questions within 60 minutes.',
+    is_active: true,
+  },
+];
+
+let batchesState: Batch[] = [
+  {
+    id: 'b-1',
+    name: 'ETHEX 2026 — Foundation Star Batch (PCMC)',
+    code: 'FND-PCMC-26',
+    description: 'Intensive foundation batch for Class 9 & 10 students aiming for NTSE, Olympiads & early IIT-JEE.',
+    class_category: 'Class 10',
+    target_stream: 'Foundation',
+    fee_type: 'free',
+    fee_amount: 0,
+    currency: 'INR',
+    registration_start: '2026-09-01T00:00:00Z',
+    registration_end: '2026-12-05T23:59:59Z',
+    batch_start_date: '2026-12-20T09:00:00Z',
+    exam_id: 'e1111111-1111-1111-1111-111111111111',
+    max_capacity: 150,
+    enrolled_count: 98,
+    is_active: true,
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: 'b-2',
+    name: 'ETHEX 2026 — Shikrapur Campus Batch',
+    code: 'SHIK-CAMP-26',
+    description: 'Comprehensive campus batch with offline lab access and mock tests at Shikrapur Academic Complex.',
+    class_category: 'Class 9',
+    target_stream: 'Foundation',
+    fee_type: 'free',
+    fee_amount: 0,
+    currency: 'INR',
+    registration_start: '2026-09-01T00:00:00Z',
+    registration_end: '2026-12-05T23:59:59Z',
+    batch_start_date: '2026-12-20T09:00:00Z',
+    exam_id: 'e2222222-2222-2222-2222-222222222222',
+    max_capacity: 120,
+    enrolled_count: 74,
+    is_active: true,
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: 'b-3',
+    name: 'ETHEX 2026 — Super 30 JEE Aspirants Batch',
+    code: 'SUP30-JEE-26',
+    description: 'Special merit batch for top percentile scorers with 100% scholarship on coaching fees.',
+    class_category: 'Class 11',
+    target_stream: 'JEE',
+    fee_type: 'free',
+    fee_amount: 0,
+    currency: 'INR',
+    registration_start: '2026-09-01T00:00:00Z',
+    registration_end: '2026-12-10T23:59:59Z',
+    batch_start_date: '2026-12-22T08:30:00Z',
+    exam_id: 'e3333333-3333-3333-3333-333333333333',
+    max_capacity: 60,
+    enrolled_count: 42,
+    is_active: true,
+    created_at: new Date().toISOString(),
+  },
+];
+
+let teachersState: TeacherAccount[] = [
+  {
+    id: 'tch-1',
+    name: 'Prof. Rajesh Sharma',
+    email: 'rajesh.sharma@eurocampus.in',
+    phone: '9112223354',
+    subject_specialization: 'Physics (JEE Advanced)',
+    assigned_classes: ['Class 11', 'Class 12'],
+    role: 'lead_evaluator',
+    tests_created_count: 8,
+    is_active: true,
+    created_at: '2026-08-15T00:00:00Z',
+  },
+  {
+    id: 'tch-2',
+    name: 'Dr. Snehal Patil',
+    email: 'snehal.patil@eurocampus.in',
+    phone: '9607035688',
+    subject_specialization: 'Biology (Botany & Zoology)',
+    assigned_classes: ['Class 11', 'Class 12'],
+    role: 'teacher',
+    tests_created_count: 5,
+    is_active: true,
+    created_at: '2026-08-18T00:00:00Z',
+  },
+  {
+    id: 'tch-3',
+    name: 'Prof. Amit Deshmukh',
+    email: 'amit.deshmukh@eurocampus.in',
+    phone: '9112233995',
+    subject_specialization: 'Mathematics & Mental Ability',
+    assigned_classes: ['Class 9', 'Class 10', 'Class 11'],
+    role: 'teacher',
+    tests_created_count: 12,
+    is_active: true,
+    created_at: '2026-09-01T00:00:00Z',
+  },
+  {
+    id: 'tch-4',
+    name: 'Prof. Kavita Rao',
+    email: 'kavita.rao@eurocampus.in',
+    phone: '9822011223',
+    subject_specialization: 'Chemistry (Physical & Organic)',
+    assigned_classes: ['Class 10', 'Class 11', 'Class 12'],
+    role: 'teacher',
+    tests_created_count: 7,
+    is_active: true,
+    created_at: '2026-09-05T00:00:00Z',
   },
 ];
 
@@ -863,5 +1123,208 @@ export const dataService = {
       activeExams: examsState.filter((e) => e.status === 'open').length,
       publishedResultsCount: resultsState.length,
     };
+  },
+
+  // Categories Management
+  getCategories: async (): Promise<ExamCategory[]> => {
+    return [...examCategoriesState].sort((a, b) => a.sort_order - b.sort_order);
+  },
+
+  saveCategory: async (categoryData: Partial<ExamCategory>): Promise<ExamCategory> => {
+    if (categoryData.id) {
+      const idx = examCategoriesState.findIndex((c) => c.id === categoryData.id);
+      if (idx !== -1) {
+        examCategoriesState[idx] = { ...examCategoriesState[idx], ...categoryData } as ExamCategory;
+        return examCategoriesState[idx];
+      }
+    }
+    const newCat: ExamCategory = {
+      id: `cat-${Date.now()}`,
+      name: categoryData.name || 'New Category',
+      slug: categoryData.slug || (categoryData.name || 'new-category').toLowerCase().replace(/\s+/g, '-'),
+      description: categoryData.description || '',
+      icon: categoryData.icon || 'BookOpen',
+      badge: categoryData.badge || '',
+      is_active: categoryData.is_active ?? true,
+      sort_order: categoryData.sort_order ?? (examCategoriesState.length + 1),
+    };
+    examCategoriesState.push(newCat);
+    return newCat;
+  },
+
+  deleteCategory: async (id: string): Promise<boolean> => {
+    const initialLen = examCategoriesState.length;
+    examCategoriesState = examCategoriesState.filter((c) => c.id !== id);
+    return examCategoriesState.length < initialLen;
+  },
+
+  // Examination Templates
+  getTemplates: async (): Promise<ExamTemplate[]> => {
+    return [...examTemplatesState];
+  },
+
+  saveTemplate: async (templateData: Partial<ExamTemplate>): Promise<ExamTemplate> => {
+    if (templateData.id) {
+      const idx = examTemplatesState.findIndex((t) => t.id === templateData.id);
+      if (idx !== -1) {
+        examTemplatesState[idx] = { ...examTemplatesState[idx], ...templateData } as ExamTemplate;
+        return examTemplatesState[idx];
+      }
+    }
+    const newTpl: ExamTemplate = {
+      id: `tpl-${Date.now()}`,
+      code: templateData.code || 'CUSTOM',
+      name: templateData.name || 'New Template',
+      description: templateData.description || '',
+      category: templateData.category || 'General',
+      target_stream: templateData.target_stream || 'Foundation',
+      duration_minutes: templateData.duration_minutes || 120,
+      total_questions: templateData.total_questions || 50,
+      total_marks: templateData.total_marks || 200,
+      subjects: templateData.subjects || [],
+      instructions: templateData.instructions || '',
+      is_active: templateData.is_active ?? true,
+    };
+    examTemplatesState.push(newTpl);
+    return newTpl;
+  },
+
+  // Batches & Courses Management
+  getBatches: async (): Promise<Batch[]> => {
+    return [...batchesState];
+  },
+
+  saveBatch: async (batchData: Partial<Batch>): Promise<Batch> => {
+    if (batchData.id) {
+      const idx = batchesState.findIndex((b) => b.id === batchData.id);
+      if (idx !== -1) {
+        batchesState[idx] = { ...batchesState[idx], ...batchData } as Batch;
+        return batchesState[idx];
+      }
+    }
+    const newBatch: Batch = {
+      id: `b-${Date.now()}`,
+      name: batchData.name || 'New Batch',
+      code: batchData.code || `BAT-${Date.now().toString().slice(-4)}`,
+      description: batchData.description || '',
+      class_category: batchData.class_category || 'Class 10',
+      target_stream: batchData.target_stream || 'Foundation',
+      fee_type: batchData.fee_type || 'free',
+      fee_amount: batchData.fee_amount || 0,
+      currency: batchData.currency || 'INR',
+      registration_start: batchData.registration_start || new Date().toISOString(),
+      registration_end: batchData.registration_end || new Date(Date.now() + 86400000 * 30).toISOString(),
+      batch_start_date: batchData.batch_start_date || new Date(Date.now() + 86400000 * 45).toISOString(),
+      exam_id: batchData.exam_id,
+      max_capacity: batchData.max_capacity || 100,
+      enrolled_count: 0,
+      is_active: batchData.is_active ?? true,
+      created_at: new Date().toISOString(),
+    };
+    batchesState.push(newBatch);
+    return newBatch;
+  },
+
+  deleteBatch: async (id: string): Promise<boolean> => {
+    const initialLen = batchesState.length;
+    batchesState = batchesState.filter((b) => b.id !== id);
+    return batchesState.length < initialLen;
+  },
+
+  // Teachers Management
+  getTeachers: async (): Promise<TeacherAccount[]> => {
+    return [...teachersState];
+  },
+
+  saveTeacher: async (teacherData: Partial<TeacherAccount>): Promise<TeacherAccount> => {
+    if (teacherData.id) {
+      const idx = teachersState.findIndex((t) => t.id === teacherData.id);
+      if (idx !== -1) {
+        teachersState[idx] = { ...teachersState[idx], ...teacherData } as TeacherAccount;
+        return teachersState[idx];
+      }
+    }
+    const newTeacher: TeacherAccount = {
+      id: `tch-${Date.now()}`,
+      name: teacherData.name || 'New Teacher',
+      email: teacherData.email || `teacher-${Date.now()}@eurocampus.in`,
+      phone: teacherData.phone || '',
+      subject_specialization: teacherData.subject_specialization || 'Science',
+      assigned_classes: teacherData.assigned_classes || ['Class 10'],
+      role: teacherData.role || 'teacher',
+      tests_created_count: 0,
+      is_active: teacherData.is_active ?? true,
+      created_at: new Date().toISOString(),
+    };
+    teachersState.push(newTeacher);
+    return newTeacher;
+  },
+
+  // Extended Exam Management & Approval Workflow
+  deleteExam: async (id: string): Promise<boolean> => {
+    const initialLen = examsState.length;
+    examsState = examsState.filter((e) => e.id !== id);
+    delete questionsState[id];
+    return examsState.length < initialLen;
+  },
+
+  submitExamForApproval: async (id: string, creatorName: string): Promise<Exam | null> => {
+    const exam = examsState.find((e) => e.id === id);
+    if (!exam) return null;
+    exam.status = 'review';
+    exam.approval_status = 'pending_approval';
+    exam.creator_role = 'teacher';
+    exam.creator_name = creatorName;
+    return exam;
+  },
+
+  approveExam: async (id: string): Promise<Exam | null> => {
+    const exam = examsState.find((e) => e.id === id);
+    if (!exam) return null;
+    exam.status = 'open';
+    exam.approval_status = 'approved';
+    return exam;
+  },
+
+  rejectExam: async (id: string, reason?: string): Promise<Exam | null> => {
+    const exam = examsState.find((e) => e.id === id);
+    if (!exam) return null;
+    exam.status = 'draft';
+    exam.approval_status = 'rejected';
+    return exam;
+  },
+
+  // Rooms and Centres
+  saveRoom: async (roomData: Partial<ExamRoom>): Promise<ExamRoom> => {
+    if (roomData.id) {
+      const idx = roomsState.findIndex((r) => r.id === roomData.id);
+      if (idx !== -1) {
+        roomsState[idx] = { ...roomsState[idx], ...roomData } as ExamRoom;
+        return roomsState[idx];
+      }
+    }
+    const newRoom: ExamRoom = {
+      id: `r-${Date.now()}`,
+      centre_id: roomData.centre_id || centresState[0]?.id || 'c1',
+      room_number: roomData.room_number || 'Room 101',
+      floor: roomData.floor || 'Ground Floor',
+      capacity: roomData.capacity || 40,
+      is_active: roomData.is_active ?? true,
+    };
+    roomsState.push(newRoom);
+    return newRoom;
+  },
+
+  deleteRoom: async (id: string): Promise<boolean> => {
+    const initialLen = roomsState.length;
+    roomsState = roomsState.filter((r) => r.id !== id);
+    return roomsState.length < initialLen;
+  },
+
+  deleteCentre: async (id: string): Promise<boolean> => {
+    const initialLen = centresState.length;
+    centresState = centresState.filter((c) => c.id !== id);
+    roomsState = roomsState.filter((r) => r.centre_id !== id);
+    return centresState.length < initialLen;
   },
 };

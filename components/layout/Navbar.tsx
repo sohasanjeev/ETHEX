@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import CombinedBrandLogo from '../branding/CombinedBrandLogo';
+import CompanyNavbarLogo from '../branding/CompanyNavbarLogo';
 import {
   Menu,
   X,
@@ -56,9 +56,10 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
     { label: 'Exam Pattern', href: '/exam-pattern' },
     { label: 'Online CBT Mock', href: '/student/exam/simulation', highlight: true },
     { label: 'Results', href: '/results' },
-    { label: 'Syllabus', href: '/#syllabus' },
     { label: 'Scholarships', href: '/scholarships', badge: 'NEW' },
     { label: 'Centres', href: '/centres' },
+    { label: 'Teacher Portal', href: '/teacher' },
+    { label: 'Admin', href: '/admin' },
     { label: 'FAQs', href: '/faqs' },
   ];
 
@@ -71,9 +72,9 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18 sm:h-20">
-          {/* Brand Logo on Left */}
+          {/* Brand Logo on Left: EURO CAMPUS Official Company Emblem & Motto */}
           <div className="flex-shrink-0 py-2">
-            <CombinedBrandLogo size="md" year={examYear} />
+            <CompanyNavbarLogo />
           </div>
 
           {/* Desktop Navigation Links */}

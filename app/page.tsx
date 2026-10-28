@@ -266,22 +266,38 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Action Buttons: Register Free & Try Live CBT Simulator */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
+              {/* Action Buttons: Register Free, Explore Scholarships, Student Login & Try Live CBT Simulator */}
+              <div className="flex flex-wrap items-center gap-2.5 pt-1">
                 <Link
                   href="/student/register"
                   className="px-6 py-3 bg-[#0066FF] hover:bg-blue-700 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 group active:scale-98"
                 >
-                  <span>Register Free Now</span>
+                  <span>Register Now</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
 
                 <Link
+                  href="/scholarships"
+                  className="px-5 py-3 bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-sm transition-all flex items-center gap-1.5 active:scale-98"
+                >
+                  <Award className="w-4 h-4 text-slate-900" />
+                  <span>Explore Scholarships</span>
+                </Link>
+
+                <Link
+                  href="/student/login"
+                  className="px-5 py-3 bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm rounded-xl border border-slate-300 shadow-sm transition-all flex items-center gap-1.5 active:scale-98"
+                >
+                  <Users className="w-4 h-4 text-euro-royal" />
+                  <span>Student Login</span>
+                </Link>
+
+                <Link
                   href="/student/exam/simulation"
-                  className="px-5 py-3 bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm rounded-xl border border-slate-300 shadow-sm transition-all flex items-center gap-2 active:scale-98 group"
+                  className="px-5 py-3 bg-blue-50/80 hover:bg-blue-100 text-euro-royal font-bold text-xs sm:text-sm rounded-xl border border-blue-200 shadow-sm transition-all flex items-center gap-2 active:scale-98 group"
                 >
                   <PlayCircle className="w-4 h-4 text-[#0066FF] transition-transform group-hover:scale-110" />
-                  <span>Try Online Mock CBT (Free)</span>
+                  <span>Try Online Mock CBT</span>
                 </Link>
               </div>
 
@@ -307,7 +323,29 @@ export default function HomePage() {
             {/* Right Column: 3D Visual & Engagement Card */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
               {/* 3D Modern Card Unit */}
-              <div className="relative w-full max-w-sm sm:max-w-md bg-white rounded-2xl p-5 border border-blue-200 shadow-xl space-y-4">
+              <div className="relative w-full max-w-sm sm:max-w-md bg-white rounded-3xl p-5 border border-blue-200 shadow-xl space-y-4">
+                {/* Inspiring Student on Laptop / CBT Online Testing Image */}
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-md group">
+                  <img
+                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
+                    alt="Student studying on laptop for ETHEX Examination"
+                    className="w-full h-44 sm:h-48 object-cover filter contrast-105 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+                  <div className="absolute bottom-3 left-3 right-3 text-white flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-wider text-amber-300 block">
+                        CBT Online Test Engine
+                      </span>
+                      <p className="text-xs font-extrabold text-white">Interactive Mock & Live Portal</p>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-full bg-emerald-500/90 text-white font-black text-[10px] uppercase shadow-xs flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                      Verified Live
+                    </span>
+                  </div>
+                </div>
+
                 {/* 3D "LAST FEW DAYS" Calendar Ribbon & Alarm Clock */}
                 <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 rounded-xl p-3.5 text-white flex items-center justify-between shadow-md relative overflow-hidden">
                   <div className="flex items-center gap-2.5">
