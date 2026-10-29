@@ -1,11 +1,79 @@
 import { NextResponse } from 'next/server';
 
+const getOtpStore = () => {
+  if (!(globalThis as any).__ethex_otps__) {
+    (globalThis as any).__ethex_otps__ = new Map<string, { otp: string; expiresAt: number }>();
+  }
+  return (globalThis as any).__ethex_otps__ as Map<string, { otp: string; expiresAt: number }>;
+};
+
 export async function POST(req: Request) {
   try {
-    const { email, password, portal } = await req.json();
+    const body = await req.json();
+    const { email, password, portal, phone, mobile, otp } = body;
+    const identifier = (phone || mobile || email || '').toString().trim();
 
+    // 1. OTP-BASED LOGIN (Mobile number or Email with OTP)
+    if (otp) {
+      if (!identifier) {
+        return NextResponse.json(
+          { error: 'Mobile number or email is required with OTP' },
+          { status: 400 }
+        );
+      }
+
+      const cleanIdentifier = identifier.replace(/^\+91/, '').replace(/\s+/g, '').toLowerCase();
+      const cleanOtp = otp.toString().trim();
+
+      const store = getOtpStore();
+      const stored = store.get(cleanIdentifier);
+
+      const isValidOtp =
+        cleanOtp === '123456' ||
+        (stored && stored.otp === cleanOtp && Date.now() <= stored.expiresAt);
+
+      if (!isValidOtp) {
+        return NextResponse.json(
+          { error: 'Invalid or expired OTP. Please use the preview OTP code or resend.' },
+          { status: 400 }
+        );
+      }
+
+      // Clear used OTP
+      if (stored) store.delete(cleanIdentifier);
+
+      const isEmail = cleanIdentifier.includes('@');
+      const studentName = cleanIdentifier.startsWith('91122') || cleanIdentifier.startsWith('aarav')
+        ? 'Aarav Patil'
+        : 'Registered Student';
+
+      return NextResponse.json({
+        success: true,
+        role: 'student',
+        user: {
+          id: `std-${cleanIdentifier.slice(-4) || '2026'}`,
+          phone: isEmail ? '9112223354' : cleanIdentifier,
+          email: isEmail ? cleanIdentifier : `${cleanIdentifier}@student.eurocampus.in`,
+          full_name: studentName,
+          current_class: 'Class 10',
+          target_stream: 'Foundation',
+          exam_name: 'ETHEX 2026 (Phase 2)',
+          exam_date: '29 November 2026',
+          mode: 'ONLINE',
+          centre: 'Online CBT / Home',
+          roll_number: `ETHEX-2026-${cleanIdentifier.slice(-4) || '8842'}`,
+          role: 'student',
+          verified: true,
+        },
+      });
+    }
+
+    // 2. PASSWORD-BASED LOGIN (Admin & Legacy)
     if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Identifier (phone/email) and OTP or password are required' },
+        { status: 400 }
+      );
     }
 
     const normalizedEmail = email.trim().toLowerCase();
@@ -28,7 +96,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // Student Login
+    // Student Password Login
     return NextResponse.json({
       success: true,
       role: 'student',
@@ -38,10 +106,13 @@ export async function POST(req: Request) {
         full_name: normalizedEmail.startsWith('aarav') ? 'Aarav Patil' : 'Registered Student',
         current_class: 'Class 10',
         target_stream: 'Foundation',
+        exam_name: 'ETHEX 2026 (Phase 2)',
+        exam_date: '29 November 2026',
+        roll_number: 'ETHEX-2026-9021',
         role: 'student',
       },
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Login failed' }, { status: 500 });
   }
 }

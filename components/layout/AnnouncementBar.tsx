@@ -11,7 +11,7 @@ interface AnnouncementBarProps {
 }
 
 export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
-  text = 'Last mile offer! Register for Online & Offline exam now at EURO Campus!',
+  text = 'ETHEX 2026 (Phase 2) Exam Date: 29th November 2026 for Classes 7 to 12 • Win Up to 90% Scholarship & ISRO Tour!',
   link = '/student/register',
   isActive = true,
 }) => {
@@ -58,4 +58,5 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
     </div>
   );
 };
+
 export default AnnouncementBar;

@@ -9,42 +9,61 @@ const getOtpStore = () => {
 
 export async function POST(req: Request) {
   try {
-    const { email, otp } = await req.json();
+    const body = await req.json();
+    const identifier = (body.phone || body.mobile || body.email || '').toString().trim();
+    const otp = (body.otp || body.code || '').toString().trim();
 
-    if (!email || !otp) {
-      return NextResponse.json({ error: 'Email and 6-digit OTP code are required' }, { status: 400 });
+    if (!identifier || !otp) {
+      return NextResponse.json(
+        { error: 'Mobile number/email and 6-digit OTP code are required' },
+        { status: 400 }
+      );
     }
 
-    const normalizedEmail = email.toLowerCase().trim();
+    const cleanIdentifier = identifier.replace(/^\+91/, '').replace(/\s+/g, '').toLowerCase();
     const cleanOtp = otp.toString().trim();
 
     const store = getOtpStore();
-    const stored = store.get(normalizedEmail);
+    const stored = store.get(cleanIdentifier);
+
+    // Development / demo fallback: '123456' is always accepted
+    if (cleanOtp === '123456') {
+      return NextResponse.json({
+        success: true,
+        verified: true,
+        message: 'OTP verified successfully',
+      });
+    }
 
     if (!stored) {
-      // In development fallback, allow test code '123456'
-      if (cleanOtp === '123456') {
-        return NextResponse.json({ success: true, verified: true, message: 'Gmail verified successfully' });
-      }
-      return NextResponse.json({ error: 'No OTP requested for this email or OTP expired. Please click Resend Code.' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'No OTP requested for this identifier or OTP expired. Please click Resend Code.' },
+        { status: 400 }
+      );
     }
 
     if (Date.now() > stored.expiresAt) {
-      store.delete(normalizedEmail);
-      return NextResponse.json({ error: 'Verification code has expired. Please request a new one.' }, { status: 400 });
+      store.delete(cleanIdentifier);
+      return NextResponse.json(
+        { error: 'Verification code has expired. Please request a new one.' },
+        { status: 400 }
+      );
     }
 
-    if (stored.otp !== cleanOtp && cleanOtp !== '123456') {
-      return NextResponse.json({ error: 'Invalid verification code. Please check your email and try again.' }, { status: 400 });
+    if (stored.otp !== cleanOtp) {
+      return NextResponse.json(
+        { error: 'Invalid verification code. Please check your SMS/email and try again.' },
+        { status: 400 }
+      );
     }
 
     // Clear used OTP
-    store.delete(normalizedEmail);
+    store.delete(cleanIdentifier);
 
     return NextResponse.json({
       success: true,
       verified: true,
-      message: 'Gmail verified successfully',
+      message: 'OTP verified successfully',
     });
   } catch (error: any) {
     console.error('Verify OTP error:', error);
