@@ -1361,7 +1361,7 @@ export default function AdminDashboardPage() {
                 <div>
                   <h2 className="text-xl font-black text-euro-navy">Offline Examination Centres & Rooms</h2>
                   <p className="text-xs text-slate-500">
-                    Configure exam centres (PCMC, Shikrapur, Kothrud), rooms, and seating allocations.
+                    Configure official exam centres (PCMC Chinchwad & Shikrapur), rooms, and seating allocations.
                   </p>
                 </div>
                 <button
@@ -1676,7 +1676,7 @@ export default function AdminDashboardPage() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. EURO Campus — Kothrud Centre"
+                  placeholder="e.g. EURO Campus — PCMC Chinchwad Branch"
                   value={centreForm.name}
                   onChange={(e) => setCentreForm({ ...centreForm, name: e.target.value })}
                   className="w-full p-2.5 border border-slate-300 rounded-xl"

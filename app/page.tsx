@@ -353,48 +353,48 @@ export default function HomePage() {
 
   const achievers = [
     {
-      name: 'Aarav Patil',
-      school: 'Podar International School, PCMC',
-      grade: 'Class 10',
-      rank: 'AIR 4',
-      score: '234/240 Marks',
+      name: 'Tanishka Temgire',
+      school: 'EURO Campus Pune',
+      grade: 'Class 10 Foundation',
+      rank: 'AIR 1 (ISRO Tour)',
+      score: '238/240 Marks',
       badge: 'ISRO Study Tour Winner',
-      quote: 'ETHEX gave me real CBT exam exposure before my actual Class 10 boards and Olympiads. The detailed solution review was invaluable!',
-      image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=240&h=240&fit=crop&crop=face',
-      initials: 'AP',
+      quote: 'EURO Campus gave me the platform to pursue space science and achieve the dream ISRO visit!',
+      image: '/branding/toppers/tanishka_temgire.jpg',
+      initials: 'TT',
     },
     {
-      name: 'Priya Deshmukh',
-      school: 'St. Ursula High School, Akurdi',
-      grade: 'JEE Mains + Advanced Class 11',
-      rank: 'AIR 12',
-      score: '228/240 Marks',
+      name: 'Aryan Bhujbal',
+      school: 'EURO Campus Scholar',
+      grade: 'Class 9 Foundation',
+      rank: 'AIR 3 (ISRO Tour)',
+      score: '234/240 Marks',
       badge: '90% Tuition Scholarship',
-      quote: 'The Competitive Success Index (CSI) pinpointed my weak spots in Physics Mechanics. EURO Campus mentors helped me clear my doubts.',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=240&h=240&fit=crop&crop=face',
-      initials: 'PD',
+      quote: 'The questions tested deep analytical ability. EURO Campus teachers made complex concepts simple.',
+      image: '/branding/toppers/aryan_bhujbal.jpg',
+      initials: 'AB',
     },
     {
-      name: 'Rohan Kulkarni',
-      school: "The Bishop's School, Pune",
-      grade: 'Class 9',
-      rank: 'AIR 19',
-      score: '222/240 Marks',
-      badge: '75% Admission Waiver',
-      quote: 'Testing with a real countdown timer and seeing immediate marks (+4/-1) made me super confident for state talent search exams.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&h=240&fit=crop&crop=face',
-      initials: 'RK',
+      name: 'Shardul Gawari',
+      school: 'EURO Campus Shikrapur',
+      grade: 'Class 8 Foundation',
+      rank: 'AIR 5 (ISRO Tour)',
+      score: '231/240 Marks',
+      badge: 'ISRO Educational Visit Qualifier',
+      quote: 'Preparing for ETHEX gave me immense confidence in Mental Ability and Physics.',
+      image: '/branding/toppers/shardul_gawari.jpg',
+      initials: 'SG',
     },
     {
-      name: 'Ananya Joshi',
-      school: 'City International School, Pune',
-      grade: 'Class 11 NEET',
-      rank: 'AIR 26',
-      score: '218/240 Marks',
-      badge: 'Cash Award Winner',
-      quote: 'The Biology and Chemistry questions closely mirrored NCERT conceptual depth. Highly recommended for every serious medical aspirant!',
-      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=240&h=240&fit=crop&crop=face',
-      initials: 'AJ',
+      name: 'Siddharth Bhosale',
+      school: 'EURO Campus PCMC',
+      grade: 'Class 10 Foundation',
+      rank: 'AIR 8 (ISRO Tour)',
+      score: '228/240 Marks',
+      badge: 'ISRO Educational Visit Qualifier',
+      quote: 'EURO Campus mock tests mirror the exact national competitive standard!',
+      image: '/branding/toppers/siddharth_bhosale.jpg',
+      initials: 'SB',
     },
   ];
 
@@ -1329,11 +1329,50 @@ export default function HomePage() {
               SUCCESS STORIES
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              ETHEX Achievers & ISRO Tour Qualifiers
+              EURO CAMPUS Champions & ISRO Tour Qualifiers
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              Students who converted their ETHEX performance into top ranks and EURO Campus scholarships.
+              Students who converted their ETHEX performance and EURO Campus training into top ranks, NEET 650+ scores, and sponsored ISRO visits.
             </p>
+          </div>
+
+          {/* Featured Official Result Banner from eurocampus.in */}
+          <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-blue-500/20 flex flex-col lg:flex-row items-center gap-8">
+            <div className="lg:w-1/2 space-y-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider">
+                <Trophy className="w-3.5 h-3.5" />
+                OFFICIAL NEET & ISRO SELECTIONS
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                35 Govt. MBBS Selections & National ISRO Tour Qualifiers
+              </h3>
+              <p className="text-xs sm:text-sm text-blue-100/90 leading-relaxed">
+                Celebrating outstanding excellence across Maharashtra! 7 students scored 600+ in NEET led by Mithilesh Shimpi (650/720) and Sulagna Triathy (632/720), alongside our national ISRO/NASA Educational Tour winners from Classes 7 to 10.
+              </p>
+              <div className="grid grid-cols-3 gap-3 pt-2">
+                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/15 text-center">
+                  <span className="text-2xl font-black text-amber-300">35</span>
+                  <p className="text-[10px] sm:text-xs text-blue-200 font-semibold mt-0.5">Govt. MBBS</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/15 text-center">
+                  <span className="text-2xl font-black text-amber-300">7</span>
+                  <p className="text-[10px] sm:text-xs text-blue-200 font-semibold mt-0.5">NEET 600+</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/15 text-center">
+                  <span className="text-2xl font-black text-amber-300">12+</span>
+                  <p className="text-[10px] sm:text-xs text-blue-200 font-semibold mt-0.5">ISRO Winners</p>
+                </div>
+              </div>
+            </div>
+            <div className="lg:w-1/2 w-full">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 bg-slate-950">
+                <img
+                  src="/branding/euro_result_banner.jpg"
+                  alt="EURO CAMPUS NEET & ISRO Results Banner"
+                  className="w-full h-auto object-contain max-h-[360px] mx-auto"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

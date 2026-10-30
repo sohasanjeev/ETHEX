@@ -122,7 +122,31 @@ export default function ResultsPage() {
         </div>
 
         {/* 2. ALLEN TALLENTEX-STYLE CHAMPIONS WALL / TOPPERS SHOWCASE */}
-        <div className="space-y-6">
+        <div className="space-y-8">
+          {/* Featured Official Result Banner from eurocampus.in */}
+          <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+            <div className="p-4 sm:p-6 bg-slate-950 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="space-y-1 text-center sm:text-left">
+                <span className="text-[11px] font-black uppercase text-amber-400 tracking-wider">
+                  EURO CAMPUS OFFICIAL RESULTS • RE-NEET 2026
+                </span>
+                <h3 className="text-lg sm:text-xl font-black text-white">
+                  35 Govt. MBBS Selections & National ISRO Study Tour Qualifiers
+                </h3>
+              </div>
+              <span className="px-3 py-1 bg-amber-400 text-slate-950 rounded-full text-xs font-black shrink-0">
+                7 Students 600+
+              </span>
+            </div>
+            <div className="relative bg-slate-900 flex items-center justify-center p-2">
+              <img
+                src="/branding/euro_result_banner.jpg"
+                alt="EURO CAMPUS Official Results Banner"
+                className="w-full h-auto max-h-[440px] object-contain rounded-xl"
+              />
+            </div>
+          </div>
+
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-[11px] font-black text-amber-600 uppercase tracking-widest bg-amber-50 px-3 py-0.5 rounded-full border border-amber-200">
               NATIONAL MERIT LIST
@@ -131,7 +155,7 @@ export default function ResultsPage() {
               Our Outstanding Rankers & Toppers
             </h3>
             <p className="text-xs text-slate-500 font-medium">
-              Student pictures, ranks, and test achievements curated by EURO Campus Academic Board.
+              Authentic student pictures, ranks, and test achievements curated by EURO Campus Academic Board.
             </p>
           </div>
 
