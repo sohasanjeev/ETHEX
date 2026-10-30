@@ -116,7 +116,58 @@ export default function HomePage() {
 
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
+
+    // Listen to custom syllabus class selection events from Navbar dropdown
+    const handleSelectPattern = (e: any) => {
+      if (
+        e.detail &&
+        [
+          'class7',
+          'class8',
+          'class9',
+          'class10',
+          'jee_class11',
+          'jee_class12',
+          'neet_class11',
+          'neet_class12',
+        ].includes(e.detail)
+      ) {
+        setActivePatternTab(e.detail);
+        const el = document.getElementById('syllabus');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('ethex-select-pattern', handleSelectPattern);
+
+    // Also check query params if arrived from external page with ?tab=...
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab');
+      if (
+        tabParam &&
+        [
+          'class7',
+          'class8',
+          'class9',
+          'class10',
+          'jee_class11',
+          'jee_class12',
+          'neet_class11',
+          'neet_class12',
+        ].includes(tabParam)
+      ) {
+        setActivePatternTab(tabParam as any);
+        setTimeout(() => {
+          const el = document.getElementById('syllabus');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      }
+    }
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('ethex-select-pattern', handleSelectPattern);
+    };
   }, []);
 
   const handleQuickPaySubmit = (e: React.FormEvent) => {
@@ -369,24 +420,42 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+          {/* ALLEN TALLENTEX FRONT HERO BANNER (LANDSCAPE ON DESKTOP & SQUARE ON PHONE) */}
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-blue-500/30 bg-slate-900 cursor-pointer group">
+            {/* Desktop Landscape Banner (Exact User Graphic) */}
+            <img
+              src="/branding/ethex_tallentex_landscape_hero.png"
+              alt="ETHEX 2026 - EURO Talent Hunt Examination"
+              className="hidden md:block w-full h-auto object-cover max-h-[460px] group-hover:scale-[1.008] transition-transform duration-300"
+              onClick={() => setPaymentModalOpen(true)}
+            />
+            {/* Mobile Phone Square Banner (Art-Directed 1:1 Aspect Ratio) */}
+            <img
+              src="/branding/ethex_tallentex_square_hero.png"
+              alt="ETHEX 2026 - EURO Talent Hunt Examination"
+              className="block md:hidden w-full h-auto aspect-square object-cover group-hover:scale-[1.01] transition-transform duration-300"
+              onClick={() => setPaymentModalOpen(true)}
+            />
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left 7 Columns: Hero Typography, Value Badges, Live Countdown & Action Buttons */}
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-blue-200 text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span>INDIA&apos;S PREMIER TALENT HUNT • ACADEMIC YEAR 2027–2028</span>
+                  <span>EURO TALENT HUNT EXAMINATION • ETHEX 2026</span>
                 </div>
 
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-                  Your Talent. Our Support. <br className="hidden sm:inline" />
+                  ETHEX 2026 <br className="hidden sm:inline" />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-amber-300">
-                    A Bigger Future.
+                    Euro Talent Hunt Exam
                   </span>
                 </h1>
 
                 <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed max-w-xl">
-                  Conducted by <strong className="text-white">EURO CAMPUS</strong> for students of <strong className="text-amber-300">Classes 7 to 12</strong>. Comprehensive national benchmarking, Competitive Success Index (CSI), and up to 90% fee waivers for JEE, NEET & Foundation.
+                  Flagship talent examination conducted by <strong className="text-white">EURO CAMPUS</strong> for students of <strong className="text-amber-300">Classes 7 to 12</strong>. Comprehensive benchmarking, Competitive Success Index (CSI), and up to 90% fee waivers for JEE, NEET & Foundation.
                 </p>
               </div>
 

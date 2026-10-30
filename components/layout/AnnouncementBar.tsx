@@ -11,7 +11,7 @@ interface AnnouncementBarProps {
 }
 
 export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
-  text = 'ETHEX 2026 Examination: 29th November 2026 for Classes 7 to 12 • Win Up to 90% Scholarship & ISRO Tour!',
+  text = 'Start premier coaching for JEE, NEET & MHT CET @EURO Campus • ETHEX 2026 Registration Open for Classes 7 to 12!',
   link = '/student/register',
   isActive = true,
 }) => {
