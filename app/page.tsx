@@ -718,6 +718,173 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 2B. ABOUT ETHEX 2026: ALLEN TALLENTEX REPLICA INTRO */}
+      <section className="py-14 sm:py-20 bg-white border-t border-slate-200" id="about">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 space-y-4">
+              <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+                ABOUT THE EXAMINATION
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight leading-tight">
+                What is ETHEX 2026? <br />
+                <span className="text-[#0066FF]">Euro Talent Hunt Examination</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                <strong>ETHEX (Euro Talent Hunt Exam)</strong> is the premier national scholarship and diagnostic talent examination conducted by <strong>EURO CAMPUS</strong> for ambitious school students from <strong>Classes 7 to 12</strong> (Science, Pre-Foundation, JEE & NEET).
+              </p>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                Modelled on the gold standard of national talent exams like <strong>Allen TALLENTEX</strong> and <strong>Aakash ANTHE</strong>, ETHEX gives students an authentic pre-competitive test environment, detailed subject-wise strength-weakness analysis, national percentile ranks, up to <strong>90% admission fee waivers</strong>, and sponsored <strong>ISRO Educational Tours</strong>.
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                  <span className="text-[10px] text-slate-500 font-bold block uppercase">Exam Mode</span>
+                  <span className="text-xs sm:text-sm font-black text-slate-900 mt-0.5 block">Online & Offline</span>
+                </div>
+                <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                  <span className="text-[10px] text-slate-500 font-bold block uppercase">Exam Date</span>
+                  <span className="text-xs sm:text-sm font-black text-[#0066FF] mt-0.5 block">29 Nov 2026</span>
+                </div>
+                <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                  <span className="text-[10px] text-slate-500 font-bold block uppercase">Eligible Classes</span>
+                  <span className="text-xs sm:text-sm font-black text-slate-900 mt-0.5 block">Class 7 to 12</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 bg-gradient-to-br from-blue-900 via-indigo-950 to-slate-950 rounded-3xl p-6 sm:p-8 text-white space-y-5 shadow-xl relative overflow-hidden border border-blue-800">
+              <div className="space-y-2">
+                <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
+                  NATIONAL BENCHMARKING
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">
+                  Why Thousands of Aspirants Choose ETHEX
+                </h3>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>Early JEE / NEET Preparation:</strong> Questions designed strictly per NCERT syllabus with cognitive testing.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>CSI Diagnostic Report:</strong> Pinpoint exact sub-topic accuracy, time spent per MCQ, and negative mark traps.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>ISRO Space Tour Sponsorship:</strong> Direct visit to premier satellite telemetry centres for rank holders.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>Zero-Risk Simple Registration:</strong> Nominal fee with instant online roll number and admit card.</span>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full py-3 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-black text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5"
+                >
+                  <span>Register for ETHEX 2026 Now</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2C. 4-STEP REGISTRATION PROCESS (EXACT ALLEN TALLENTEX REPLICA INFOGRAPHIC) */}
+      <section className="py-14 sm:py-20 bg-[#F8FAFC] border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+              SIMPLE & FAST ONBOARDING
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
+              How to Register in 4 Easy Steps
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 font-medium">
+              A hassle-free registration process designed so parents and students can register in less than 2 minutes.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Step 1 */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-2xl bg-blue-50 text-[#0066FF] font-black text-sm flex items-center justify-center border border-blue-200">
+                  01
+                </div>
+                <h4 className="font-black text-slate-900 text-base">Fill 3 Basic Details</h4>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  Enter your 10-digit mobile number, student full name, and select your target class from Classes 7 to 12.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-[#0066FF] flex items-center gap-1">
+                <span>No lengthy forms</span>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 font-black text-sm flex items-center justify-center border border-purple-200">
+                  02
+                </div>
+                <h4 className="font-black text-slate-900 text-base">Pay Nominal Fee</h4>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  Pay ₹100 registration fee using UPI QR code, Google Pay, PhonePe, Paytm, or Debit/Credit Card.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-purple-600 flex items-center gap-1">
+                <CreditCard className="w-3.5 h-3.5" />
+                <span>Instant 1-Click Pay</span>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 font-black text-sm flex items-center justify-center border border-emerald-200">
+                  03
+                </div>
+                <h4 className="font-black text-slate-900 text-base">Get Admit Card</h4>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  Immediately receive your official ETHEX Roll Number and instant download access to your Admit Card.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-emerald-700 flex items-center gap-1">
+                <Download className="w-3.5 h-3.5" />
+                <span>Instant Download</span>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 font-black text-sm flex items-center justify-center border border-amber-200">
+                  04
+                </div>
+                <h4 className="font-black text-slate-900 text-base">Appear for Exam</h4>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                  Appear on 29th November 2026 Online from home (CBT proctored) or Offline at EURO Campus PCMC / Shikrapur.
+                </p>
+              </div>
+              <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-amber-700 flex items-center gap-1">
+                <Trophy className="w-3.5 h-3.5" />
+                <span>Win Up to 90% Scholarship</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. SYLLABUS & EXAM PATTERN BREAKDOWN (THE 8 CLEAN CLASSES) */}
       <section className="py-14 sm:py-20 bg-white border-t border-slate-200" id="syllabus">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

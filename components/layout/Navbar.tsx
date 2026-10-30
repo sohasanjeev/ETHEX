@@ -54,6 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
 
   // Ultra-clean streamlined navigation inspired by Allen Tallentex
   const navLinks = [
+    { label: 'About ETHEX', href: '/#about' },
     { label: 'Exam Pattern', href: '/exam-pattern' },
     { label: 'Syllabus', href: '/#syllabus' },
     { label: 'Online CBT Mock Test', href: '/student/exam/simulation', highlight: true },
