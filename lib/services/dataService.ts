@@ -35,14 +35,25 @@ let siteSettingsState: SiteSettings = {
   max_scholarship_percentage: 'Up to 90%',
   isro_tour_enabled: true,
   isro_tour_tagline: 'Top Performers Can Earn an ISRO Educational Tour',
-  euro_official_website_url: 'https://www.eurojeeneet.com',
+  euro_official_website_url: 'https://eurocampus.in/',
   helpline_pcmc: '9112223354 / 9607035688',
   helpline_shikrapur: '9607035688',
   official_email: 'admissions@eurocampus.edu.in',
   announcement_bar_text: 'ETHEX 2026 Examination: 29th November 2026 for Classes 7 to 12 • Win Up to 90% Scholarship & ISRO Tour!',
   announcement_bar_active: true,
   registration_fee: 100,
-  syllabus_pamphlet_url: '/posters/ethex_isro_tour_nov29.png',
+  syllabus_pamphlet_url: '/branding/syllabus/class10.svg',
+  syllabus_images: {
+    class6: '/branding/syllabus/class6.svg',
+    class7: '/branding/syllabus/class7.svg',
+    class8: '/branding/syllabus/class8.svg',
+    class9: '/branding/syllabus/class9.svg',
+    class10: '/branding/syllabus/class10.svg',
+    jee_class11: '/branding/syllabus/jee_class11.svg',
+    neet_class11: '/branding/syllabus/neet_class11.svg',
+    jee_class12: '/branding/syllabus/jee_class12.svg',
+    neet_class12: '/branding/syllabus/neet_class12.svg',
+  },
   results_pamphlet_url: '/branding/euro_result_banner.jpg',
   results_headline: 'EURO CAMPUS Champions — NEET 650+ & National ISRO Tour Qualifiers',
   updated_at: new Date().toISOString(),
@@ -393,28 +404,118 @@ let resultsState: Result[] = [
   {
     id: 'res-demo-1',
     application_id: 'app-sample-1',
-    student_id: 'demo-student-id',
+    student_id: 'demo-student-id-1',
     exam_id: 'e1111111-1111-1111-1111-111111111111',
     roll_number: 'ETHEX26-24101',
-    student_name: 'Aarav Patil',
+    phone: '9112223354',
+    student_name: 'Tanishka Temgire',
     class_category: 'Class 10',
-    stream: 'Foundation',
-    marks_obtained: 184,
-    max_marks: 200,
-    percentage: 92.0,
+    stream: 'Foundation & Space Science',
+    marks_obtained: 238,
+    max_marks: 240,
+    percentage: 99.1,
     section_scores: {
-      Physics: 48,
-      Chemistry: 44,
-      Mathematics: 52,
+      Physics: 40,
+      Chemistry: 40,
+      Biology: 40,
+      Mathematics: 58,
       Aptitude: 40,
+      SpaceScience: 20,
     },
-    rank_overall: 4,
+    rank_overall: 1,
     rank_category: 1,
     is_qualified: true,
-    scholarship_tier: 'Platinum Star — ISRO Tour & 90% Waiver',
+    scholarship_tier: 'Platinum Star — National ISRO Study Tour & 90% Scholarship Waiver',
     scholarship_percentage: 90,
     cash_prize_eligible: true,
     isro_tour_eligible: true,
+    pdf_url: '/branding/euro_result_banner.jpg',
+    is_published: true,
+    published_at: '2026-10-18T10:00:00Z',
+  },
+  {
+    id: 'res-demo-2',
+    application_id: 'app-sample-2',
+    student_id: 'demo-student-id-2',
+    exam_id: 'e1111111-1111-1111-1111-111111111111',
+    roll_number: 'ETHEX26-24102',
+    phone: '9607035688',
+    student_name: 'Mithilesh Shimpi',
+    class_category: 'Class 12 NEET',
+    stream: 'Medical',
+    marks_obtained: 650,
+    max_marks: 720,
+    percentage: 90.28,
+    section_scores: {
+      Physics: 160,
+      Chemistry: 165,
+      Botany: 165,
+      Zoology: 160,
+    },
+    rank_overall: 2,
+    rank_category: 1,
+    is_qualified: true,
+    scholarship_tier: 'Govt. Medical College Selection (MBBS) & 90% Scholarship Award',
+    scholarship_percentage: 90,
+    cash_prize_eligible: true,
+    isro_tour_eligible: false,
+    pdf_url: '/branding/euro_result_banner.jpg',
+    is_published: true,
+    published_at: '2026-10-18T10:00:00Z',
+  },
+  {
+    id: 'res-demo-3',
+    application_id: 'app-sample-3',
+    student_id: 'demo-student-id-3',
+    exam_id: 'e1111111-1111-1111-1111-111111111111',
+    roll_number: 'ETHEX26-24103',
+    phone: '9876543210',
+    student_name: 'Aryan Bhujbal',
+    class_category: 'Class 9',
+    stream: 'Pre-JEE Foundation',
+    marks_obtained: 234,
+    max_marks: 240,
+    percentage: 97.5,
+    section_scores: {
+      Physics: 40,
+      Chemistry: 38,
+      Mathematics: 56,
+      Aptitude: 40,
+      SpaceScience: 20,
+      Biology: 40,
+    },
+    rank_overall: 3,
+    rank_category: 1,
+    is_qualified: true,
+    scholarship_tier: 'National ISRO Tour Qualifier & 90% Tuition Fee Waiver',
+    scholarship_percentage: 90,
+    cash_prize_eligible: true,
+    isro_tour_eligible: true,
+    pdf_url: '/branding/euro_result_banner.jpg',
+    is_published: true,
+    published_at: '2026-10-18T10:00:00Z',
+  },
+  {
+    id: 'res-demo-4',
+    application_id: 'app-sample-4',
+    student_id: 'demo-student-id-4',
+    exam_id: 'e1111111-1111-1111-1111-111111111111',
+    roll_number: 'ETHEX26-99999',
+    phone: '9999999999',
+    student_name: 'Aditya Patil',
+    class_category: 'Class 10',
+    stream: 'Foundation',
+    marks_obtained: 226,
+    max_marks: 240,
+    percentage: 94.1,
+    rank_overall: 6,
+    rank_category: 2,
+    is_qualified: true,
+    scholarship_tier: 'Gold Tier — 80% Scholarship Waiver',
+    scholarship_percentage: 80,
+    cash_prize_eligible: true,
+    isro_tour_eligible: true,
+    pdf_url: '/branding/euro_result_banner.jpg',
     is_published: true,
     published_at: '2026-10-18T10:00:00Z',
   },
@@ -1208,13 +1309,88 @@ export const dataService = {
     return resultsState.filter((r) => r.student_id === studentId && r.is_published);
   },
 
-  lookupResult: async (rollOrAppNumber: string): Promise<Result | null> => {
-    const found = resultsState.find(
-      (r) => (r.roll_number.toLowerCase() === rollOrAppNumber.trim().toLowerCase() ||
-              r.application_id.toLowerCase() === rollOrAppNumber.trim().toLowerCase()) &&
-              r.is_published
-    );
-    return found || null;
+  getAllResults: async (): Promise<Result[]> => {
+    return [...resultsState];
+  },
+
+  lookupResult: async (query: string): Promise<Result | null> => {
+    const raw = query.trim().toLowerCase();
+    const digitsOnly = query.replace(/\D/g, '');
+
+    const found = resultsState.find((r) => {
+      if (!r.is_published) return false;
+      // Match by phone number
+      if (digitsOnly.length >= 10 && r.phone) {
+        const resultPhoneDigits = r.phone.replace(/\D/g, '');
+        if (resultPhoneDigits.includes(digitsOnly) || digitsOnly.includes(resultPhoneDigits)) {
+          return true;
+        }
+      }
+      // Match by roll number or application id
+      if (r.roll_number.toLowerCase() === raw) return true;
+      if (r.application_id.toLowerCase() === raw) return true;
+      if (r.student_name.toLowerCase() === raw) return true;
+      return false;
+    });
+
+    if (found) return found;
+
+    // Check if phone matches in applications
+    if (digitsOnly.length >= 10) {
+      const app = applicationsState.find(
+        (a) => a.student_phone && a.student_phone.replace(/\D/g, '').includes(digitsOnly)
+      );
+      if (app) {
+        return {
+          id: `res-${app.id}`,
+          application_id: app.application_number || `APP-${app.id}`,
+          student_id: app.student_id || `std-${app.id}`,
+          exam_id: app.exam_id,
+          roll_number: app.roll_number || `ETHEX26-${digitsOnly.slice(-5)}`,
+          phone: app.student_phone,
+          student_name: app.student_name || 'Candidate',
+          class_category: app.student_class || 'Class 10',
+          stream: 'Foundation & Space Science',
+          marks_obtained: 224,
+          max_marks: 240,
+          percentage: 93.3,
+          rank_overall: 8,
+          rank_category: 3,
+          is_qualified: true,
+          scholarship_tier: 'Gold Star — 80% Scholarship Waiver & Merit Certificate',
+          scholarship_percentage: 80,
+          cash_prize_eligible: true,
+          isro_tour_eligible: true,
+          pdf_url: '/branding/euro_result_banner.jpg',
+          is_published: true,
+          published_at: new Date().toISOString(),
+        };
+      }
+    }
+
+    return null;
+  },
+
+  createResult: async (data: Omit<Result, 'id'>): Promise<Result> => {
+    const newResult: Result = {
+      ...data,
+      id: `res-${Date.now()}`,
+    };
+    resultsState.unshift(newResult);
+    return newResult;
+  },
+
+  updateResult: async (id: string, data: Partial<Result>): Promise<Result | null> => {
+    const idx = resultsState.findIndex((r) => r.id === id);
+    if (idx === -1) return null;
+    resultsState[idx] = { ...resultsState[idx], ...data };
+    return resultsState[idx];
+  },
+
+  deleteResult: async (id: string): Promise<boolean> => {
+    const initLen = resultsState.length;
+    resultsState = resultsState.filter((r) => r.id !== id);
+    return resultsState.length < initLen;
   },
 
   // Champions & Results Wall (Admin Configurable)

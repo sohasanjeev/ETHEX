@@ -32,15 +32,16 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  // All 8 standardized classes for ETHEX Syllabus
+  // Standardized classes for ETHEX Syllabus (Classes 6 to 12)
   const syllabusClasses = [
+    { label: 'Class 6', tab: 'class6', tag: 'Junior Foundation' },
     { label: 'Class 7', tab: 'class7', tag: 'Foundation' },
     { label: 'Class 8', tab: 'class8', tag: 'Foundation' },
     { label: 'Class 9', tab: 'class9', tag: 'Olympiad & Foundation' },
     { label: 'Class 10', tab: 'class10', tag: 'Boards & Foundation' },
-    { label: 'JEE Mains + Advanced Class 11', tab: 'jee_class11', tag: 'Engineering' },
-    { label: 'JEE Mains + Advanced Class 12', tab: 'jee_class12', tag: 'Engineering' },
+    { label: 'Class 11 JEE', tab: 'jee_class11', tag: 'Engineering' },
     { label: 'Class 11 NEET', tab: 'neet_class11', tag: 'Medical' },
+    { label: 'Class 12 JEE', tab: 'jee_class12', tag: 'Engineering' },
     { label: 'Class 12 NEET', tab: 'neet_class12', tag: 'Medical' },
   ];
 
@@ -189,56 +190,17 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
           </div>
         </div>
 
-        {/* ROW 2: SUB-OPTIONS (CLASSROOM COURSES, ONLINE COURSES, CBT TEST SERIES, RESULTS, SCHOLARSHIPS, ABOUT US) */}
-        <div className="hidden lg:flex items-center justify-between border-t border-slate-100 py-2">
-          <nav className="flex items-center space-x-1 xl:space-x-2 text-xs xl:text-sm font-bold">
+        {/* ROW 2: SUB-OPTIONS (EXACTLY 4 OPTIONS: ABOUT US, SYLLABUS, RESULT, SCHOLARSHIP) */}
+        <div className="hidden lg:flex items-center justify-between border-t border-slate-100 py-2.5">
+          <nav className="flex items-center space-x-2 xl:space-x-4 text-xs xl:text-sm font-bold">
             <a
-              href="/#courses"
-              className="px-3 py-1 text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-lg transition-colors"
+              href="/#about"
+              className="px-3.5 py-1.5 text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-xl transition-colors"
             >
-              Classroom Courses
+              About Us
             </a>
 
-            <a
-              href="/#courses"
-              className="px-3 py-1 text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-lg transition-colors"
-            >
-              Online Courses
-            </a>
-
-            <Link
-              href="/student/exam/simulation"
-              className="px-3 py-1 text-euro-royal font-black bg-blue-50/80 border border-blue-200 hover:bg-blue-100 rounded-lg transition-all flex items-center gap-1.5 shadow-2xs"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-              </span>
-              <span>CBT Test Series</span>
-            </Link>
-
-            <Link
-              href="/results"
-              className={`px-3 py-1 rounded-lg transition-colors ${
-                pathname === '/results' ? 'text-euro-royal font-black bg-blue-50/60' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
-              }`}
-            >
-              Results
-            </Link>
-
-            <Link
-              href="/scholarships"
-              className={`px-3 py-1 rounded-lg transition-colors flex items-center gap-1 ${
-                pathname === '/scholarships' ? 'text-euro-royal font-black bg-blue-50/60' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
-              }`}
-            >
-              <span>Scholarships</span>
-              <span className="px-1.5 py-0.2 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full uppercase tracking-tight">
-                NEW
-              </span>
-            </Link>
-
-            {/* Syllabus Dropdown with Classes 7 to 12 */}
+            {/* Syllabus Dropdown with Classes 6 to 12 */}
             <div
               className="relative"
               onMouseEnter={() => setSyllabusDropdownOpen(true)}
@@ -246,7 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
             >
               <button
                 onClick={() => handleSelectClass('class10')}
-                className={`px-3 py-1 rounded-lg transition-colors flex items-center gap-1 ${
+                className={`px-3.5 py-1.5 rounded-xl transition-colors flex items-center gap-1.5 ${
                   syllabusDropdownOpen ? 'text-euro-royal bg-blue-50' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
                 }`}
               >
@@ -265,7 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                       ETHEX CLASS SYLLABUS
                     </span>
                     <span className="text-[9px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full">
-                      CLASSES 7–12
+                      CLASSES 6–12
                     </span>
                   </div>
                   <div className="space-y-0.5">
@@ -286,12 +248,26 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
               )}
             </div>
 
-            <a
-              href="/#about"
-              className="px-3 py-1 text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-lg transition-colors"
+            <Link
+              href="/results"
+              className={`px-3.5 py-1.5 rounded-xl transition-colors ${
+                pathname === '/results' ? 'text-euro-royal font-black bg-blue-50/80' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
+              }`}
             >
-              About Us
-            </a>
+              Result
+            </Link>
+
+            <Link
+              href="/scholarships"
+              className={`px-3.5 py-1.5 rounded-xl transition-colors flex items-center gap-1.5 ${
+                pathname === '/scholarships' ? 'text-euro-royal font-black bg-blue-50/80' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
+              }`}
+            >
+              <span>Scholarship</span>
+              <span className="px-1.5 py-0.2 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full uppercase tracking-tight">
+                NEW
+              </span>
+            </Link>
           </nav>
 
           <Link
@@ -329,131 +305,73 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
           )}
 
           <a
-            href="/#courses"
+            href="/#about"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
+            className="block px-3.5 py-2.5 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
           >
-            Classroom Courses
+            About Us
           </a>
 
-          <a
-            href="/#courses"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
-          >
-            Online Courses
-          </a>
-
-          <Link
-            href="/student/exam/simulation"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-black rounded-xl bg-blue-50 text-euro-royal border border-blue-200"
-          >
-            <div className="flex items-center justify-between">
-              <span>CBT Test Series</span>
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            href="/results"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
-          >
-            Results
-          </Link>
-
-          <Link
-            href="/scholarships"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
-          >
-            <div className="flex items-center justify-between">
-              <span>Scholarships</span>
-              <span className="px-2 py-0.5 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full">
-                NEW
-              </span>
-            </div>
-          </Link>
-
-          {/* Mobile Syllabus Dropdown Accordion */}
           <div>
             <button
               onClick={() => setMobileSyllabusOpen(!mobileSyllabusOpen)}
-              className="w-full flex items-center justify-between px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
+              className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
             >
-              <span>Syllabus (Classes 7 to 12)</span>
-              <ChevronDown
-                className={`w-4 h-4 transition-transform ${
-                  mobileSyllabusOpen ? 'rotate-180 text-euro-royal' : 'text-slate-400'
-                }`}
-              />
+              <span>Syllabus (Classes 6–12)</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${mobileSyllabusOpen ? 'rotate-180' : ''}`} />
             </button>
+
             {mobileSyllabusOpen && (
-              <div className="pl-3 pr-1 py-1 space-y-1 bg-slate-50 rounded-xl mt-1 border border-slate-200">
+              <div className="pl-3 pr-1 py-1 space-y-1 bg-slate-50 rounded-xl mt-1 border border-slate-100">
                 {syllabusClasses.map((item) => (
                   <button
                     key={item.tab}
                     onClick={() => handleSelectClass(item.tab)}
-                    className="w-full text-left px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-euro-royal flex items-center justify-between"
+                    className="w-full text-left px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-euro-royal flex items-center justify-between"
                   >
                     <span>{item.label}</span>
-                    <span className="text-[9px] text-slate-400 font-medium">{item.tag}</span>
+                    <span className="text-[10px] text-slate-400">{item.tag}</span>
                   </button>
                 ))}
               </div>
             )}
           </div>
 
-          <a
-            href="/#about"
+          <Link
+            href="/results"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
+            className="block px-3.5 py-2.5 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
           >
-            About Us
-          </a>
+            Result
+          </Link>
 
-          {student ? (
-            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
-              <Link
-                href="/student/dashboard"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 text-center bg-euro-royal text-white font-bold text-xs rounded-xl shadow-xs"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/student/profile"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 text-center border-2 border-euro-royal text-euro-royal font-bold text-xs rounded-xl"
-              >
-                My Profile
-              </Link>
+          <Link
+            href="/scholarships"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3.5 py-2.5 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
+          >
+            <div className="flex items-center justify-between">
+              <span>Scholarship</span>
+              <span className="px-2 py-0.5 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full">
+                NEW
+              </span>
             </div>
-          ) : (
-            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
-              <Link
-                href="/student/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 text-center border-2 border-euro-royal text-euro-royal font-bold text-xs rounded-xl"
-              >
-                Student Login
-              </Link>
-              <Link
-                href="/student/register"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 text-center bg-euro-royal text-white font-bold text-xs rounded-xl shadow-sm"
-              >
-                Register for ETHEX
-              </Link>
-            </div>
-          )}
+          </Link>
+
+          <div className="pt-2">
+            <Link
+              href="/student/register"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-2.5 rounded-xl bg-euro-royal text-white text-xs font-extrabold flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <span>Register for ETHEX</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       )}
     </header>
   );
 };
+
 export default Navbar;

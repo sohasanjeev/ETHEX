@@ -28,15 +28,9 @@ function RegisterForm() {
     fullName: '',
     email: '',
     phone: '',
-    password: '',
-    confirmPassword: '',
     currentClass: 'Class 10',
     targetStream: 'Foundation',
     examMode: 'ONLINE',
-    schoolName: '',
-    city: 'Pune',
-    state: 'Maharashtra',
-    consentAgreed: false,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -165,11 +159,6 @@ function RegisterForm() {
       return;
     }
 
-    if (formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -178,14 +167,11 @@ function RegisterForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: formData.email || `${formData.phone}@student.eurocampus.in`,
-          password: formData.password || 'EthexPass2026',
           fullName: formData.fullName,
           phone: formData.phone,
           currentClass: formData.currentClass,
           targetStream: formData.targetStream,
-          schoolName: formData.schoolName,
-          city: formData.city,
-          state: formData.state,
+          examMode: formData.examMode,
           portal: 'student',
         }),
       });
@@ -402,7 +388,7 @@ function RegisterForm() {
             )}
           </div>
 
-          {/* Target Class Selection: STRICTLY Class 7 to Class 12 */}
+          {/* Target Class Selection: Class 6 to Class 12 */}
           <div className="space-y-1">
             <label className="text-xs font-bold text-slate-700">Target Class *</label>
             <select
@@ -410,13 +396,14 @@ function RegisterForm() {
               onChange={(e) => setFormData({ ...formData, currentClass: e.target.value })}
               className="w-full px-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-bold text-slate-800"
             >
+              <option value="Class 6">Class 6</option>
               <option value="Class 7">Class 7</option>
               <option value="Class 8">Class 8</option>
               <option value="Class 9">Class 9</option>
               <option value="Class 10">Class 10</option>
-              <option value="JEE Mains + Advanced Class 11">JEE Mains + Advanced Class 11</option>
-              <option value="JEE Mains + Advanced Class 12">JEE Mains + Advanced Class 12</option>
+              <option value="JEE Mains + Advanced Class 11">Class 11 JEE</option>
               <option value="Class 11 NEET">Class 11 NEET</option>
+              <option value="JEE Mains + Advanced Class 12">Class 12 JEE</option>
               <option value="Class 12 NEET">Class 12 NEET</option>
             </select>
           </div>
@@ -450,98 +437,10 @@ function RegisterForm() {
             </div>
           </div>
 
-          {/* School Name */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-700">Current School / College Name</label>
-            <div className="relative">
-              <School className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-              <input
-                type="text"
-                value={formData.schoolName}
-                onChange={(e) => setFormData({ ...formData, schoolName: e.target.value })}
-                placeholder="e.g. Podar International / St. Ursula / City High School"
-                className="w-full pl-9 pr-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium"
-              />
-            </div>
-          </div>
-
-          {/* City & State */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-700">City / District</label>
-              <input
-                type="text"
-                value={formData.city}
-                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-700">State</label>
-              <input
-                type="text"
-                value={formData.state}
-                onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium"
-              />
-            </div>
-          </div>
-
-          {/* Password (Optional for OTP users) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-700">Create Password</label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                <input
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  placeholder="Set password (or use OTP)"
-                  className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-700">Confirm Password</label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                <input
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  placeholder="Confirm password"
-                  className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Consent Checkbox */}
-          <div className="pt-1">
-            <label className="flex items-start gap-2 cursor-pointer text-xs text-slate-600">
-              <input
-                type="checkbox"
-                required
-                checked={formData.consentAgreed}
-                onChange={(e) => setFormData({ ...formData, consentAgreed: e.target.checked })}
-                className="mt-0.5 rounded border-slate-300 text-[#0066FF] focus:ring-[#0066FF]"
-              />
-              <span>
-                I agree to receive examination notifications and admit card details on my mobile/email. I accept the{' '}
-                <Link href="/terms" className="text-[#0066FF] underline font-bold">
-                  Terms & Conditions
-                </Link>
-                .
-              </span>
-            </label>
-          </div>
-
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-[#0066FF] hover:bg-blue-700 text-white font-extrabold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50"
+            className="w-full py-3.5 bg-[#0066FF] hover:bg-blue-700 text-white font-extrabold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50 mt-2"
           >
             {loading ? 'Submitting Registration...' : 'Complete Registration & Generate Admit Card'}
             <ArrowRight className="w-4 h-4" />

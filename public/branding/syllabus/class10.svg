@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070D22"/>
+      <stop offset="50%" stop-color="#0B163B"/>
+      <stop offset="100%" stop-color="#060A1C"/>
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#FDE047"/>
+    </linearGradient>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0066FF"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1E293B" stroke-width="0.75" stroke-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="800" fill="url(#bgGradient)"/>
+  <rect width="1200" height="800" fill="url(#gridPattern)"/>
+
+  <!-- Top Accent Glowing Bar -->
+  <rect x="0" y="0" width="1200" height="6" fill="url(#goldGradient)"/>
+
+  <!-- Header Banner -->
+  <g transform="translate(40, 36)">
+    <!-- Brand Tag -->
+    <rect width="180" height="30" rx="8" fill="#1E293B" stroke="#334155"/>
+    <text x="14" y="20" font-family="Segoe UI, sans-serif" font-size="11" font-weight="800" fill="#38BDF8" letter-spacing="1.5">EURO CAMPUS</text>
+    
+    <rect x="190" y="0" width="220" height="30" rx="8" fill="#1E293B" stroke="#334155"/>
+    <text x="204" y="20" font-family="Segoe UI, sans-serif" font-size="11" font-weight="800" fill="#FBBF24" letter-spacing="1">ETHEX 2026 OFFICIAL</text>
+
+    <!-- Main Title -->
+    <text x="0" y="80" font-family="Segoe UI, sans-serif" font-size="38" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">CLASS 10 — SYLLABUS &amp; PATTERN</text>
+    <text x="0" y="112" font-family="Segoe UI, sans-serif" font-size="16" font-weight="600" fill="#94A3B8">Board Excellence &amp; Premier JEE/NEET Launchpad • Target: NTSE, Class 10 Board Rankers, EURO Premier Batches</text>
+  </g>
+
+  <!-- Key Exam Metrics Banner -->
+  <g transform="translate(40, 168)">
+    <!-- Metric 1: Total Questions -->
+    <g transform="translate(0, 0)">
+      <rect width="265" height="60" rx="14" fill="#0F172A" stroke="#1E293B" stroke-width="1.5"/>
+      <text x="18" y="26" font-family="Segoe UI, sans-serif" font-size="11" font-weight="800" fill="#64748B" letter-spacing="1">TOTAL QUESTIONS</text>
+      <text x="18" y="49" font-family="Segoe UI, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF">60 Multiple Choice (MCQs)</text>
+    </g>
+
+    <!-- Metric 2: Total Marks -->
+    <g transform="translate(285, 0)">
+      <rect width="265" height="60" rx="14" fill="#0F172A" stroke="#1E293B" stroke-width="1.5"/>
+      <text x="18" y="26" font-family="Segoe UI, sans-serif" font-size="11" font-weight="800" fill="#64748B" letter-spacing="1">MAXIMUM MARKS</text>
+      <text x="18" y="49" font-family="Segoe UI, sans-serif" font-size="20" font-weight="900" fill="#38BDF8">240 Marks</text>
+    </g>
+
+    <!-- Metric 3: Duration -->
+    <g transform="translate(570, 0)">
+      <rect width="265" height="60" rx="14" fill="#0F172A" stroke="#1E293B" stroke-width="1.5"/>
+      <text x="18" y="26" font-family="Segoe UI, sans-serif" font-size="11" font-weight="800" fill="#64748B" letter-spacing="1">TEST DURATION</text>
+      <text x="18" y="49" font-family="Segoe UI, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF">90 Minutes</text>
+    </g>
+
+    <!-- Metric 4: Marking Scheme -->
+    <g transform="translate(855, 0)">
+      <rect width="265" height="60" rx="14" fill="#0F172A" stroke="#1E293B" stroke-width="1.5"/>
+      <text x="18" y="26" font-family="Segoe UI, sans-serif" font-size="11" font-weight="800" fill="#64748B" letter-spacing="1">MARKING SCHEME</text>
+      <text x="18" y="49" font-family="Segoe UI, sans-serif" font-size="20" font-weight="900" fill="#FBBF24">+4 Marks / -1 Mark</text>
+    </g>
+  </g>
+
+  <!-- Subject Breakdown Rows -->
+  
+      <g transform="translate(40, 250)">
+        <rect width="1120" height="58" rx="14" fill="#0E1B3E" stroke="#1E3264" stroke-width="1.5" />
+        <rect x="0" y="0" width="8" height="58" rx="4" fill="#0066FF" />
+        <text x="28" y="25" font-family="Segoe UI, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#FACC15">Physics (12 MCQs)</text>
+        <text x="28" y="44" font-family="Segoe UI, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#CBD5E1">Light (Reflection &amp; Refraction), Human Eye, Electricity, Magnetic Effects, Energy</text>
+      </g>
+    
+      <g transform="translate(40, 318)">
+        <rect width="1120" height="58" rx="14" fill="#0E1B3E" stroke="#1E3264" stroke-width="1.5" />
+        <rect x="0" y="0" width="8" height="58" rx="4" fill="#0066FF" />
+        <text x="28" y="25" font-family="Segoe UI, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#FACC15">Chemistry (12 MCQs)</text>
+        <text x="28" y="44" font-family="Segoe UI, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#CBD5E1">Chemical Reactions, Acids/Bases/Salts, Metals &amp; Non-Metals, Carbon Compounds, Periodic Classification</text>
+      </g>
+    
+      <g transform="translate(40, 386)">
+        <rect width="1120" height="58" rx="14" fill="#0E1B3E" stroke="#1E3264" stroke-width="1.5" />
+        <rect x="0" y="0" width="8" height="58" rx="4" fill="#0066FF" />
+        <text x="28" y="25" font-family="Segoe UI, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#FACC15">Biology (12 MCQs)</text>
+        <text x="28" y="44" font-family="Segoe UI, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#CBD5E1">Life Processes, Control &amp; Coordination, How Do Organisms Reproduce?, Heredity &amp; Evolution</text>
+      </g>
+    
+      <g transform="translate(40, 454)">
+        <rect width="1120" height="58" rx="14" fill="#0E1B3E" stroke="#1E3264" stroke-width="1.5" />
+        <rect x="0" y="0" width="8" height="58" rx="4" fill="#0066FF" />
+        <text x="28" y="25" font-family="Segoe UI, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#FACC15">Mathematics (14 MCQs)</text>
+        <text x="28" y="44" font-family="Segoe UI, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#CBD5E1">Real Numbers, Polynomials, Pair of Linear Equations, Quadratic Equations, Arithmetic Progressions, Trigonometry</text>
+      </g>
+    
+      <g transform="translate(40, 522)">
+        <rect width="1120" height="58" rx="14" fill="#0E1B3E" stroke="#1E3264" stroke-width="1.5" />
+        <rect x="0" y="0" width="8" height="58" rx="4" fill="#0066FF" />
+        <text x="28" y="25" font-family="Segoe UI, -apple-system, sans-serif" font-size="16" font-weight="800" fill="#FACC15">Aptitude &amp; Space (10 MCQs)</text>
+        <text x="28" y="44" font-family="Segoe UI, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#CBD5E1">High-Level Critical Reasoning, Quantitative Aptitude, Deep Space Tech</text>
+      </g>
+    
+
+  <!-- Footer Banner with ISRO & Scholarship Guarantee -->
+  <g transform="translate(40, 715)">
+    <rect width="1120" height="54" rx="14" fill="#0F172A" stroke="#334155" stroke-width="1"/>
+    <text x="24" y="33" font-family="Segoe UI, sans-serif" font-size="13" font-weight="800" fill="#FBBF24">★ WIN UP TO 90% SCHOLARSHIP &amp; NATIONAL ISRO STUDY TOUR</text>
+    <text x="730" y="33" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#94A3B8">Centres: PCMC (Chinchwad) &amp; Shikrapur • Online Pan-India</text>
+  </g>
+</svg>

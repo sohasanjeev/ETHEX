@@ -50,19 +50,21 @@ export default function HomePage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [exams, setExams] = useState<Exam[]>([]);
 
-  // Streamlined 8-Class tabs strictly requested by user
+  // Streamlined 9-Class tabs strictly requested by user
   const [activePatternTab, setActivePatternTab] = useState<
+    | 'class6'
     | 'class7'
     | 'class8'
     | 'class9'
     | 'class10'
     | 'jee_class11'
-    | 'jee_class12'
     | 'neet_class11'
+    | 'jee_class12'
     | 'neet_class12'
   >('class10');
 
   // Modal states
+  const [syllabusModalImage, setSyllabusModalImage] = useState<string | null>(null);
   const [samplePaperModalClass, setSamplePaperModalClass] = useState<string | null>(null);
   const [selectedPoster, setSelectedPoster] = useState<string | null>(null);
   const [schoolModalOpen, setSchoolModalOpen] = useState(false);
@@ -229,8 +231,23 @@ export default function HomePage() {
     }
   };
 
-  // Pattern data strictly for the 8 classes requested
+  // Pattern data for all 9 classes
   const patternTabs = {
+    class6: {
+      name: 'Class 6',
+      category: 'Class 6',
+      target: 'Junior Foundation & National Olympiad Gateway',
+      subjects: [
+        { name: 'Physics', qs: 10, marks: 40, syllabus: 'Motion & Measurement, Light & Shadows, Electricity, Magnets' },
+        { name: 'Chemistry', qs: 10, marks: 40, syllabus: 'Sorting Materials, Separation of Substances, Air & Water' },
+        { name: 'Biology & Math', qs: 25, marks: 100, syllabus: 'Food Components, Plants, Knowing Numbers, Basic Geometry' },
+        { name: 'Mental Ability & Astronomy', qs: 15, marks: 60, syllabus: 'Series Completion, Coding-Decoding, Solar System, ISRO Missions' },
+      ],
+      totalQs: 60,
+      totalMarks: 240,
+      duration: '90 Minutes',
+      marking: '+4 for correct, -1 for wrong response',
+    },
     class7: {
       name: 'Class 7',
       category: 'Class 7',
@@ -676,30 +693,16 @@ export default function HomePage() {
                     onChange={(e) => setQuickClass(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0066FF] text-sm bg-slate-50 font-bold text-slate-800"
                   >
+                    <option value="Class 6">Class 6</option>
                     <option value="Class 7">Class 7</option>
                     <option value="Class 8">Class 8</option>
                     <option value="Class 9">Class 9</option>
                     <option value="Class 10">Class 10</option>
-                    <option value="JEE Mains + Advanced Class 11">JEE Mains + Advanced Class 11</option>
-                    <option value="JEE Mains + Advanced Class 12">JEE Mains + Advanced Class 12</option>
+                    <option value="JEE Mains + Advanced Class 11">Class 11 JEE</option>
                     <option value="Class 11 NEET">Class 11 NEET</option>
+                    <option value="JEE Mains + Advanced Class 12">Class 12 JEE</option>
                     <option value="Class 12 NEET">Class 12 NEET</option>
                   </select>
-                </div>
-
-                {/* Terms Consent */}
-                <div>
-                  <label className="flex items-start gap-2 cursor-pointer text-[11px] text-slate-500">
-                    <input
-                      type="checkbox"
-                      checked={agreedTerms}
-                      onChange={(e) => setAgreedTerms(e.target.checked)}
-                      className="mt-0.5 rounded border-slate-300 text-[#0066FF] focus:ring-[#0066FF]"
-                    />
-                    <span>
-                      I agree to terms & to receive exam updates on WhatsApp / SMS.
-                    </span>
-                  </label>
                 </div>
 
                 {/* Direct Pay Now Button */}
@@ -888,130 +891,163 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. SYLLABUS & EXAM PATTERN BREAKDOWN (THE 8 CLEAN CLASSES) */}
+      {/* 3. SYLLABUS & EXAM PATTERN TEMPLATES (CLASSES 6 TO 12 IMAGE FORMAT) */}
       <section className="py-14 sm:py-20 bg-white border-t border-slate-200" id="syllabus">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
-              CURRICULUM & PATTERN
+              OFFICIAL SYLLABUS
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              Exam Pattern & Syllabus Breakdown
+              Exam Syllabus & Template Breakdown
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              60 Questions • 240 Marks • 60 Minutes • Marking Scheme: +4 for correct, -1 for incorrect response
+              Select your class below to view and download the official ETHEX syllabus template.
             </p>
           </div>
 
-          {/* Interactive Class Tabs: Exactly the 8 choices */}
+          {/* Interactive Class Tabs: Exactly the 9 Classes */}
           <div className="flex items-center justify-center flex-wrap gap-2">
             {(
               [
-                'class7',
-                'class8',
-                'class9',
-                'class10',
-                'jee_class11',
-                'jee_class12',
-                'neet_class11',
-                'neet_class12',
+                { tab: 'class6', name: 'Class 6' },
+                { tab: 'class7', name: 'Class 7' },
+                { tab: 'class8', name: 'Class 8' },
+                { tab: 'class9', name: 'Class 9' },
+                { tab: 'class10', name: 'Class 10' },
+                { tab: 'jee_class11', name: 'Class 11 JEE' },
+                { tab: 'neet_class11', name: 'Class 11 NEET' },
+                { tab: 'jee_class12', name: 'Class 12 JEE' },
+                { tab: 'neet_class12', name: 'Class 12 NEET' },
               ] as const
-            ).map((tab) => (
+            ).map((item) => (
               <button
-                key={tab}
-                onClick={() => setActivePatternTab(tab)}
+                key={item.tab}
+                onClick={() => setActivePatternTab(item.tab)}
                 className={`px-4 sm:px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold transition-all border ${
-                  activePatternTab === tab
+                  activePatternTab === item.tab
                     ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-sm scale-105'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`}
               >
-                {patternTabs[tab].name}
+                {item.name}
               </button>
             ))}
           </div>
 
-          {/* Tab Content Box */}
-          <div className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-              <div>
-                <span className="text-xs font-bold text-[#0066FF] uppercase">
-                  {currentPattern.category}
+          {/* Image-Based Syllabus Template Box */}
+          <div className="bg-slate-950 rounded-3xl border-2 border-slate-800 p-4 sm:p-6 shadow-2xl space-y-4 max-w-5xl mx-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-white pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <span className="px-3 py-1 rounded-full text-xs font-black bg-amber-400 text-slate-950 uppercase tracking-wider">
+                  {patternTabs[activePatternTab]?.name || 'Syllabus'}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">
-                  {currentPattern.name} Syllabus & Format
-                </h3>
-                <p className="text-xs text-slate-600 font-medium">Target: {currentPattern.target}</p>
+                <span className="text-xs text-slate-400 font-bold hidden sm:inline">
+                  Click image to expand full-screen
+                </span>
               </div>
-
-              {/* Stat Badges */}
-              <div className="flex items-center gap-3 text-xs font-bold text-slate-800">
-                <div className="bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
-                  <span className="text-slate-400 block text-[10px]">TOTAL MARKS</span>
-                  <span className="text-[#0066FF] text-sm font-black">{currentPattern.totalMarks} M</span>
-                </div>
-                <div className="bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
-                  <span className="text-slate-400 block text-[10px]">QUESTIONS</span>
-                  <span className="text-slate-900 text-sm font-black">{currentPattern.totalQs} MCQs</span>
-                </div>
-                <div className="bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
-                  <span className="text-slate-400 block text-[10px]">DURATION</span>
-                  <span className="text-slate-900 text-sm font-black">{currentPattern.duration}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Subject Breakdown Table */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs sm:text-sm">
-                <thead>
-                  <tr className="bg-white border-b border-slate-200 text-slate-500 font-bold uppercase text-[11px]">
-                    <th className="py-3 px-4">Subject Section</th>
-                    <th className="py-3 px-4">Questions</th>
-                    <th className="py-3 px-4">Marks</th>
-                    <th className="py-3 px-4">Syllabus Overview</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-200/80 bg-white">
-                  {currentPattern.subjects.map((sub, idx) => (
-                    <tr key={idx} className="hover:bg-blue-50/40 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-slate-900">{sub.name}</td>
-                      <td className="py-3.5 px-4 font-semibold text-slate-700">{sub.qs} MCQs</td>
-                      <td className="py-3.5 px-4 font-bold text-[#0066FF]">{sub.marks} Marks</td>
-                      <td className="py-3.5 px-4 text-xs text-slate-600 leading-relaxed">{sub.syllabus}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Bottom Actions: View Syllabus Pamphlet & Download */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-              <div className="text-xs text-slate-500 font-medium">
-                Marking Scheme: <strong className="text-slate-800">{currentPattern.marking}</strong>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/student/exam/simulation"
-                  className="px-4 py-2 bg-blue-50 hover:bg-blue-100 text-[#0066FF] border border-blue-200 font-bold text-xs rounded-xl shadow-2xs transition-all flex items-center gap-1.5"
-                >
-                  <PlayCircle className="w-3.5 h-3.5 text-[#0066FF]" />
-                  <span>Practice Online Test</span>
-                </Link>
-
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => handleDownloadSyllabus(currentPattern.name)}
-                  className="px-4 py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-bold text-xs rounded-xl shadow-2xs transition-all flex items-center gap-1.5"
+                  type="button"
+                  onClick={() =>
+                    setSyllabusModalImage(
+                      settings?.syllabus_images?.[activePatternTab] ||
+                        `/branding/syllabus/${activePatternTab}.svg`
+                    )
+                  }
+                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl border border-slate-700 transition-all flex items-center gap-1.5"
                 >
-                  <Download className="w-3.5 h-3.5 text-[#0066FF]" />
-                  <span>Download {currentPattern.name} PDF</span>
+                  <Eye className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Open Fullscreen</span>
                 </button>
+                <a
+                  href={
+                    settings?.syllabus_images?.[activePatternTab] ||
+                    `/branding/syllabus/${activePatternTab}.svg`
+                  }
+                  download={`ETHEX-2026-Syllabus-${activePatternTab}.svg`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-1.5 bg-[#0066FF] hover:bg-blue-600 text-white text-xs font-extrabold rounded-xl transition-all flex items-center gap-1.5 shadow-sm"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download Image</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Official Syllabus Image Creative Display */}
+            <div
+              onClick={() =>
+                setSyllabusModalImage(
+                  settings?.syllabus_images?.[activePatternTab] ||
+                    `/branding/syllabus/${activePatternTab}.svg`
+                )
+              }
+              className="relative cursor-pointer group rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center transition-all hover:border-blue-500/50"
+            >
+              <img
+                src={
+                  settings?.syllabus_images?.[activePatternTab] ||
+                  `/branding/syllabus/${activePatternTab}.svg`
+                }
+                alt={`${patternTabs[activePatternTab]?.name || 'Class'} Syllabus Template`}
+                className="w-full h-auto max-h-[620px] object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
+                <span className="px-4 py-2 rounded-xl bg-white/90 backdrop-blur-md text-slate-900 font-extrabold text-xs shadow-lg flex items-center gap-2">
+                  <Eye className="w-4 h-4 text-[#0066FF]" />
+                  <span>Click to view high-resolution full-screen</span>
+                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Lightbox Modal for Syllabus Fullscreen View */}
+      {syllabusModalImage && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
+          onClick={() => setSyllabusModalImage(null)}
+        >
+          <div
+            className="relative bg-slate-900 rounded-3xl border border-slate-700 max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-3 sm:p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between text-white">
+              <span className="text-xs font-bold text-slate-300">
+                ETHEX 2026 Official Syllabus Template
+              </span>
+              <div className="flex items-center gap-2">
+                <a
+                  href={syllabusModalImage}
+                  download="ETHEX-Syllabus.svg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 bg-[#0066FF] hover:bg-blue-600 text-white rounded-lg text-xs font-bold flex items-center gap-1"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Download</span>
+                </a>
+                <button
+                  onClick={() => setSyllabusModalImage(null)}
+                  className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="overflow-auto p-2 sm:p-4 flex items-center justify-center bg-slate-950">
+              <img
+                src={syllabusModalImage}
+                alt="Fullscreen Syllabus Template"
+                className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 5. COURSES WE OFFER AT EURO CAMPUS (ALLEN CLASSROOM & ONLINE COURSES) */}
       <section className="py-14 sm:py-20 bg-slate-50 border-t border-slate-200" id="courses">

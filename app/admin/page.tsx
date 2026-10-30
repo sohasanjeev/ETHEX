@@ -41,6 +41,7 @@ import {
   Trophy,
   Star,
   Image as ImageIcon,
+  FileCheck2,
 } from 'lucide-react';
 import {
   SiteSettings,
@@ -52,6 +53,7 @@ import {
   Batch,
   TeacherAccount,
   ResultChampion,
+  Result,
 } from '@/lib/types';
 import CompanyNavbarLogo from '@/components/branding/CompanyNavbarLogo';
 import PdfQuestionConverterModal from '@/components/teacher/PdfQuestionConverterModal';
@@ -85,6 +87,28 @@ export default function AdminDashboardPage() {
     photo_url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=face',
     year: '2025–2026',
     is_featured: true,
+  });
+
+  // Student Results & Scorecard PDFs State
+  const [studentResults, setStudentResults] = useState<Result[]>([]);
+  const [showResultModal, setShowResultModal] = useState<boolean>(false);
+  const [editingResultId, setEditingResultId] = useState<string | null>(null);
+  const [savingResult, setSavingResult] = useState<boolean>(false);
+  const [resultForm, setResultForm] = useState({
+    student_name: '',
+    phone: '',
+    roll_number: '',
+    class_category: 'Class 10',
+    stream: 'Foundation',
+    marks_obtained: 220,
+    max_marks: 240,
+    percentage: 91.6,
+    rank_overall: 5,
+    scholarship_tier: 'Platinum Star — 90% Scholarship Waiver & ISRO Tour',
+    scholarship_percentage: 90,
+    isro_tour_eligible: true,
+    pdf_url: '/branding/euro_result_banner.jpg',
+    is_published: true,
   });
 
   // Core Data Lists
@@ -237,6 +261,13 @@ export default function AdminDashboardPage() {
       if (bData?.batches) setBatches(bData.batches);
       if (tData?.teachers) setTeachers(tData.teachers);
       if (chData?.champions) setChampions(chData.champions);
+
+      // Fetch student results
+      try {
+        const resManage = await fetch('/api/results/manage');
+        const resData = await resManage.json();
+        if (resData?.results) setStudentResults(resData.results);
+      } catch {}
     } catch (err) {
       console.warn('Error loading admin portal data:', err);
     }
@@ -341,6 +372,95 @@ export default function AdminDashboardPage() {
       }
     } catch {
       alert('Error deleting champion');
+    }
+  };
+
+  const handleOpenAddResult = () => {
+    setEditingResultId(null);
+    setResultForm({
+      student_name: '',
+      phone: '',
+      roll_number: `ETHEX26-${Math.floor(10000 + Math.random() * 90000)}`,
+      class_category: 'Class 10',
+      stream: 'Foundation',
+      marks_obtained: 220,
+      max_marks: 240,
+      percentage: 91.6,
+      rank_overall: 5,
+      scholarship_tier: 'Platinum Star — 90% Scholarship Waiver & ISRO Tour',
+      scholarship_percentage: 90,
+      isro_tour_eligible: true,
+      pdf_url: '/branding/euro_result_banner.jpg',
+      is_published: true,
+    });
+    setShowResultModal(true);
+  };
+
+  const handleOpenEditResult = (res: Result) => {
+    setEditingResultId(res.id);
+    setResultForm({
+      student_name: res.student_name,
+      phone: res.phone || '',
+      roll_number: res.roll_number,
+      class_category: res.class_category,
+      stream: res.stream,
+      marks_obtained: res.marks_obtained,
+      max_marks: res.max_marks,
+      percentage: res.percentage,
+      rank_overall: res.rank_overall || 1,
+      scholarship_tier: res.scholarship_tier || '',
+      scholarship_percentage: res.scholarship_percentage || 0,
+      isro_tour_eligible: res.isro_tour_eligible,
+      pdf_url: res.pdf_url || '/branding/euro_result_banner.jpg',
+      is_published: res.is_published,
+    });
+    setShowResultModal(true);
+  };
+
+  const handleSaveResultSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSavingResult(true);
+    try {
+      const res = await fetch('/api/results/manage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: editingResultId ? 'update' : 'create',
+          id: editingResultId,
+          data: resultForm,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast(editingResultId ? '✓ Student result updated!' : '✓ New student result published!');
+        setShowResultModal(false);
+        const refRes = await fetch('/api/results/manage');
+        const refData = await refRes.json();
+        if (refData?.results) setStudentResults(refData.results);
+      } else {
+        alert(data.error || 'Failed to save student result');
+      }
+    } catch {
+      alert('Error saving student result');
+    } finally {
+      setSavingResult(false);
+    }
+  };
+
+  const handleDeleteStudentResult = async (resId: string) => {
+    if (!confirm('Are you sure you want to delete this published student result?')) return;
+    try {
+      const res = await fetch('/api/results/manage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id: resId }),
+      });
+      if (res.ok) {
+        setStudentResults((prev) => prev.filter((r) => r.id !== resId));
+        showToast('✓ Student result removed successfully');
+      }
+    } catch {
+      alert('Error deleting student result');
     }
   };
 
@@ -884,28 +1004,78 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* Official Syllabus PDF / Document URL */}
+                {/* Class-Wise Syllabus Creatives & Image Templates (Classes 6 to 12) */}
                 <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
-                  <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-euro-royal" />
-                    Official Syllabus PDF / Document Download Link
-                  </h3>
-                  <div>
-                    <label className="font-bold text-slate-700 block mb-1">
-                      Syllabus Document Link (PDF or Image URL)
-                    </label>
-                    <input
-                      type="url"
-                      value={settings.syllabus_pamphlet_url || ''}
-                      onChange={(e) =>
-                        setSettings({ ...settings, syllabus_pamphlet_url: e.target.value })
-                      }
-                      placeholder="https://.../ethex-2026-syllabus.pdf or Google Drive / Cloud URL"
-                      className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-white"
-                    />
-                    <span className="text-[10px] text-slate-400 mt-1 block">
-                      When students or parents click &quot;Download Syllabus&quot; on the homepage or syllabus section, this document will be provided.
-                    </span>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+                    <div>
+                      <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
+                        <BookOpen className="w-4 h-4 text-euro-royal" />
+                        <span>Class-Wise Syllabus Creatives &amp; Image Templates</span>
+                      </h3>
+                      <p className="text-[11px] text-slate-500">
+                        Upload or paste the image URL for each class. When students click a class on the website, this image creative is displayed full-screen with no text.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                      { key: 'class6', label: 'Class 6' },
+                      { key: 'class7', label: 'Class 7' },
+                      { key: 'class8', label: 'Class 8' },
+                      { key: 'class9', label: 'Class 9' },
+                      { key: 'class10', label: 'Class 10' },
+                      { key: 'jee_class11', label: 'Class 11 JEE' },
+                      { key: 'neet_class11', label: 'Class 11 NEET' },
+                      { key: 'jee_class12', label: 'Class 12 JEE' },
+                      { key: 'neet_class12', label: 'Class 12 NEET' },
+                    ].map((item) => {
+                      const imgUrl =
+                        settings?.syllabus_images?.[item.key] || `/branding/syllabus/${item.key}.svg`;
+                      return (
+                        <div
+                          key={item.key}
+                          className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs space-y-2.5 flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between">
+                              <span className="font-black text-xs text-slate-900">{item.label}</span>
+                              <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-md">
+                                Image Template
+                              </span>
+                            </div>
+                            <div className="mt-2 relative rounded-lg overflow-hidden bg-slate-900 border border-slate-200 h-28 flex items-center justify-center">
+                              <img
+                                src={imgUrl}
+                                alt={item.label}
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-1">
+                            <label className="text-[10px] font-bold text-slate-500 block">
+                              Template Image Link / URL:
+                            </label>
+                            <input
+                              type="text"
+                              value={settings?.syllabus_images?.[item.key] || `/branding/syllabus/${item.key}.svg`}
+                              onChange={(e) => {
+                                const current = settings?.syllabus_images || {};
+                                setSettings({
+                                  ...settings,
+                                  syllabus_images: {
+                                    ...current,
+                                    [item.key]: e.target.value,
+                                  },
+                                });
+                              }}
+                              className="w-full text-[11px] font-mono p-1.5 border border-slate-300 rounded-lg bg-slate-50 focus:bg-white"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </form>
@@ -950,6 +1120,96 @@ export default function AdminDashboardPage() {
                     placeholder="e.g. ETHEX Champions — Previous Year Results & Hall of Fame"
                     className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-slate-50 focus:bg-white"
                   />
+                </div>
+              </div>
+
+              {/* Student Results & PDF Scorecards Controller */}
+              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                  <div>
+                    <h2 className="text-xl font-black text-euro-navy flex items-center gap-2">
+                      <FileCheck2 className="w-5 h-5 text-euro-royal" />
+                      <span>Student Examination Results &amp; Scorecard PDFs</span>
+                    </h2>
+                    <p className="text-xs text-slate-500">
+                      When students enter their mobile number on the results or scholarship pages, the website verifies their OTP and delivers their scorecard and uploaded PDF report.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleOpenAddResult}
+                    className="px-4 py-2.5 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl font-extrabold text-xs flex items-center gap-1.5 shadow-sm active:scale-98 self-start sm:self-auto"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Publish Student Result &amp; PDF</span>
+                  </button>
+                </div>
+
+                {/* Results Table */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[11px]">
+                        <th className="py-3 px-3">Student Name</th>
+                        <th className="py-3 px-3">Mobile No</th>
+                        <th className="py-3 px-3">Roll No</th>
+                        <th className="py-3 px-3">Class</th>
+                        <th className="py-3 px-3">Score &amp; %</th>
+                        <th className="py-3 px-3">Rank</th>
+                        <th className="py-3 px-3">Scholarship Award</th>
+                        <th className="py-3 px-3">PDF Report</th>
+                        <th className="py-3 px-3 text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 font-medium">
+                      {studentResults.map((r) => (
+                        <tr key={r.id} className="hover:bg-blue-50/30 transition-colors">
+                          <td className="py-3 px-3 font-bold text-slate-900">{r.student_name}</td>
+                          <td className="py-3 px-3 font-mono font-bold text-[#0066FF]">{r.phone || '—'}</td>
+                          <td className="py-3 px-3 font-mono text-slate-600">{r.roll_number}</td>
+                          <td className="py-3 px-3 text-slate-700">{r.class_category}</td>
+                          <td className="py-3 px-3 font-bold text-slate-900">
+                            {r.marks_obtained}/{r.max_marks} ({r.percentage.toFixed(1)}%)
+                          </td>
+                          <td className="py-3 px-3 font-bold text-amber-700">
+                            {r.rank_overall ? `AIR ${r.rank_overall}` : 'Top 1%'}
+                          </td>
+                          <td className="py-3 px-3 font-semibold text-emerald-800 max-w-[180px] truncate">
+                            {r.scholarship_tier || `${r.scholarship_percentage || 0}% Waiver`}
+                          </td>
+                          <td className="py-3 px-3">
+                            <a
+                              href={r.pdf_url || '/branding/euro_result_banner.jpg'}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-[#0066FF] rounded-lg text-[11px] font-bold inline-flex items-center gap-1"
+                            >
+                              <Download className="w-3 h-3" />
+                              <span>View PDF</span>
+                            </a>
+                          </td>
+                          <td className="py-3 px-3 text-right space-x-1">
+                            <button
+                              type="button"
+                              onClick={() => handleOpenEditResult(r)}
+                              className="p-1.5 text-slate-500 hover:text-euro-royal hover:bg-slate-100 rounded-lg"
+                              title="Edit"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteStudentResult(r.id)}
+                              className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg"
+                              title="Delete"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
@@ -2083,6 +2343,190 @@ export default function AdminDashboardPage() {
                   className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-extrabold flex items-center gap-1.5 shadow-md disabled:opacity-50"
                 >
                   {savingChampion ? 'Saving...' : 'Save & Publish Champion'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* STUDENT RESULT & PDF UPLOAD MODAL */}
+      {showResultModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 relative overflow-hidden flex flex-col max-h-[92vh]">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-blue-100 text-[#0066FF] flex items-center justify-center font-bold">
+                  <FileText className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-black text-slate-900">
+                    {editingResultId ? 'Edit Student Result & PDF' : 'Publish Student Result & PDF'}
+                  </h3>
+                  <span className="text-[10px] text-slate-500 font-semibold">
+                    Linked to student mobile number for OTP lookup
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowResultModal(false)}
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveResultSubmit} className="overflow-y-auto py-4 space-y-4 pr-1 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Student Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={resultForm.student_name}
+                    onChange={(e) => setResultForm({ ...resultForm, student_name: e.target.value })}
+                    placeholder="e.g. Tanishka Temgire"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">
+                    Student Mobile Number (for OTP) *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    maxLength={10}
+                    value={resultForm.phone}
+                    onChange={(e) => setResultForm({ ...resultForm, phone: e.target.value.replace(/\D/g, '') })}
+                    placeholder="e.g. 9112223354"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono font-bold text-[#0066FF]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Roll Number *</label>
+                  <input
+                    type="text"
+                    required
+                    value={resultForm.roll_number}
+                    onChange={(e) => setResultForm({ ...resultForm, roll_number: e.target.value })}
+                    placeholder="e.g. ETHEX26-24101"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono font-semibold"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Target Class *</label>
+                  <select
+                    value={resultForm.class_category}
+                    onChange={(e) => setResultForm({ ...resultForm, class_category: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold bg-white"
+                  >
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                    <option value="Class 11 JEE">Class 11 JEE</option>
+                    <option value="Class 11 NEET">Class 11 NEET</option>
+                    <option value="Class 12 JEE">Class 12 JEE</option>
+                    <option value="Class 12 NEET">Class 12 NEET</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Marks Obtained</label>
+                  <input
+                    type="number"
+                    value={resultForm.marks_obtained}
+                    onChange={(e) => {
+                      const marks = Number(e.target.value) || 0;
+                      const max = resultForm.max_marks || 240;
+                      setResultForm({
+                        ...resultForm,
+                        marks_obtained: marks,
+                        percentage: (marks / max) * 100,
+                      });
+                    }}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Maximum Marks</label>
+                  <input
+                    type="number"
+                    value={resultForm.max_marks}
+                    onChange={(e) => {
+                      const max = Number(e.target.value) || 240;
+                      setResultForm({
+                        ...resultForm,
+                        max_marks: max,
+                        percentage: (resultForm.marks_obtained / max) * 100,
+                      });
+                    }}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">All-India Rank</label>
+                  <input
+                    type="number"
+                    value={resultForm.rank_overall}
+                    onChange={(e) => setResultForm({ ...resultForm, rank_overall: Number(e.target.value) || 1 })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-amber-700"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Scholarship Award / Tier *</label>
+                <input
+                  type="text"
+                  required
+                  value={resultForm.scholarship_tier}
+                  onChange={(e) => setResultForm({ ...resultForm, scholarship_tier: e.target.value })}
+                  placeholder="e.g. Platinum Star — 90% Scholarship Waiver & National ISRO Tour"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-emerald-800"
+                />
+              </div>
+
+              {/* Official Result PDF Link / URL */}
+              <div className="space-y-1">
+                <label className="font-bold text-slate-700 block">
+                  Result Scorecard PDF / Document URL *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={resultForm.pdf_url}
+                  onChange={(e) => setResultForm({ ...resultForm, pdf_url: e.target.value })}
+                  placeholder="https://.../student_scorecard.pdf or /branding/euro_result_banner.jpg"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-[11px]"
+                />
+                <span className="text-[10px] text-slate-400 block">
+                  Students will download this exact PDF/file when clicking &quot;Download Official PDF&quot; on the Results and Scholarship portals.
+                </span>
+              </div>
+
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setShowResultModal(false)}
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingResult}
+                  className="px-5 py-2.5 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl font-extrabold flex items-center gap-1.5 shadow-md disabled:opacity-50"
+                >
+                  {savingResult ? 'Saving...' : 'Save & Publish Result'}
                 </button>
               </div>
             </form>

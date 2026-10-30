@@ -33,6 +33,7 @@ export interface SiteSettings {
   announcement_bar_active: boolean;
   registration_fee?: number;
   syllabus_pamphlet_url?: string;
+  syllabus_images?: Record<string, string>;
   results_pamphlet_url?: string;
   results_headline?: string;
   updated_at: string;
@@ -239,6 +240,7 @@ export interface Result {
   student_id: string;
   exam_id: string;
   roll_number: string;
+  phone?: string;
   student_name: string;
   class_category: string;
   stream: string;
@@ -253,6 +255,7 @@ export interface Result {
   scholarship_percentage?: number;
   cash_prize_eligible: boolean;
   isro_tour_eligible: boolean;
+  pdf_url?: string;
   is_published: boolean;
   published_at?: string;
 }
