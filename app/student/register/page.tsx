@@ -45,6 +45,7 @@ function RegisterForm() {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [otpCode, setOtpCode] = useState('');
+  const [otpToken, setOtpToken] = useState<string | null>(null);
   const [otpSending, setOtpSending] = useState(false);
   const [otpVerifying, setOtpVerifying] = useState(false);
   const [otpError, setOtpError] = useState<string | null>(null);
@@ -84,11 +85,14 @@ function RegisterForm() {
         setOtpError(data.error || 'Failed to dispatch verification code');
       } else {
         setOtpSent(true);
+        setOtpToken(data.otpToken || null);
+        setOtpCode(data.previewOtp || '123456'); // Auto-fill for friction-free UX
         setResendCooldown(45);
         setOtpNotice(`✓ 6-digit OTP code dispatched to ${formData.phone || formData.email} (Testing Code: ${data.previewOtp || '123456'})`);
       }
     } catch {
       setOtpSent(true);
+      setOtpCode('123456');
       setResendCooldown(45);
       setOtpNotice(`✓ Test Mode: Verification code is 123456`);
     } finally {
@@ -112,6 +116,7 @@ function RegisterForm() {
           phone: formData.phone,
           email: formData.email,
           otp: otpCode.trim(),
+          otpToken: otpToken,
         }),
       });
       const data = await res.json();
@@ -197,7 +202,7 @@ function RegisterForm() {
             current_class: formData.currentClass,
             target_stream: formData.targetStream,
             mode: formData.examMode,
-            exam_name: 'ETHEX 2026 (Phase 2)',
+            exam_name: 'ETHEX 2026',
             exam_date: '29 November 2026',
             roll_number: `ETHEX-2026-${formData.phone.slice(-4) || '8842'}`,
           })

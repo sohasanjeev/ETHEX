@@ -9,6 +9,7 @@ import {
   ExamAttempt,
   AttemptAnswer,
   Result,
+  ResultChampion,
   ScholarshipRule,
   Announcement,
   UserProfile,
@@ -42,6 +43,8 @@ let siteSettingsState: SiteSettings = {
   announcement_bar_active: true,
   registration_fee: 100,
   syllabus_pamphlet_url: '/posters/ethex_isro_tour_nov29.png',
+  results_pamphlet_url: '/posters/ethex_isro_tour_nov29.png',
+  results_headline: 'ETHEX Champions — Previous Year Results & Hall of Fame',
   updated_at: new Date().toISOString(),
 };
 
@@ -426,6 +429,93 @@ let resultsState: Result[] = [
     isro_tour_eligible: true,
     is_published: true,
     published_at: '2026-10-18T10:00:00Z',
+  },
+];
+
+let championsState: ResultChampion[] = [
+  {
+    id: 'champ-1',
+    student_name: 'Aarav Patil',
+    rank: 'AIR 4',
+    exam_name: 'Class 10 Foundation & NTSE',
+    target_class: 'Class 10',
+    school: 'Podar International School, PCMC',
+    score: '234/240 Marks',
+    award: 'Sponsored ISRO Educational Tour + 90% Scholarship',
+    quote: 'ETHEX gave me real CBT exam exposure before my actual Class 10 boards and Olympiads. The detailed solution review was invaluable!',
+    photo_url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=face',
+    year: '2025–2026',
+    is_featured: true,
+  },
+  {
+    id: 'champ-2',
+    student_name: 'Priya Deshmukh',
+    rank: 'AIR 12',
+    exam_name: 'JEE Mains + Advanced',
+    target_class: 'JEE Mains + Advanced Class 11',
+    school: 'St. Ursula High School, Akurdi',
+    score: '228/240 Marks',
+    award: '90% Tuition Fee Waiver',
+    quote: 'The Competitive Success Index (CSI) pinpointed my weak spots in Physics Mechanics. EURO Campus mentors helped me clear my doubts.',
+    photo_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face',
+    year: '2025–2026',
+    is_featured: true,
+  },
+  {
+    id: 'champ-3',
+    student_name: 'Rohan Kulkarni',
+    rank: 'AIR 19',
+    exam_name: 'Pre-JEE & NSEJS Olympiad',
+    target_class: 'Class 9',
+    school: "The Bishop's School, Pune",
+    score: '222/240 Marks',
+    award: '75% Admission Scholarship',
+    quote: 'Testing with a real countdown timer and seeing immediate marks (+4/-1) made me super confident for state talent search exams.',
+    photo_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+    year: '2025–2026',
+    is_featured: true,
+  },
+  {
+    id: 'champ-4',
+    student_name: 'Ananya Joshi',
+    rank: 'AIR 26',
+    exam_name: 'Class 11 NEET Medical',
+    target_class: 'Class 11 NEET',
+    school: 'City International School, Pune',
+    score: '218/240 Marks',
+    award: 'Cash Award Winner & 75% Scholarship',
+    quote: 'The Biology and Chemistry questions closely mirrored NCERT conceptual depth. Highly recommended for every serious medical aspirant!',
+    photo_url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face',
+    year: '2025–2026',
+    is_featured: true,
+  },
+  {
+    id: 'champ-5',
+    student_name: 'Sameer Kadam',
+    rank: 'AIR 33',
+    exam_name: 'JEE Mains + Advanced',
+    target_class: 'JEE Mains + Advanced Class 12',
+    school: 'Kendriya Vidyalaya, Pune',
+    score: '214/240 Marks',
+    award: '60% Scholarship + Special Mentorship',
+    quote: 'The test analysis report broke down my speed versus accuracy by topic. It completely transformed my revision strategy.',
+    photo_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
+    year: '2025–2026',
+    is_featured: true,
+  },
+  {
+    id: 'champ-6',
+    student_name: 'Sneha More',
+    rank: 'AIR 45',
+    exam_name: 'Class 8 Science Champ',
+    target_class: 'Class 8',
+    school: 'Dr. D.Y. Patil Public School, Pimpri',
+    score: '208/240 Marks',
+    award: '50% Scholarship Award',
+    quote: 'The questions on Mental Ability and Space Science were fascinating. ETHEX inspired me to aim for astrophysics.',
+    photo_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face',
+    year: '2025–2026',
+    is_featured: true,
   },
 ];
 
@@ -1109,6 +1199,34 @@ export const dataService = {
               r.is_published
     );
     return found || null;
+  },
+
+  // Champions & Results Wall (Admin Configurable)
+  getChampions: async (): Promise<ResultChampion[]> => {
+    return [...championsState];
+  },
+
+  createChampion: async (data: Omit<ResultChampion, 'id'>): Promise<ResultChampion> => {
+    const newChampion: ResultChampion = {
+      ...data,
+      id: `champ-${Date.now()}`,
+      created_at: new Date().toISOString(),
+    };
+    championsState.unshift(newChampion);
+    return newChampion;
+  },
+
+  updateChampion: async (id: string, data: Partial<ResultChampion>): Promise<ResultChampion | null> => {
+    const idx = championsState.findIndex((c) => c.id === id);
+    if (idx === -1) return null;
+    championsState[idx] = { ...championsState[idx], ...data };
+    return championsState[idx];
+  },
+
+  deleteChampion: async (id: string): Promise<boolean> => {
+    const initialLen = championsState.length;
+    championsState = championsState.filter((c) => c.id !== id);
+    return championsState.length < initialLen;
   },
 
   // Scholarships & Announcements

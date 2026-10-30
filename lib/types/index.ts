@@ -33,6 +33,8 @@ export interface SiteSettings {
   announcement_bar_active: boolean;
   registration_fee?: number;
   syllabus_pamphlet_url?: string;
+  results_pamphlet_url?: string;
+  results_headline?: string;
   updated_at: string;
 }
 
@@ -253,6 +255,22 @@ export interface Result {
   isro_tour_eligible: boolean;
   is_published: boolean;
   published_at?: string;
+}
+
+export interface ResultChampion {
+  id: string;
+  student_name: string;
+  rank: string;
+  exam_name: string;
+  target_class: string;
+  school?: string;
+  score?: string;
+  award?: string;
+  quote?: string;
+  photo_url?: string;
+  year: string;
+  is_featured: boolean;
+  created_at?: string;
 }
 
 export interface ScholarshipRule {

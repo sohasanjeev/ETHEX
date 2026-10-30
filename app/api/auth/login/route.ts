@@ -1,16 +1,11 @@
 import { NextResponse } from 'next/server';
-
-const getOtpStore = () => {
-  if (!(globalThis as any).__ethex_otps__) {
-    (globalThis as any).__ethex_otps__ = new Map<string, { otp: string; expiresAt: number }>();
-  }
-  return (globalThis as any).__ethex_otps__ as Map<string, { otp: string; expiresAt: number }>;
-};
+import { verifyOtpToken } from '@/lib/auth/otp';
+import { dataService } from '@/lib/services/dataService';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, password, portal, phone, mobile, otp } = body;
+    const { email, password, portal, phone, mobile, otp, otpToken } = body;
     const identifier = (phone || mobile || email || '').toString().trim();
 
     // 1. OTP-BASED LOGIN (Mobile number or Email with OTP)
@@ -25,43 +20,54 @@ export async function POST(req: Request) {
       const cleanIdentifier = identifier.replace(/^\+91/, '').replace(/\s+/g, '').toLowerCase();
       const cleanOtp = otp.toString().trim();
 
-      const store = getOtpStore();
-      const stored = store.get(cleanIdentifier);
-
-      const isValidOtp =
-        cleanOtp === '123456' ||
-        (stored && stored.otp === cleanOtp && Date.now() <= stored.expiresAt);
+      // Verify OTP: either demo '123456' OR stateless token verification
+      let isValidOtp = cleanOtp === '123456';
+      if (!isValidOtp && otpToken) {
+        const check = verifyOtpToken(cleanIdentifier, cleanOtp, otpToken);
+        isValidOtp = check.valid;
+      }
 
       if (!isValidOtp) {
         return NextResponse.json(
-          { error: 'Invalid or expired OTP. Please use the preview OTP code or resend.' },
+          { error: 'Invalid or expired OTP. Use demo code 123456 or click Resend.' },
           { status: 400 }
         );
       }
 
-      // Clear used OTP
-      if (stored) store.delete(cleanIdentifier);
+      // Check if student already registered in applicationsState
+      const applications = await dataService.getApplications();
+      const existingApp = applications.find(
+        (a) =>
+          a.student_phone?.replace(/\D/g, '') === cleanIdentifier.replace(/\D/g, '') ||
+          a.student_id === cleanIdentifier ||
+          a.roll_number?.toLowerCase() === cleanIdentifier
+      );
 
       const isEmail = cleanIdentifier.includes('@');
-      const studentName = cleanIdentifier.startsWith('91122') || cleanIdentifier.startsWith('aarav')
-        ? 'Aarav Patil'
-        : 'Registered Student';
+      const studentName = existingApp?.student_name ||
+        (cleanIdentifier.startsWith('91122') || cleanIdentifier.startsWith('aarav')
+          ? 'Aarav Patil'
+          : 'Registered Student');
+      const studentClass = existingApp?.student_class || 'Class 10';
+      const studentRoll = existingApp?.roll_number || `ETHEX-2026-${cleanIdentifier.slice(-4) || '8842'}`;
 
       return NextResponse.json({
         success: true,
         role: 'student',
         user: {
-          id: `std-${cleanIdentifier.slice(-4) || '2026'}`,
+          id: existingApp?.student_id || `std-${cleanIdentifier.slice(-4) || '2026'}`,
           phone: isEmail ? '9112223354' : cleanIdentifier,
           email: isEmail ? cleanIdentifier : `${cleanIdentifier}@student.eurocampus.in`,
           full_name: studentName,
-          current_class: 'Class 10',
+          current_class: studentClass,
           target_stream: 'Foundation',
-          exam_name: 'ETHEX 2026 (Phase 2)',
+          exam_name: 'ETHEX 2026',
           exam_date: '29 November 2026',
-          mode: 'ONLINE',
+          mode: existingApp?.selected_mode || 'ONLINE',
           centre: 'Online CBT / Home',
-          roll_number: `ETHEX-2026-${cleanIdentifier.slice(-4) || '8842'}`,
+          roll_number: studentRoll,
+          application_number: existingApp?.application_number,
+          payment_status: existingApp?.payment_status || 'successful',
           role: 'student',
           verified: true,
         },
@@ -101,18 +107,22 @@ export async function POST(req: Request) {
       success: true,
       role: 'student',
       user: {
-        id: 'demo-student-id',
+        id: `std-${normalizedEmail.slice(0, 4)}`,
         email: normalizedEmail,
-        full_name: normalizedEmail.startsWith('aarav') ? 'Aarav Patil' : 'Registered Student',
+        full_name: 'Registered Student',
         current_class: 'Class 10',
         target_stream: 'Foundation',
-        exam_name: 'ETHEX 2026 (Phase 2)',
+        exam_name: 'ETHEX 2026',
         exam_date: '29 November 2026',
-        roll_number: 'ETHEX-2026-9021',
+        mode: 'ONLINE',
+        centre: 'Online CBT / Home',
+        roll_number: 'ETHEX-2026-9011',
         role: 'student',
+        verified: true,
       },
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Login failed' }, { status: 500 });
+    console.error('Login error:', error);
+    return NextResponse.json({ error: 'Authentication failed' }, { status: 500 });
   }
 }

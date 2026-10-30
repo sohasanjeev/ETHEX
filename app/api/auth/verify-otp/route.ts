@@ -1,70 +1,53 @@
 import { NextResponse } from 'next/server';
-
-const getOtpStore = () => {
-  if (!(globalThis as any).__ethex_otps__) {
-    (globalThis as any).__ethex_otps__ = new Map<string, { otp: string; expiresAt: number }>();
-  }
-  return (globalThis as any).__ethex_otps__ as Map<string, { otp: string; expiresAt: number }>;
-};
+import { verifyOtpToken } from '@/lib/auth/otp';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const identifier = (body.phone || body.mobile || body.email || '').toString().trim();
+    const rawIdentifier = (body.phone || body.mobile || body.email || '').toString().trim();
     const otp = (body.otp || body.code || '').toString().trim();
+    const otpToken = body.otpToken || '';
 
-    if (!identifier || !otp) {
+    if (!rawIdentifier || !otp) {
       return NextResponse.json(
         { error: 'Mobile number/email and 6-digit OTP code are required' },
         { status: 400 }
       );
     }
 
-    const cleanIdentifier = identifier.replace(/^\+91/, '').replace(/\s+/g, '').toLowerCase();
+    const cleanIdentifier = rawIdentifier.replace(/^\+91/, '').replace(/\s+/g, '').toLowerCase();
     const cleanOtp = otp.toString().trim();
 
-    const store = getOtpStore();
-    const stored = store.get(cleanIdentifier);
-
-    // Development / demo fallback: '123456' is always accepted
+    // 1. Universal testing fallback
     if (cleanOtp === '123456') {
       return NextResponse.json({
         success: true,
         verified: true,
-        message: 'OTP verified successfully',
+        message: 'OTP verified successfully (Demo code)',
       });
     }
 
-    if (!stored) {
+    // 2. Stateless HMAC token verification (Serverless-proof)
+    if (otpToken) {
+      const verification = verifyOtpToken(cleanIdentifier, cleanOtp, otpToken);
+      if (verification.valid) {
+        return NextResponse.json({
+          success: true,
+          verified: true,
+          message: 'OTP verified successfully',
+        });
+      }
       return NextResponse.json(
-        { error: 'No OTP requested for this identifier or OTP expired. Please click Resend Code.' },
+        { error: verification.reason || 'Invalid or expired OTP code' },
         { status: 400 }
       );
     }
 
-    if (Date.now() > stored.expiresAt) {
-      store.delete(cleanIdentifier);
-      return NextResponse.json(
-        { error: 'Verification code has expired. Please request a new one.' },
-        { status: 400 }
-      );
-    }
-
-    if (stored.otp !== cleanOtp) {
-      return NextResponse.json(
-        { error: 'Invalid verification code. Please check your SMS/email and try again.' },
-        { status: 400 }
-      );
-    }
-
-    // Clear used OTP
-    store.delete(cleanIdentifier);
-
-    return NextResponse.json({
-      success: true,
-      verified: true,
-      message: 'OTP verified successfully',
-    });
+    // 3. Fallback if client didn't supply otpToken
+    return NextResponse.json(
+      { error: 'Invalid OTP code. Please use the test code 123456 or request a new code.' },
+      { status: 400 }
+    );
   } catch (error: any) {
     console.error('Verify OTP error:', error);
     return NextResponse.json({ error: 'Verification failed' }, { status: 500 });

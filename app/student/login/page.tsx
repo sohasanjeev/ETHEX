@@ -33,6 +33,7 @@ export default function StudentLoginPage() {
 
   // Flow states
   const [otpSent, setOtpSent] = useState(false);
+  const [otpToken, setOtpToken] = useState<string | null>(null);
   const [previewOtp, setPreviewOtp] = useState<string | null>(null);
   const [resendCountdown, setResendCountdown] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -85,10 +86,12 @@ export default function StudentLoginPage() {
         setError(data.error || 'Failed to dispatch verification code');
       } else {
         setOtpSent(true);
+        setOtpToken(data.otpToken || null);
         setPreviewOtp(data.previewOtp || '123456');
+        setOtpCode(data.previewOtp || '123456'); // Auto-fill for zero-lag experience
         setResendCountdown(45);
         setSuccessNotice(
-          `✓ Verification code sent to ${
+          `✓ Verification code dispatched to ${
             loginMethod === 'phone' ? '+91 ' + identifier : identifier
           }`
         );
@@ -97,6 +100,7 @@ export default function StudentLoginPage() {
       // Offline fallback
       setOtpSent(true);
       setPreviewOtp('123456');
+      setOtpCode('123456');
       setResendCountdown(45);
       setSuccessNotice('✓ Verification code: 123456');
     } finally {
@@ -124,6 +128,7 @@ export default function StudentLoginPage() {
           phone: loginMethod === 'phone' ? identifier : undefined,
           email: loginMethod === 'email' ? identifier : undefined,
           otp: otpCode.trim(),
+          otpToken: otpToken,
         }),
       });
 
@@ -143,7 +148,7 @@ export default function StudentLoginPage() {
         full_name: 'Registered Student',
         current_class: 'Class 10',
         target_stream: 'Foundation',
-        exam_name: 'ETHEX 2026 (Phase 2)',
+        exam_name: 'ETHEX 2026',
         exam_date: '29 November 2026',
         roll_number: 'ETHEX-2026-8842',
         role: 'student',
@@ -282,9 +287,18 @@ export default function StudentLoginPage() {
               <span>{successNotice}</span>
             </div>
             {previewOtp && (
-              <div className="bg-white/80 p-2 rounded-lg border border-emerald-300 flex items-center justify-between text-xs font-mono font-bold text-slate-800">
-                <span className="text-[11px] font-sans text-slate-600 font-semibold">Instant Test Code:</span>
-                <span className="text-emerald-700 text-sm tracking-widest">{previewOtp}</span>
+              <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-300 flex items-center justify-between text-xs font-mono font-bold text-slate-800 shadow-2xs">
+                <div>
+                  <span className="text-[11px] font-sans text-slate-600 block">Verification Code:</span>
+                  <span className="text-emerald-700 text-sm tracking-widest font-black">{previewOtp}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setOtpCode(previewOtp)}
+                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-sans font-bold transition-all shadow-2xs"
+                >
+                  Auto-Fill
+                </button>
               </div>
             )}
           </div>

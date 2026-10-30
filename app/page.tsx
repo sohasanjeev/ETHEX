@@ -314,6 +314,32 @@ export default function HomePage() {
     },
   ];
 
+  const [championsList, setChampionsList] = useState(achievers);
+
+  useEffect(() => {
+    fetch('/api/results/champions')
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.champions && data.champions.length > 0) {
+          setChampionsList(
+            data.champions.map((c: any) => ({
+              name: c.student_name,
+              school: c.school || 'EURO Campus Scholar',
+              grade: c.target_class || c.exam_name,
+              rank: c.rank,
+              score: c.score || '230/240 Marks',
+              badge: c.award || 'Scholarship Awardee',
+              quote: c.quote || 'EURO Campus mentors gave me the winning competitive edge.',
+              image:
+                c.photo_url ||
+                'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=240&h=240&fit=crop&crop=face',
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const faqs = [
     {
       q: 'Who is eligible to appear for ETHEX 2026?',
@@ -343,10 +369,36 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* 1. HERO SECTION: ALLEN TALLENTEX INSPIRED LANDSCAPE HERO & QUICK LEAD CARD */}
+      {/* 1. HERO SECTION: ALLEN TALLENTEX INSPIRED RESPONSIVE HERO & QUICK LEAD CARD */}
       <section className="px-3 sm:px-6 lg:px-8 pt-4 pb-8 max-w-7xl mx-auto w-full">
-        {/* Large Landscape Banner Showcase (Exact Allen Tallentex Parent & Student Hero) */}
-        <div className="relative rounded-3xl overflow-hidden border border-blue-200/90 shadow-md bg-white mb-6">
+        {/* Mobile View: High-Impact Square Banner (Allen Tallentex Mobile Phone Style) */}
+        <div className="block md:hidden relative rounded-3xl overflow-hidden border border-blue-200/90 shadow-lg bg-gradient-to-b from-[#0B1528] via-[#102447] to-[#0A1120] mb-6 aspect-square">
+          <img
+            src="/branding/ethex_tallentex_landscape_hero.png"
+            alt="ETHEX 2026 Mobile Showcase"
+            className="w-full h-full object-cover object-left"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent flex flex-col justify-end p-5 text-white">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/90 backdrop-blur-xs text-[11px] font-black tracking-wider uppercase w-fit mb-1.5 border border-blue-400/40 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span>CLASSES 7 TO 12 • JEE / NEET</span>
+            </div>
+            <h3 className="text-2xl font-black text-white leading-tight drop-shadow-md">
+              Win Up to 90% Scholarship & ISRO Space Tour
+            </h3>
+            <div className="flex items-center gap-2 mt-2.5 text-xs">
+              <span className="bg-amber-400 text-slate-950 font-black px-3 py-1.5 rounded-xl shadow-xs">
+                ₹2.5 CR POOL
+              </span>
+              <span className="bg-white/20 backdrop-blur-md text-white font-black px-3 py-1.5 rounded-xl border border-white/20">
+                29th Nov 2026
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop View: Wide Landscape Showcase (Allen Tallentex Laptop Style) */}
+        <div className="hidden md:block relative rounded-3xl overflow-hidden border border-blue-200/90 shadow-md bg-white mb-6">
           <img
             src="/branding/ethex_tallentex_landscape_hero.png"
             alt="ETHEX 2026 - Your Talent. Our Support. A Bigger Future."
@@ -933,7 +985,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {achievers.map((achiever, idx) => (
+            {championsList.map((achiever, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-3xl p-6 border border-slate-200 flex flex-col justify-between space-y-4 card-hover-effect"

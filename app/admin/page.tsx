@@ -38,6 +38,9 @@ import {
   X,
   Edit3,
   Download,
+  Trophy,
+  Star,
+  Image as ImageIcon,
 } from 'lucide-react';
 import {
   SiteSettings,
@@ -48,6 +51,7 @@ import {
   ExamCategory,
   Batch,
   TeacherAccount,
+  ResultChampion,
 } from '@/lib/types';
 import CompanyNavbarLogo from '@/components/branding/CompanyNavbarLogo';
 import PdfQuestionConverterModal from '@/components/teacher/PdfQuestionConverterModal';
@@ -55,12 +59,33 @@ import PdfQuestionConverterModal from '@/components/teacher/PdfQuestionConverter
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
-    'settings' | 'exams' | 'tests' | 'categories' | 'batches' | 'centres' | 'applications' | 'teachers' | 'metrics' | 'finance'
+    'settings' | 'results' | 'exams' | 'tests' | 'categories' | 'batches' | 'centres' | 'applications' | 'teachers' | 'metrics' | 'finance'
   >('settings');
 
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [savingSettings, setSavingSettings] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Champions & Results State (Allen Tallentex Replica Controller)
+  const [champions, setChampions] = useState<ResultChampion[]>([]);
+  const [resultsPamphletUrl, setResultPamphletUrl] = useState<string>('/posters/ethex_isro_tour_nov29.png');
+  const [resultsHeadline, setResultHeadline] = useState<string>('ETHEX Champions — Previous Year Results & Hall of Fame');
+  const [showChampionModal, setShowChampionModal] = useState<boolean>(false);
+  const [editingChampionId, setEditingChampionId] = useState<string | null>(null);
+  const [savingChampion, setSavingChampion] = useState<boolean>(false);
+  const [championForm, setChampionForm] = useState({
+    student_name: '',
+    rank: 'AIR 1',
+    exam_name: 'JEE Mains + Advanced',
+    target_class: 'Class 10',
+    school: '',
+    score: '234/240 Marks',
+    award: 'Sponsored ISRO Educational Tour + 90% Scholarship',
+    quote: '',
+    photo_url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=face',
+    year: '2025–2026',
+    is_featured: true,
+  });
 
   // Core Data Lists
   const [exams, setExams] = useState<Exam[]>([]);
@@ -178,7 +203,7 @@ export default function AdminDashboardPage() {
 
   const loadAdminData = async () => {
     try {
-      const [settingsRes, examsRes, appsRes, centresRes, catsRes, batchesRes, teachersRes] = await Promise.all([
+      const [settingsRes, examsRes, appsRes, centresRes, catsRes, batchesRes, teachersRes, champsRes] = await Promise.all([
         fetch('/api/site-settings'),
         fetch('/api/exams'),
         fetch('/api/applications/list'),
@@ -186,9 +211,10 @@ export default function AdminDashboardPage() {
         fetch('/api/categories'),
         fetch('/api/batches'),
         fetch('/api/teachers'),
+        fetch('/api/results/champions'),
       ]);
 
-      const [sData, eData, aData, cData, catData, bData, tData] = await Promise.all([
+      const [sData, eData, aData, cData, catData, bData, tData, chData] = await Promise.all([
         settingsRes.json(),
         examsRes.json(),
         appsRes.json(),
@@ -196,17 +222,125 @@ export default function AdminDashboardPage() {
         catsRes.json(),
         batchesRes.json(),
         teachersRes.json(),
+        champsRes.json(),
       ]);
 
-      if (sData) setSettings(sData);
+      if (sData) {
+        setSettings(sData);
+        if (sData.results_pamphlet_url) setResultPamphletUrl(sData.results_pamphlet_url);
+        if (sData.results_headline) setResultHeadline(sData.results_headline);
+      }
       if (eData?.exams) setExams(eData.exams);
       if (aData?.applications) setApplications(aData.applications);
       if (cData?.centres) setCentres(cData.centres);
       if (catData?.categories) setCategories(catData.categories);
       if (bData?.batches) setBatches(bData.batches);
       if (tData?.teachers) setTeachers(tData.teachers);
+      if (chData?.champions) setChampions(chData.champions);
     } catch (err) {
       console.warn('Error loading admin portal data:', err);
+    }
+  };
+
+  const handleSaveResultPamphlet = async () => {
+    try {
+      const res = await fetch('/api/results/champions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          results_pamphlet_url: resultsPamphletUrl,
+          results_headline: resultsHeadline,
+        }),
+      });
+      if (res.ok) {
+        showToast('✓ Result celebration banner & headline saved live!');
+      }
+    } catch {
+      showToast('Error saving result banner settings');
+    }
+  };
+
+  const handleOpenAddChampion = () => {
+    setEditingChampionId(null);
+    setChampionForm({
+      student_name: '',
+      rank: 'AIR 1',
+      exam_name: 'JEE Mains + Advanced',
+      target_class: 'Class 10',
+      school: 'EURO Campus PCMC Centre',
+      score: '234/240 Marks',
+      award: 'Sponsored ISRO Educational Tour + 90% Scholarship',
+      quote: 'ETHEX prepared me with real CBT testing conditions.',
+      photo_url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=face',
+      year: '2025–2026',
+      is_featured: true,
+    });
+    setShowChampionModal(true);
+  };
+
+  const handleOpenEditChampion = (champ: ResultChampion) => {
+    setEditingChampionId(champ.id);
+    setChampionForm({
+      student_name: champ.student_name,
+      rank: champ.rank,
+      exam_name: champ.exam_name,
+      target_class: champ.target_class,
+      school: champ.school || '',
+      score: champ.score || '',
+      award: champ.award || '',
+      quote: champ.quote || '',
+      photo_url: champ.photo_url || '',
+      year: champ.year || '2025–2026',
+      is_featured: champ.is_featured,
+    });
+    setShowChampionModal(true);
+  };
+
+  const handleSaveChampionSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSavingChampion(true);
+    try {
+      const res = await fetch('/api/results/champions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: editingChampionId ? 'update' : 'create',
+          id: editingChampionId,
+          data: championForm,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast(editingChampionId ? '✓ Champion topper updated!' : '✓ New Champion added to Hall of Fame!');
+        setShowChampionModal(false);
+        // Refresh champions
+        const refRes = await fetch('/api/results/champions');
+        const refData = await refRes.json();
+        if (refData?.champions) setChampions(refData.champions);
+      } else {
+        alert(data.error || 'Failed to save champion');
+      }
+    } catch {
+      alert('Network error saving champion');
+    } finally {
+      setSavingChampion(false);
+    }
+  };
+
+  const handleDeleteChampion = async (champId: string) => {
+    if (!confirm('Are you sure you want to remove this topper from Results Hall of Fame?')) return;
+    try {
+      const res = await fetch('/api/results/champions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id: champId }),
+      });
+      if (res.ok) {
+        setChampions((prev) => prev.filter((c) => c.id !== champId));
+        showToast('✓ Champion removed successfully');
+      }
+    } catch {
+      alert('Error deleting champion');
     }
   };
 
@@ -501,6 +635,7 @@ export default function AdminDashboardPage() {
 
   const sidebarTabs = [
     { id: 'settings', label: 'Website & CMS', icon: Settings, desc: 'Announcements, Logo & Helpline' },
+    { id: 'results', label: 'Results & Champions Wall', icon: Trophy, desc: 'Student Ranks, Photos & Result Pamphlet' },
     { id: 'exams', label: 'Exams & Approvals', icon: FileText, desc: 'Approve Teacher Papers & Schedules' },
     { id: 'tests', label: 'Question Bank & PDF', icon: BookOpen, desc: 'AI PDF Extraction & MCQs' },
     { id: 'categories', label: 'Dynamic Categories', icon: Layers, desc: 'Class 5-12, JEE, NEET Modules' },
@@ -769,6 +904,182 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
               </form>
+            </div>
+          )}
+
+          {/* TAB: RESULTS & CHAMPIONS WALL (ALLEN TALLENTEX REPLICA) */}
+          {activeTab === 'results' && (
+            <div className="space-y-6">
+              {/* Banner & Pamphlet Settings Card */}
+              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+                      ALLEN TALLENTEX REPLICA CONTROLLER
+                    </span>
+                    <h2 className="text-xl font-black text-euro-navy mt-1">
+                      Results Celebration Banner & Pamphlet
+                    </h2>
+                    <p className="text-xs text-slate-500">
+                      Upload or configure the result celebration poster displayed prominently on the live Results page.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSaveResultPamphlet}
+                    className="px-4 py-2.5 bg-euro-royal hover:bg-blue-700 text-white rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-sm self-start sm:self-auto"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>Save Result Poster</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">
+                        Result Celebration Pamphlet / Banner URL
+                      </label>
+                      <input
+                        type="text"
+                        value={resultsPamphletUrl}
+                        onChange={(e) => setResultPamphletUrl(e.target.value)}
+                        placeholder="e.g. /posters/ethex_isro_tour_nov29.png or https://..."
+                        className="w-full text-xs font-mono font-semibold p-2.5 border border-slate-300 rounded-xl bg-slate-50 focus:bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 block mb-1">
+                        Results Showcase Headline
+                      </label>
+                      <input
+                        type="text"
+                        value={resultsHeadline}
+                        onChange={(e) => setResultHeadline(e.target.value)}
+                        placeholder="e.g. ETHEX Champions — Previous Year Results & Hall of Fame"
+                        className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-slate-50 focus:bg-white"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Poster Thumbnail Preview */}
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 flex flex-col items-center justify-center text-center">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Live Pamphlet Preview</span>
+                    {resultsPamphletUrl ? (
+                      <img
+                        src={resultsPamphletUrl}
+                        alt="Result Poster Preview"
+                        className="max-h-40 object-contain rounded-xl shadow-xs border border-slate-200"
+                        onError={(e: any) => { e.target.src = '/posters/ethex_isro_tour_nov29.png'; }}
+                      />
+                    ) : (
+                      <div className="text-slate-400 text-xs py-8">No poster image URL provided</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Champions Roster Card */}
+              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                  <div>
+                    <h2 className="text-xl font-black text-euro-navy flex items-center gap-2">
+                      <Trophy className="w-5 h-5 text-amber-500" />
+                      <span>ETHEX Champions & Toppers Wall</span>
+                    </h2>
+                    <p className="text-xs text-slate-500">
+                      Manage student rankers, photos, marks, and scholarships displayed in the live Wall of Fame.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleOpenAddChampion}
+                    className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-extrabold text-xs flex items-center gap-1.5 shadow-sm active:scale-98 self-start sm:self-auto"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Add New Champion</span>
+                  </button>
+                </div>
+
+                {/* Champions Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {champions.map((champ) => (
+                    <div
+                      key={champ.id}
+                      className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4 relative overflow-hidden"
+                    >
+                      <div className="flex items-start gap-3">
+                        <img
+                          src={champ.photo_url || 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop&crop=face'}
+                          alt={champ.student_name}
+                          className="w-16 h-16 rounded-2xl object-cover border-2 border-[#0066FF]/30 shadow-xs flex-shrink-0"
+                          onError={(e: any) => {
+                            e.target.src = 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop&crop=face';
+                          }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-400 text-slate-950 shadow-2xs">
+                              {champ.rank}
+                            </span>
+                            <span className="text-[10px] font-bold text-slate-400">
+                              {champ.year}
+                            </span>
+                          </div>
+                          <h4 className="text-sm font-black text-slate-900 truncate mt-1">
+                            {champ.student_name}
+                          </h4>
+                          <p className="text-[11px] font-bold text-[#0066FF] truncate">
+                            {champ.exam_name}
+                          </p>
+                          <p className="text-[10px] text-slate-500 truncate">
+                            {champ.target_class}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="bg-slate-50 rounded-xl p-2.5 text-[11px] space-y-1 border border-slate-100">
+                        {champ.score && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-500 font-medium">Score:</span>
+                            <span className="font-bold text-slate-800">{champ.score}</span>
+                          </div>
+                        )}
+                        {champ.award && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-500 font-medium">Award:</span>
+                            <span className="font-bold text-emerald-700 truncate max-w-[170px]">{champ.award}</span>
+                          </div>
+                        )}
+                        {champ.school && (
+                          <div className="text-[10px] text-slate-400 truncate pt-0.5">
+                            {champ.school}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-end gap-2 pt-1 border-t border-slate-100">
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditChampion(champ)}
+                          className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center gap-1"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                          <span>Edit</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteChampion(champ.id)}
+                          className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-all flex items-center gap-1"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
@@ -1620,6 +1931,184 @@ export default function AdminDashboardPage() {
                   className="flex-1 py-2.5 bg-euro-royal hover:bg-blue-700 text-white rounded-xl font-bold shadow"
                 >
                   Save Exam
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* CHAMPION ADD / EDIT MODAL (ALLEN TALLENTEX REPLICA) */}
+      {showChampionModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 relative overflow-hidden flex flex-col max-h-[92vh]">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+                  <Trophy className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-black text-slate-900">
+                    {editingChampionId ? 'Edit Champion Topper' : 'Add New Champion to Hall of Fame'}
+                  </h3>
+                  <span className="text-[10px] text-slate-500 font-semibold">Allen Tallentex Results Customizer</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowChampionModal(false)}
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveChampionSubmit} className="overflow-y-auto py-4 space-y-4 pr-1 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Student Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={championForm.student_name}
+                    onChange={(e) => setChampionForm({ ...championForm, student_name: e.target.value })}
+                    placeholder="e.g. Aarav Patil"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Rank / Position *</label>
+                  <input
+                    type="text"
+                    required
+                    value={championForm.rank}
+                    onChange={(e) => setChampionForm({ ...championForm, rank: e.target.value })}
+                    placeholder="e.g. AIR 1, AIR 4, State Rank 1"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-bold text-amber-700"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Target Class *</label>
+                  <select
+                    value={championForm.target_class}
+                    onChange={(e) => setChampionForm({ ...championForm, target_class: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold bg-white"
+                  >
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                    <option value="JEE Mains + Advanced Class 11">JEE Mains + Advanced Class 11</option>
+                    <option value="JEE Mains + Advanced Class 12">JEE Mains + Advanced Class 12</option>
+                    <option value="Class 11 NEET">Class 11 NEET</option>
+                    <option value="Class 12 NEET">Class 12 NEET</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Examination / Stream *</label>
+                  <input
+                    type="text"
+                    required
+                    value={championForm.exam_name}
+                    onChange={(e) => setChampionForm({ ...championForm, exam_name: e.target.value })}
+                    placeholder="e.g. JEE Mains + Advanced / NEET / Foundation"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Score / Percentile</label>
+                  <input
+                    type="text"
+                    value={championForm.score}
+                    onChange={(e) => setChampionForm({ ...championForm, score: e.target.value })}
+                    placeholder="e.g. 234/240 Marks or 99.9%ile"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Award / Scholarship</label>
+                  <input
+                    type="text"
+                    value={championForm.award}
+                    onChange={(e) => setChampionForm({ ...championForm, award: e.target.value })}
+                    placeholder="e.g. Sponsored ISRO Tour + 90% Scholarship"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold text-emerald-700"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">School or Centre Name</label>
+                <input
+                  type="text"
+                  value={championForm.school}
+                  onChange={(e) => setChampionForm({ ...championForm, school: e.target.value })}
+                  placeholder="e.g. Podar International School / PCMC Centre"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Student Photo URL</label>
+                <input
+                  type="text"
+                  value={championForm.photo_url}
+                  onChange={(e) => setChampionForm({ ...championForm, photo_url: e.target.value })}
+                  placeholder="https://images.unsplash.com/... or paste image URL"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-[11px]"
+                />
+                {/* Quick Avatar Presets */}
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-[10px] text-slate-400 font-bold">Quick Presets:</span>
+                  {[
+                    { label: 'Boy 1', url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=400&fit=crop&crop=face' },
+                    { label: 'Girl 1', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face' },
+                    { label: 'Boy 2', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face' },
+                    { label: 'Girl 2', url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face' },
+                  ].map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setChampionForm({ ...championForm, photo_url: preset.url })}
+                      className="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Student Testimonial / Quote</label>
+                <textarea
+                  rows={2}
+                  value={championForm.quote}
+                  onChange={(e) => setChampionForm({ ...championForm, quote: e.target.value })}
+                  placeholder="e.g. ETHEX gave me the winning confidence before my boards."
+                  className="w-full px-3 py-2 rounded-xl border border-slate-300 font-medium"
+                />
+              </div>
+
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-200">
+                <button
+                  type="button"
+                  onClick={() => setShowChampionModal(false)}
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingChampion}
+                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-extrabold flex items-center gap-1.5 shadow-md disabled:opacity-50"
+                >
+                  {savingChampion ? 'Saving...' : 'Save & Publish Champion'}
                 </button>
               </div>
             </form>
