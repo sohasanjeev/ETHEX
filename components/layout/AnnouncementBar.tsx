@@ -20,7 +20,7 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
   if (!isActive || dismissed) return null;
 
   return (
-    <div className="relative z-50 bg-gradient-to-r from-[#1E1B4B] via-[#2E1065] to-[#1E1B4B] text-white px-4 py-2.5 text-xs sm:text-[13px] font-semibold border-b border-amber-500/30 shadow-md overflow-hidden">
+    <div className="relative z-50 bg-gradient-to-r from-[#1E1B4B] via-[#2E1065] to-[#1E1B4B] text-white px-3 py-1.5 text-xs font-semibold border-b border-amber-500/30 shadow-sm overflow-hidden">
       {/* Subtle geometric pattern & gold ambient glow */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"

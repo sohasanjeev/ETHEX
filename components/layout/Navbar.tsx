@@ -96,159 +96,28 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 sm:h-20">
-          {/* Brand Logo on Left: EURO CAMPUS Official Company Emblem & Motto */}
-          <div className="flex-shrink-0 py-2">
+        {/* ROW 1: TOP LINE (EURO LOGO ON LEFT; ONLY CALL & LOGIN OPTIONS ON RIGHT) */}
+        <div className="flex items-center justify-between h-16 sm:h-18">
+          {/* Left: Official EURO CAMPUS Logo */}
+          <div className="flex-shrink-0 py-1.5">
             <CompanyNavbarLogo />
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1.5 xl:space-x-2.5">
-            <Link
-              href="/#about"
-              className="px-3 py-1.5 text-xs xl:text-sm font-bold text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-xl transition-all"
-            >
-              About ETHEX
-            </Link>
-
-            <Link
-              href="/exam-pattern"
-              className={`px-3 py-1.5 text-xs xl:text-sm font-bold rounded-xl transition-all ${
-                pathname === '/exam-pattern' ? 'text-euro-royal font-black bg-blue-50/60' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
-              }`}
-            >
-              Exam Pattern
-            </Link>
-
-            {/* Syllabus with Interactive Dropdown (As in Euro Campus reference) */}
-            <div
-              className="relative"
-              onMouseEnter={() => setSyllabusDropdownOpen(true)}
-              onMouseLeave={() => setSyllabusDropdownOpen(false)}
-            >
-              <button
-                onClick={() => handleSelectClass('class10')}
-                className={`relative px-3 py-1.5 text-xs xl:text-sm font-bold transition-all rounded-xl flex items-center gap-1 ${
-                  syllabusDropdownOpen ? 'text-euro-royal bg-blue-50' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
-                }`}
-              >
-                <span>Syllabus</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    syllabusDropdownOpen ? 'rotate-180 text-euro-royal' : 'text-slate-400'
-                  }`}
-                />
-              </button>
-
-              {syllabusDropdownOpen && (
-                <div className="absolute left-0 mt-1 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="px-3 py-2 border-b border-slate-100 mb-1 flex items-center justify-between">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                      ETHEX CLASS SYLLABUS
-                    </span>
-                    <span className="text-[9px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full">
-                      CLASSES 7–12
-                    </span>
-                  </div>
-                  <div className="space-y-0.5">
-                    {syllabusClasses.map((item) => (
-                      <button
-                        key={item.tab}
-                        onClick={() => handleSelectClass(item.tab)}
-                        className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-euro-royal hover:bg-blue-50/80 flex items-center justify-between group transition-colors"
-                      >
-                        <span className="group-hover:translate-x-0.5 transition-transform">{item.label}</span>
-                        <span className="text-[10px] font-semibold text-slate-400 group-hover:text-euro-royal bg-slate-100 group-hover:bg-blue-100 px-2 py-0.5 rounded-md transition-colors">
-                          {item.tag}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <Link
-              href="/student/exam/simulation"
-              className="relative px-3 py-1.5 text-xs xl:text-sm font-black bg-blue-50 text-euro-royal border border-blue-200 hover:bg-blue-100 rounded-xl transition-all flex items-center gap-1.5 shadow-2xs"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-              </span>
-              <span>Online CBT Mock Test</span>
-            </Link>
-
-            <Link
-              href="/results"
-              className={`px-3 py-1.5 text-xs xl:text-sm font-bold rounded-xl transition-all ${
-                pathname === '/results' ? 'text-euro-royal font-black bg-blue-50/60' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
-              }`}
-            >
-              Results
-            </Link>
-
-            <Link
-              href="/scholarships"
-              className={`px-3 py-1.5 text-xs xl:text-sm font-bold rounded-xl transition-all flex items-center gap-1.5 ${
-                pathname === '/scholarships' ? 'text-euro-royal font-black bg-blue-50/60' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
-              }`}
-            >
-              <span>Scholarships</span>
-              <span className="px-1.5 py-0.2 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full uppercase tracking-tight shadow-2xs">
-                NEW
-              </span>
-            </Link>
-          </nav>
-
-          {/* Right Action Icons & Buttons */}
-          <div className="hidden md:flex items-center space-x-2.5 xl:space-x-3 relative">
-            {/* Call Now Pill (Matching Euro Campus Screenshot & Helpline) */}
-            <a
-              href="tel:9112223354"
-              className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-xs transition-transform hover:scale-102"
-              title="Call EURO Campus Helpline"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              <span>Call Now: 9112223354</span>
-            </a>
-
-            {/* Blue Round Telephone Button */}
+          {/* Right: ONLY Call Option and Login Option (Strictly as Requested) */}
+          <div className="flex items-center space-x-2.5 sm:space-x-3">
+            {/* Call Option */}
             <div className="relative">
-              <button
-                onClick={() => setPhoneMenuOpen(!phoneMenuOpen)}
-                className="w-9 h-9 rounded-full bg-euro-royal hover:bg-blue-700 text-white flex items-center justify-center transition-all shadow-sm focus:outline-none hover:scale-105 active:scale-95"
-                title="Call EURO Campus Helplines"
+              <a
+                href="tel:9112223354"
+                className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-xs transition-transform hover:scale-102"
+                title="Call EURO Campus Helpline: 9112223354"
               >
-                <Phone className="w-4 h-4" />
-              </button>
-
-              {phoneMenuOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 p-4 z-50 text-xs space-y-3 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                    <span className="font-bold text-slate-800">EURO Campus Helplines</span>
-                    <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded">Active</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-500 uppercase font-semibold block">PCMC Campus:</span>
-                    <a href="tel:9112223354" className="font-bold text-euro-royal hover:underline text-xs">
-                      9112223354
-                    </a>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-500 uppercase font-semibold block">Shikrapur Campus:</span>
-                    <a href="tel:9607035688" className="font-bold text-euro-royal hover:underline text-xs">
-                      9607035688
-                    </a>
-                  </div>
-                  <div className="pt-2 border-t border-slate-100 text-[11px] text-slate-400">
-                    Mon - Sat: 9:00 AM - 7:00 PM
-                  </div>
-                </div>
-              )}
+                <Phone className="w-3.5 h-3.5" />
+                <span>Call Us: 9112223354</span>
+              </a>
             </div>
 
-            {/* Candidate Session or Login / Register */}
+            {/* Login Option */}
             {student ? (
               <div className="relative">
                 <button
@@ -258,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                   <div className="w-6 h-6 rounded-full bg-euro-royal text-white flex items-center justify-center text-[11px] font-black">
                     {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
                   </div>
-                  <span className="max-w-[110px] truncate text-slate-800 font-extrabold">
+                  <span className="max-w-[100px] truncate text-slate-800 font-extrabold hidden sm:inline">
                     {student.full_name || student.name || 'Candidate'}
                   </span>
                   <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
@@ -302,55 +171,136 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                 )}
               </div>
             ) : (
-              <>
-                <Link
-                  href="/student/login"
-                  className="px-3.5 py-2 text-xs sm:text-[13px] font-bold text-slate-700 hover:text-euro-royal transition-colors"
-                >
-                  Student Login
-                </Link>
-                <Link
-                  href="/student/register"
-                  className="px-5 py-2 rounded-full bg-gradient-to-r from-euro-royal to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs sm:text-[13px] font-extrabold transition-all shadow-md hover:shadow-lg active:scale-98"
-                >
-                  Register Now
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Hamburger */}
-          <div className="flex lg:hidden items-center space-x-2">
-            <a
-              href="tel:9112223354"
-              className="w-8 h-8 rounded-full bg-euro-royal text-white flex items-center justify-center shadow-xs"
-              title="Call Helpline"
-            >
-              <Phone className="w-3.5 h-3.5" />
-            </a>
-            {student ? (
-              <Link
-                href="/student/dashboard"
-                className="w-8 h-8 rounded-full bg-euro-royal text-white flex items-center justify-center font-bold text-xs"
-                title="My Dashboard"
-              >
-                {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
-              </Link>
-            ) : (
               <Link
                 href="/student/login"
-                className="px-3 py-1 rounded-full border border-euro-royal text-euro-royal text-xs font-bold"
+                className="px-4 sm:px-5 py-1.5 rounded-full bg-euro-royal hover:bg-blue-700 text-white font-extrabold text-xs shadow-xs transition-all active:scale-95"
               >
                 Login
               </Link>
             )}
+
+            {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
+              className="lg:hidden p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
+        </div>
+
+        {/* ROW 2: SUB-OPTIONS (CLASSROOM COURSES, ONLINE COURSES, CBT TEST SERIES, RESULTS, SCHOLARSHIPS, ABOUT US) */}
+        <div className="hidden lg:flex items-center justify-between border-t border-slate-100 py-2">
+          <nav className="flex items-center space-x-1 xl:space-x-2 text-xs xl:text-sm font-bold">
+            <a
+              href="/#courses"
+              className="px-3 py-1 text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-lg transition-colors"
+            >
+              Classroom Courses
+            </a>
+
+            <a
+              href="/#courses"
+              className="px-3 py-1 text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-lg transition-colors"
+            >
+              Online Courses
+            </a>
+
+            <Link
+              href="/student/exam/simulation"
+              className="px-3 py-1 text-euro-royal font-black bg-blue-50/80 border border-blue-200 hover:bg-blue-100 rounded-lg transition-all flex items-center gap-1.5 shadow-2xs"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              </span>
+              <span>CBT Test Series</span>
+            </Link>
+
+            <Link
+              href="/results"
+              className={`px-3 py-1 rounded-lg transition-colors ${
+                pathname === '/results' ? 'text-euro-royal font-black bg-blue-50/60' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
+              }`}
+            >
+              Results
+            </Link>
+
+            <Link
+              href="/scholarships"
+              className={`px-3 py-1 rounded-lg transition-colors flex items-center gap-1 ${
+                pathname === '/scholarships' ? 'text-euro-royal font-black bg-blue-50/60' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
+              }`}
+            >
+              <span>Scholarships</span>
+              <span className="px-1.5 py-0.2 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full uppercase tracking-tight">
+                NEW
+              </span>
+            </Link>
+
+            {/* Syllabus Dropdown with Classes 7 to 12 */}
+            <div
+              className="relative"
+              onMouseEnter={() => setSyllabusDropdownOpen(true)}
+              onMouseLeave={() => setSyllabusDropdownOpen(false)}
+            >
+              <button
+                onClick={() => handleSelectClass('class10')}
+                className={`px-3 py-1 rounded-lg transition-colors flex items-center gap-1 ${
+                  syllabusDropdownOpen ? 'text-euro-royal bg-blue-50' : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
+                }`}
+              >
+                <span>Syllabus</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    syllabusDropdownOpen ? 'rotate-180 text-euro-royal' : 'text-slate-400'
+                  }`}
+                />
+              </button>
+
+              {syllabusDropdownOpen && (
+                <div className="absolute left-0 mt-1 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200/90 p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="px-3 py-2 border-b border-slate-100 mb-1 flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                      ETHEX CLASS SYLLABUS
+                    </span>
+                    <span className="text-[9px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-full">
+                      CLASSES 7–12
+                    </span>
+                  </div>
+                  <div className="space-y-0.5">
+                    {syllabusClasses.map((item) => (
+                      <button
+                        key={item.tab}
+                        onClick={() => handleSelectClass(item.tab)}
+                        className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-euro-royal hover:bg-blue-50/80 flex items-center justify-between group transition-colors"
+                      >
+                        <span className="group-hover:translate-x-0.5 transition-transform">{item.label}</span>
+                        <span className="text-[10px] font-semibold text-slate-400 group-hover:text-euro-royal bg-slate-100 group-hover:bg-blue-100 px-2 py-0.5 rounded-md transition-colors">
+                          {item.tag}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <a
+              href="/#about"
+              className="px-3 py-1 text-slate-700 hover:text-euro-royal hover:bg-slate-50 rounded-lg transition-colors"
+            >
+              About Us
+            </a>
+          </nav>
+
+          <Link
+            href="/student/register"
+            className="px-4 py-1.5 rounded-xl bg-euro-royal hover:bg-blue-700 text-white text-xs font-extrabold shadow-2xs transition-all active:scale-95 flex items-center gap-1.5"
+          >
+            <span>Register for ETHEX</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
 
@@ -378,20 +328,55 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
             </div>
           )}
 
-          <Link
-            href="/#about"
+          <a
+            href="/#courses"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
           >
-            About ETHEX
+            Classroom Courses
+          </a>
+
+          <a
+            href="/#courses"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
+          >
+            Online Courses
+          </a>
+
+          <Link
+            href="/student/exam/simulation"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 text-xs font-black rounded-xl bg-blue-50 text-euro-royal border border-blue-200"
+          >
+            <div className="flex items-center justify-between">
+              <span>CBT Test Series</span>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              </span>
+            </div>
           </Link>
 
           <Link
-            href="/exam-pattern"
+            href="/results"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
           >
-            Exam Pattern
+            Results
+          </Link>
+
+          <Link
+            href="/scholarships"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
+          >
+            <div className="flex items-center justify-between">
+              <span>Scholarships</span>
+              <span className="px-2 py-0.5 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full">
+                NEW
+              </span>
+            </div>
           </Link>
 
           {/* Mobile Syllabus Dropdown Accordion */}
@@ -423,40 +408,13 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
             )}
           </div>
 
-          <Link
-            href="/student/exam/simulation"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-black rounded-xl bg-blue-50 text-euro-royal border border-blue-200"
-          >
-            <div className="flex items-center justify-between">
-              <span>Online CBT Mock Test</span>
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            href="/results"
+          <a
+            href="/#about"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
           >
-            Results
-          </Link>
-
-          <Link
-            href="/scholarships"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 text-xs font-bold rounded-xl text-slate-700 hover:bg-slate-50 hover:text-euro-royal"
-          >
-            <div className="flex items-center justify-between">
-              <span>Scholarships</span>
-              <span className="px-2 py-0.5 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full">
-                NEW
-              </span>
-            </div>
-          </Link>
+            About Us
+          </a>
 
           {student ? (
             <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">

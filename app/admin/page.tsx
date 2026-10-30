@@ -883,6 +883,31 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Official Syllabus PDF / Document URL */}
+                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-euro-royal" />
+                    Official Syllabus PDF / Document Download Link
+                  </h3>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">
+                      Syllabus Document Link (PDF or Image URL)
+                    </label>
+                    <input
+                      type="url"
+                      value={settings.syllabus_pamphlet_url || ''}
+                      onChange={(e) =>
+                        setSettings({ ...settings, syllabus_pamphlet_url: e.target.value })
+                      }
+                      placeholder="https://.../ethex-2026-syllabus.pdf or Google Drive / Cloud URL"
+                      className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-white"
+                    />
+                    <span className="text-[10px] text-slate-400 mt-1 block">
+                      When students or parents click &quot;Download Syllabus&quot; on the homepage or syllabus section, this document will be provided.
+                    </span>
+                  </div>
+                </div>
               </form>
             </div>
           )}

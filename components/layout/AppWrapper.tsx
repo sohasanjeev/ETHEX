@@ -41,11 +41,11 @@ export const AppWrapper: React.FC<AppWrapperProps> = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Navbar examYear={settings?.exam_edition || '2026'} />
       <AnnouncementBar
         text={settings?.announcement_bar_text}
         isActive={settings?.announcement_bar_active ?? true}
       />
-      <Navbar examYear={settings?.exam_edition || '2026'} />
       <main className="flex-grow">{children}</main>
       <Footer
         officialEuroWebsiteUrl={settings?.euro_official_website_url}
