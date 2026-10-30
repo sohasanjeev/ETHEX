@@ -820,49 +820,29 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* Registration Fee & Syllabus Pamphlet Controller */}
+                {/* Registration Fee Controller */}
                 <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
                   <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-purple-600" />
-                    Registration Fee & Syllabus Pamphlet Controller
+                    <CreditCard className="w-4 h-4 text-purple-600" />
+                    ETHEX Registration Fee Controller
                   </h3>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">
-                        Registration Fee (INR)
-                      </label>
-                      <input
-                        type="number"
-                        value={settings.registration_fee || 100}
-                        onChange={(e) =>
-                          setSettings({ ...settings, registration_fee: Number(e.target.value) })
-                        }
-                        placeholder="100"
-                        className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-white"
-                      />
-                      <span className="text-[10px] text-slate-400 mt-1 block">
-                        Amount charged during 3-step Allen-style registration.
-                      </span>
-                    </div>
-
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">
-                        Syllabus Pamphlet Image / File URL
-                      </label>
-                      <input
-                        type="text"
-                        value={settings.syllabus_pamphlet_url || ''}
-                        onChange={(e) =>
-                          setSettings({ ...settings, syllabus_pamphlet_url: e.target.value })
-                        }
-                        placeholder="/posters/ethex_isro_tour_nov29.png"
-                        className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-white"
-                      />
-                      <span className="text-[10px] text-slate-400 mt-1 block">
-                        Displayed in the syllabus bar when students click &quot;View Syllabus Pamphlet&quot;.
-                      </span>
-                    </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">
+                      Registration Fee (INR)
+                    </label>
+                    <input
+                      type="number"
+                      value={settings.registration_fee || 100}
+                      onChange={(e) =>
+                        setSettings({ ...settings, registration_fee: Number(e.target.value) })
+                      }
+                      placeholder="100"
+                      className="w-full max-w-xs text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-white"
+                    />
+                    <span className="text-[10px] text-slate-400 mt-1 block">
+                      Amount charged during 3-step Allen-style registration.
+                    </span>
                   </div>
                 </div>
 
@@ -910,18 +890,18 @@ export default function AdminDashboardPage() {
           {/* TAB: RESULTS & CHAMPIONS WALL (ALLEN TALLENTEX REPLICA) */}
           {activeTab === 'results' && (
             <div className="space-y-6">
-              {/* Banner & Pamphlet Settings Card */}
-              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
+              {/* Results Headline Settings Card */}
+              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-wider text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
-                      ALLEN TALLENTEX REPLICA CONTROLLER
+                      RESULTS & MERIT CONTROLLER
                     </span>
                     <h2 className="text-xl font-black text-euro-navy mt-1">
-                      Results Celebration Banner & Pamphlet
+                      Results Showcase Headline
                     </h2>
                     <p className="text-xs text-slate-500">
-                      Upload or configure the result celebration poster displayed prominently on the live Results page.
+                      Set the headline shown at the top of the Results and Hall of Fame portal.
                     </p>
                   </div>
                   <button
@@ -930,52 +910,21 @@ export default function AdminDashboardPage() {
                     className="px-4 py-2.5 bg-euro-royal hover:bg-blue-700 text-white rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-sm self-start sm:self-auto"
                   >
                     <Save className="w-4 h-4" />
-                    <span>Save Result Poster</span>
+                    <span>Save Headline</span>
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-3">
-                    <div>
-                      <label className="text-xs font-bold text-slate-700 block mb-1">
-                        Result Celebration Pamphlet / Banner URL
-                      </label>
-                      <input
-                        type="text"
-                        value={resultsPamphletUrl}
-                        onChange={(e) => setResultPamphletUrl(e.target.value)}
-                        placeholder="e.g. /posters/ethex_isro_tour_nov29.png or https://..."
-                        className="w-full text-xs font-mono font-semibold p-2.5 border border-slate-300 rounded-xl bg-slate-50 focus:bg-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs font-bold text-slate-700 block mb-1">
-                        Results Showcase Headline
-                      </label>
-                      <input
-                        type="text"
-                        value={resultsHeadline}
-                        onChange={(e) => setResultHeadline(e.target.value)}
-                        placeholder="e.g. ETHEX Champions — Previous Year Results & Hall of Fame"
-                        className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-slate-50 focus:bg-white"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Poster Thumbnail Preview */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 flex flex-col items-center justify-center text-center">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Live Pamphlet Preview</span>
-                    {resultsPamphletUrl ? (
-                      <img
-                        src={resultsPamphletUrl}
-                        alt="Result Poster Preview"
-                        className="max-h-40 object-contain rounded-xl shadow-xs border border-slate-200"
-                        onError={(e: any) => { e.target.src = '/posters/ethex_isro_tour_nov29.png'; }}
-                      />
-                    ) : (
-                      <div className="text-slate-400 text-xs py-8">No poster image URL provided</div>
-                    )}
-                  </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">
+                    Results Showcase Headline Text
+                  </label>
+                  <input
+                    type="text"
+                    value={resultsHeadline}
+                    onChange={(e) => setResultHeadline(e.target.value)}
+                    placeholder="e.g. ETHEX Champions — Previous Year Results & Hall of Fame"
+                    className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-slate-50 focus:bg-white"
+                  />
                 </div>
               </div>
 

@@ -28,7 +28,6 @@ export default function ResultsPage() {
 
   // Dynamic Champions & Results Wall (Customized by Admin)
   const [champions, setChampions] = useState<ResultChampion[]>([]);
-  const [resultsPamphletUrl, setResultPamphletUrl] = useState<string>('/posters/ethex_isro_tour_nov29.png');
   const [resultsHeadline, setResultHeadline] = useState<string>(
     'ETHEX Champions — Previous Year Results & Hall of Fame'
   );
@@ -42,7 +41,6 @@ export default function ResultsPage() {
       const res = await fetch('/api/results/champions');
       const data = await res.json();
       if (data?.champions) setChampions(data.champions);
-      if (data?.results_pamphlet_url) setResultPamphletUrl(data.results_pamphlet_url);
       if (data?.results_headline) setResultHeadline(data.results_headline);
     } catch {
       // Fallback
@@ -92,48 +90,36 @@ export default function ResultsPage() {
           </p>
         </div>
 
-        {/* 1. ADMIN-CUSTOMIZED RESULT CELEBRATION PAMPHLET / BANNER */}
-        {resultsPamphletUrl && (
-          <div className="bg-white rounded-3xl border border-blue-200/80 shadow-md p-4 sm:p-6 flex flex-col md:flex-row items-center gap-6 overflow-hidden">
-            <div className="w-full md:w-1/2 rounded-2xl overflow-hidden border border-slate-200 shadow-inner max-h-[380px] bg-slate-900 flex items-center justify-center">
-              <img
-                src={resultsPamphletUrl}
-                alt="ETHEX Results Celebration Poster"
-                className="w-full h-auto max-h-[380px] object-contain"
-                onError={(e: any) => {
-                  e.target.src = '/posters/ethex_isro_tour_nov29.png';
-                }}
-              />
+        {/* QUICK ACTION BAR */}
+        <div className="bg-gradient-to-r from-blue-900 via-indigo-950 to-slate-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-bold">
+              <Trophy className="w-3.5 h-3.5 text-amber-400" />
+              <span>OFFICIAL RESULT PUBLICATION • ACADEMIC YEAR 2027–2028</span>
             </div>
-            <div className="w-full md:w-1/2 space-y-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-black">
-                <Trophy className="w-3.5 h-3.5 text-amber-500" />
-                <span>OFFICIAL RESULT PUBLICATION</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-950 leading-tight">
-                {resultsHeadline}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-                EURO Campus salutes the extraordinary academic talent displayed by our candidates. Over <strong>₹2.5 Crores in scholarships</strong> and sponsored <strong>ISRO Educational Tours</strong> awarded to top performers!
-              </p>
-              <div className="pt-2 flex flex-wrap gap-3">
-                <a
-                  href="#individual-scorecard"
-                  className="px-5 py-2.5 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
-                >
-                  <Search className="w-4 h-4" />
-                  <span>Search Individual Scorecard</span>
-                </a>
-                <Link
-                  href="/student/register"
-                  className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all"
-                >
-                  Register for Next Exam
-                </Link>
-              </div>
-            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-white">
+              {resultsHeadline || 'ETHEX 2026 State Merit List & Scorecards'}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-xl">
+              Over <strong>₹2.5 Crores in scholarships</strong> and sponsored <strong>ISRO Educational Tours</strong> awarded to top performers!
+            </p>
           </div>
-        )}
+          <div className="flex flex-wrap gap-3 flex-shrink-0">
+            <a
+              href="#individual-scorecard"
+              className="px-5 py-3 bg-[#0066FF] hover:bg-blue-600 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center gap-2"
+            >
+              <Search className="w-4 h-4" />
+              <span>Search Scorecard</span>
+            </a>
+            <Link
+              href="/"
+              className="px-5 py-3 bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm rounded-xl border border-white/20 transition-all"
+            >
+              Back to Home
+            </Link>
+          </div>
+        </div>
 
         {/* 2. ALLEN TALLENTEX-STYLE CHAMPIONS WALL / TOPPERS SHOWCASE */}
         <div className="space-y-6">
