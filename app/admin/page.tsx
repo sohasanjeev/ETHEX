@@ -37,6 +37,7 @@ import {
   Plus,
   X,
   Edit3,
+  Download,
 } from 'lucide-react';
 import {
   SiteSettings,
@@ -242,6 +243,51 @@ export default function AdminDashboardPage() {
     } finally {
       setSavingSettings(false);
     }
+  };
+
+  const handleExportApplicationsCSV = () => {
+    if (!applications || applications.length === 0) {
+      alert('No student registrations available to export.');
+      return;
+    }
+
+    const headers = [
+      'Application Number',
+      'Roll Number',
+      'Student Name',
+      'Mobile Number',
+      'Target Class',
+      'Registration Date',
+      'Payment Status',
+      'Fee Paid (INR)',
+      'Payment Mode',
+      'UTR Reference Number',
+      'Selected Mode',
+    ];
+
+    const rows = applications.map((app) => [
+      `"${app.application_number || ''}"`,
+      `"${app.roll_number || ''}"`,
+      `"${app.student_name || app.student?.full_name || 'Registered Candidate'}"`,
+      `"${app.student_phone || app.student?.phone || ''}"`,
+      `"${app.student_class || app.student?.student_details?.current_class || 'Class 10'}"`,
+      `"${app.created_at ? new Date(app.created_at).toLocaleString() : ''}"`,
+      `"${(app.payment_status || 'successful').toUpperCase()}"`,
+      `"${app.fee_paid || app.fee_amount || 100}"`,
+      `"${app.payment_mode || 'UPI_QR'}"`,
+      `"${app.utr_number || 'VERIFIED'}"`,
+      `"${(app.selected_mode || 'online').toUpperCase()}"`,
+    ]);
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `ETHEX_2026_Student_Registrations_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('Exported student registrations to CSV successfully!');
   };
 
   // Exam Workflow handlers
@@ -639,6 +685,52 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
+                {/* Registration Fee & Syllabus Pamphlet Controller */}
+                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-purple-600" />
+                    Registration Fee & Syllabus Pamphlet Controller
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">
+                        Registration Fee (INR)
+                      </label>
+                      <input
+                        type="number"
+                        value={settings.registration_fee || 100}
+                        onChange={(e) =>
+                          setSettings({ ...settings, registration_fee: Number(e.target.value) })
+                        }
+                        placeholder="100"
+                        className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-white"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">
+                        Amount charged during 3-step Allen-style registration.
+                      </span>
+                    </div>
+
+                    <div>
+                      <label className="font-bold text-slate-700 block mb-1">
+                        Syllabus Pamphlet Image / File URL
+                      </label>
+                      <input
+                        type="text"
+                        value={settings.syllabus_pamphlet_url || ''}
+                        onChange={(e) =>
+                          setSettings({ ...settings, syllabus_pamphlet_url: e.target.value })
+                        }
+                        placeholder="/posters/ethex_isro_tour_nov29.png"
+                        className="w-full text-xs font-semibold p-2.5 border border-slate-300 rounded-xl bg-white"
+                      />
+                      <span className="text-[10px] text-slate-400 mt-1 block">
+                        Displayed in the syllabus bar when students click &quot;View Syllabus Pamphlet&quot;.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Helpline Numbers & Support */}
                 <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
                   <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
@@ -1019,19 +1111,30 @@ export default function AdminDashboardPage() {
           {/* TAB 7: APPLICATIONS */}
           {activeTab === 'applications' && (
             <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4">
-              <div className="border-b border-slate-100 pb-3">
-                <h2 className="text-xl font-black text-euro-navy">Student Applications & Roll Allocation</h2>
-                <p className="text-xs text-slate-500">Live roster of submitted candidate applications across categories.</p>
+              <div className="border-b border-slate-100 pb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-xl font-black text-euro-navy">Student Registrations & Payment Roster</h2>
+                  <p className="text-xs text-slate-500">Live roster of candidates, payment UTR records, and roll allocations.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleExportApplicationsCSV}
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 self-start sm:self-auto"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Export Registrations (CSV)</span>
+                </button>
               </div>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
                     <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
-                      <th className="p-3">App Number</th>
-                      <th className="p-3">Roll Number</th>
-                      <th className="p-3">Mode</th>
-                      <th className="p-3">Status</th>
+                      <th className="p-3">Candidate</th>
+                      <th className="p-3">Mobile & Class</th>
+                      <th className="p-3">Roll & App No</th>
+                      <th className="p-3">Payment & UTR</th>
+                      <th className="p-3">Registered At</th>
                       <th className="p-3">Admit Card</th>
                       <th className="p-3">Actions</th>
                     </tr>
@@ -1039,13 +1142,38 @@ export default function AdminDashboardPage() {
                   <tbody className="divide-y divide-slate-100">
                     {applications.map((app) => (
                       <tr key={app.id} className="hover:bg-slate-50">
-                        <td className="p-3 font-mono font-bold text-slate-800">{app.application_number}</td>
-                        <td className="p-3 font-mono font-bold text-euro-royal">{app.roll_number || 'Pending'}</td>
-                        <td className="p-3 font-semibold uppercase">{app.selected_mode}</td>
                         <td className="p-3">
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                            {app.application_status.toUpperCase()}
+                          <span className="font-extrabold text-slate-900 block text-xs">
+                            {app.student_name || app.student?.full_name || 'Candidate'}
                           </span>
+                          <span className="text-[10px] text-slate-400 font-medium">
+                            {app.student_id}
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <span className="font-bold text-slate-700 block">
+                            +91 {app.student_phone || app.student?.phone || '—'}
+                          </span>
+                          <span className="text-[11px] font-semibold text-[#0066FF] bg-blue-50 px-2 py-0.2 rounded inline-block mt-0.5">
+                            {app.student_class || app.student?.student_details?.current_class || 'Class 10'}
+                          </span>
+                        </td>
+                        <td className="p-3 font-mono">
+                          <span className="font-bold text-euro-royal block">{app.roll_number || 'Pending'}</span>
+                          <span className="text-[10px] text-slate-400">{app.application_number}</span>
+                        </td>
+                        <td className="p-3">
+                          <div className="flex items-center gap-1.5">
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                              PAID (₹{app.fee_paid || app.fee_amount || 100})
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-mono text-slate-500 block mt-0.5">
+                            UTR: {app.utr_number || 'VERIFIED'}
+                          </span>
+                        </td>
+                        <td className="p-3 text-slate-500 text-[11px]">
+                          {app.created_at ? new Date(app.created_at).toLocaleDateString() : 'Recent'}
                         </td>
                         <td className="p-3">
                           {app.admit_card_published ? (

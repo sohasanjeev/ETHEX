@@ -24,7 +24,7 @@ let siteSettingsState: SiteSettings = {
   id: 'current',
   exam_name: 'ETHEX 2026',
   exam_full_form: 'EURO TALENT HUNT EXAM',
-  academic_year: '2027–2028 (Phase 2)',
+  academic_year: '2027–2028',
   exam_edition: '2026',
   exam_date_display: '29th November 2026 (Sunday)',
   exam_date_iso: '2026-11-29T10:00:00+05:30',
@@ -38,8 +38,10 @@ let siteSettingsState: SiteSettings = {
   helpline_pcmc: '9112223354 / 9607035688',
   helpline_shikrapur: '9607035688',
   official_email: 'admissions@eurocampus.edu.in',
-  announcement_bar_text: 'ETHEX 2026 (Phase 2) Exam Date: 29th November 2026 for Classes 7 to 12 • Win Up to 90% Scholarship & ISRO Tour!',
+  announcement_bar_text: 'ETHEX 2026 Examination: 29th November 2026 for Classes 7 to 12 • Win Up to 90% Scholarship & ISRO Tour!',
   announcement_bar_active: true,
+  registration_fee: 100,
+  syllabus_pamphlet_url: '/posters/ethex_isro_tour_nov29.png',
   updated_at: new Date().toISOString(),
 };
 
@@ -773,32 +775,48 @@ export const dataService = {
     exam_id: string;
     selected_mode: 'online' | 'offline';
     centre_id?: string;
+    student_name?: string;
+    student_phone?: string;
+    student_class?: string;
+    payment_status?: 'not_required' | 'pending' | 'successful' | 'failed' | 'refunded';
+    payment_mode?: 'UPI_QR' | 'UPI_VPA' | 'CARD' | 'NETBANKING' | 'CASH';
+    utr_number?: string;
+    fee_amount?: number;
+    fee_paid?: number;
   }): Promise<Application> => {
     const exam = examsState.find((e) => e.id === data.exam_id);
     const appNum = `ETHEX26-${Math.floor(100000 + Math.random() * 900000)}`;
     const rollNum = `ETHEX26-R${Math.floor(10000 + Math.random() * 90000)}`;
     const qrCode = `ETHEX-VERIFY-${rollNum}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
 
+    const isPaid = data.payment_status === 'successful';
+    const amount = data.fee_amount !== undefined ? data.fee_amount : (exam?.fee_amount || 100);
+
     const newApp: Application = {
       id: `app-${Date.now()}`,
       application_number: appNum,
       student_id: data.student_id,
+      student_name: data.student_name,
+      student_phone: data.student_phone,
+      student_class: data.student_class,
       exam_id: data.exam_id,
       selected_mode: data.selected_mode,
       centre_id: data.centre_id || null,
       roll_number: rollNum,
       admit_card_number: `AC-${rollNum}`,
-      application_status: exam?.fee_type === 'paid' ? 'pending_payment' : 'confirmed',
-      payment_status: exam?.fee_type === 'paid' ? 'pending' : 'not_required',
-      fee_amount: exam?.fee_amount || 0,
-      fee_paid: exam?.fee_type === 'free' ? 0 : 0,
+      application_status: isPaid ? 'confirmed' : (exam?.fee_type === 'paid' ? 'pending_payment' : 'confirmed'),
+      payment_status: data.payment_status || (exam?.fee_type === 'paid' ? 'pending' : 'successful'),
+      payment_mode: data.payment_mode || 'UPI_QR',
+      utr_number: data.utr_number || (isPaid ? `UPI${Math.floor(100000000000 + Math.random() * 900000000000)}` : undefined),
+      fee_amount: amount,
+      fee_paid: isPaid ? (data.fee_paid || amount) : 0,
       admit_card_published: true,
       qr_verification_code: qrCode,
       created_at: new Date().toISOString(),
-      confirmed_at: exam?.fee_type === 'free' ? new Date().toISOString() : null,
+      confirmed_at: isPaid ? new Date().toISOString() : null,
     };
 
-    applicationsState.push(newApp);
+    applicationsState.unshift(newApp);
     return newApp;
   },
 

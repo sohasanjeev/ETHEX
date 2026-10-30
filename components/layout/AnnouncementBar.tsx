@@ -11,7 +11,7 @@ interface AnnouncementBarProps {
 }
 
 export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
-  text = 'ETHEX 2026 (Phase 2) Exam Date: 29th November 2026 for Classes 7 to 12 • Win Up to 90% Scholarship & ISRO Tour!',
+  text = 'ETHEX 2026 Examination: 29th November 2026 for Classes 7 to 12 • Win Up to 90% Scholarship & ISRO Tour!',
   link = '/student/register',
   isActive = true,
 }) => {

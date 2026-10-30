@@ -81,7 +81,7 @@ export default function ExamPatternPage() {
               href="/student/register"
               className="px-5 py-2.5 bg-[#0066FF] hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl shadow-sm transition-all"
             >
-              Register for Free
+              Register for ETHEX
             </Link>
           </div>
         </div>
@@ -155,11 +155,11 @@ export default function ExamPatternPage() {
               </ul>
             </div>
 
-            {/* IIT-JEE (Classes 11 & 12) */}
+            {/* JEE Mains + Advanced Class 11 & 12 */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg">IIT-JEE Track (Classes 11 & 12)</h3>
+                  <h3 className="font-bold text-slate-900 text-lg">JEE Mains + Advanced (Class 11 & 12)</h3>
                   <p className="text-[11px] text-slate-500">JEE Main + Advanced, MHT-CET Engineering</p>
                 </div>
                 <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded">
@@ -182,12 +182,12 @@ export default function ExamPatternPage() {
               </ul>
             </div>
 
-            {/* NEET-UG (Classes 11 & 12) */}
+            {/* Class 11 NEET & Class 12 NEET */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg">NEET-UG Medical (Classes 11 & 12)</h3>
-                  <p className="text-[11px] text-slate-500">Medical Entrance, AIIMS, State Merit</p>
+                  <h3 className="font-bold text-slate-900 text-lg">Class 11 NEET & Class 12 NEET</h3>
+                  <p className="text-[11px] text-slate-500">Medical Entrance, AIIMS, State Merit Seats</p>
                 </div>
                 <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded">
                   60 Qs • 240 Marks

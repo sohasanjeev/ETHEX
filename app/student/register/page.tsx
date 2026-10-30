@@ -398,38 +398,22 @@ function RegisterForm() {
           </div>
 
           {/* Target Class Selection: STRICTLY Class 7 to Class 12 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-700">Target Class * (Class 7 to 12 only)</label>
-              <select
-                value={formData.currentClass}
-                onChange={(e) => setFormData({ ...formData, currentClass: e.target.value })}
-                className="w-full px-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-bold text-slate-800"
-              >
-                <option value="Class 7">Class 7 (Middle School Foundation)</option>
-                <option value="Class 8">Class 8 (Foundation & Science Champ)</option>
-                <option value="Class 9">Class 9 (Pre-JEE / Pre-NEET)</option>
-                <option value="Class 10">Class 10 (Pre-JEE / Pre-NEET Target)</option>
-                <option value="Class 11">Class 11 (Senior Secondary)</option>
-                <option value="Class 12">Class 12 (Board & Target Batch)</option>
-                <option value="JEE Aspirant">JEE Aspirant (12th Pass / Dropper)</option>
-                <option value="NEET Aspirant">NEET Aspirant (12th Pass / Dropper)</option>
-              </select>
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-700">Target Stream / Goal *</label>
-              <select
-                value={formData.targetStream}
-                onChange={(e) => setFormData({ ...formData, targetStream: e.target.value })}
-                className="w-full px-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-bold text-slate-800"
-              >
-                <option value="Foundation">Foundation & Olympiads</option>
-                <option value="JEE">Engineering (IIT-JEE Main + Advanced)</option>
-                <option value="NEET">Medical (NEET-UG)</option>
-                <option value="MHT-CET">Maharashtra CET (Engineering / Pharmacy)</option>
-              </select>
-            </div>
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-slate-700">Target Class *</label>
+            <select
+              value={formData.currentClass}
+              onChange={(e) => setFormData({ ...formData, currentClass: e.target.value })}
+              className="w-full px-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-bold text-slate-800"
+            >
+              <option value="Class 7">Class 7</option>
+              <option value="Class 8">Class 8</option>
+              <option value="Class 9">Class 9</option>
+              <option value="Class 10">Class 10</option>
+              <option value="JEE Mains + Advanced Class 11">JEE Mains + Advanced Class 11</option>
+              <option value="JEE Mains + Advanced Class 12">JEE Mains + Advanced Class 12</option>
+              <option value="Class 11 NEET">Class 11 NEET</option>
+              <option value="Class 12 NEET">Class 12 NEET</option>
+            </select>
           </div>
 
           {/* Exam Mode Toggle */}
@@ -554,7 +538,7 @@ function RegisterForm() {
             disabled={loading}
             className="w-full py-3.5 bg-[#0066FF] hover:bg-blue-700 text-white font-extrabold text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50"
           >
-            {loading ? 'Submitting Registration...' : 'Complete Free Registration & Generate Admit Card'}
+            {loading ? 'Submitting Registration...' : 'Complete Registration & Generate Admit Card'}
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>

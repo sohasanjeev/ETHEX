@@ -31,6 +31,8 @@ export interface SiteSettings {
   official_email: string;
   announcement_bar_text: string;
   announcement_bar_active: boolean;
+  registration_fee?: number;
+  syllabus_pamphlet_url?: string;
   updated_at: string;
 }
 
@@ -128,6 +130,9 @@ export interface Application {
   id: string;
   application_number: string;
   student_id: string;
+  student_name?: string;
+  student_phone?: string;
+  student_class?: string;
   exam_id: string;
   selected_mode: ExamMode;
   centre_id?: string | null;
@@ -137,6 +142,8 @@ export interface Application {
   admit_card_number?: string | null;
   application_status: ApplicationStatus;
   payment_status: PaymentStatus;
+  payment_mode?: 'UPI_QR' | 'UPI_VPA' | 'CARD' | 'NETBANKING' | 'CASH';
+  utr_number?: string;
   fee_amount: number;
   fee_paid: number;
   admit_card_published: boolean;

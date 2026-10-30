@@ -15,6 +15,7 @@ import {
   LogOut,
   LayoutDashboard,
   ShieldCheck,
+  ArrowRight,
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -51,20 +52,18 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
     router.push('/');
   };
 
+  // Ultra-clean streamlined navigation inspired by Allen Tallentex
   const navLinks = [
-    { label: 'Courses & Foundation', href: '/about' },
     { label: 'Exam Pattern', href: '/exam-pattern' },
-    { label: 'Online CBT Mock', href: '/student/exam/simulation', highlight: true },
+    { label: 'Syllabus', href: '/#syllabus' },
+    { label: 'Online CBT Mock Test', href: '/student/exam/simulation', highlight: true },
     { label: 'Results', href: '/results' },
     { label: 'Scholarships', href: '/scholarships', badge: 'NEW' },
-    { label: 'Centres', href: '/centres' },
-    { label: 'Teacher Portal', href: '/teacher' },
-    { label: 'Admin', href: '/admin' },
-    { label: 'FAQs', href: '/faqs' },
   ];
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
+    if (href.startsWith('/#')) return false;
     return pathname.startsWith(href);
   };
 
@@ -78,16 +77,16 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-3">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`relative px-2.5 py-1.5 text-xs xl:text-[13px] font-semibold transition-all rounded-lg ${
+                className={`relative px-3 py-1.5 text-xs xl:text-sm font-bold transition-all rounded-xl ${
                   link.highlight
-                    ? 'bg-blue-50 text-euro-royal font-bold border border-blue-200 hover:bg-blue-100 flex items-center gap-1.5 shadow-xs'
+                    ? 'bg-blue-50 text-euro-royal font-black border border-blue-200 hover:bg-blue-100 flex items-center gap-1.5 shadow-2xs'
                     : isActive(link.href)
-                    ? 'text-euro-royal font-bold bg-blue-50/50'
+                    ? 'text-euro-royal font-black bg-blue-50/60'
                     : 'text-slate-700 hover:text-euro-royal hover:bg-slate-50'
                 }`}
               >
@@ -99,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                 )}
                 <span>{link.label}</span>
                 {link.badge && (
-                  <span className="ml-1 px-1.5 py-0.2 text-[9px] font-extrabold bg-[#EAB308] text-slate-900 rounded-full uppercase tracking-tight shadow-xs">
+                  <span className="ml-1.5 px-1.5 py-0.2 text-[9px] font-black bg-[#EAB308] text-slate-900 rounded-full uppercase tracking-tight shadow-2xs">
                     {link.badge}
                   </span>
                 )}
@@ -128,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                   <div>
                     <span className="text-[10px] text-slate-500 uppercase font-semibold block">PCMC Campus:</span>
                     <a href="tel:9112223354" className="font-bold text-euro-royal hover:underline text-xs">
-                      9112223354 / 9112233995
+                      9112223354
                     </a>
                   </div>
                   <div>
@@ -137,89 +136,79 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                       9607035688
                     </a>
                   </div>
+                  <div className="pt-2 border-t border-slate-100 text-[11px] text-slate-400">
+                    Mon - Sat: 9:00 AM - 7:00 PM
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* If Student is Logged In: Show Profile & Dashboard instead of Login/Register */}
+            {/* Candidate Session or Login / Register */}
             {student ? (
-              <div className="flex items-center space-x-2">
-                {/* Candidate Profile Pill & Dropdown */}
-                <div className="relative">
-                  <button
-                    onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 hover:bg-blue-100 border border-blue-200 text-slate-800 transition-all shadow-xs"
-                  >
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-euro-navy to-euro-royal text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                      {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
+              <div className="relative">
+                <button
+                  onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-200 bg-blue-50/80 hover:bg-blue-100 text-euro-royal text-xs font-bold transition-all"
+                >
+                  <div className="w-6 h-6 rounded-full bg-euro-royal text-white flex items-center justify-center text-[11px] font-black">
+                    {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
+                  </div>
+                  <span className="max-w-[110px] truncate text-slate-800 font-extrabold">
+                    {student.full_name || student.name || 'Candidate'}
+                  </span>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+                </button>
+
+                {profileDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 text-xs space-y-1 animate-in fade-in zoom-in-95 duration-150">
+                    <div className="px-3 py-2 border-b border-slate-100">
+                      <p className="font-extrabold text-slate-900">{student.full_name || student.name || 'Candidate'}</p>
+                      <p className="text-[10px] text-slate-400 truncate">{student.phone || student.email || 'Candidate Account'}</p>
                     </div>
-                    <span className="text-xs font-bold text-slate-800 max-w-[110px] truncate">
-                      {student.full_name || student.name || 'Candidate'}
-                    </span>
-                    <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
-                  </button>
 
-                  {profileDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 text-xs space-y-1 animate-in fade-in zoom-in-95 duration-150">
-                      <div className="px-3 py-2 border-b border-slate-100 mb-1">
-                        <span className="text-[10px] uppercase font-bold text-slate-400 block">Signed in as</span>
-                        <p className="font-extrabold text-slate-900 truncate">{student.full_name || student.name || 'Student'}</p>
-                        <p className="text-[11px] text-slate-500 truncate">{student.email || 'Candidate Account'}</p>
-                      </div>
+                    <Link
+                      href="/student/dashboard"
+                      onClick={() => setProfileDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-euro-royal rounded-xl font-semibold transition-colors"
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-slate-400" />
+                      <span>Exam Dashboard</span>
+                    </Link>
 
-                      <Link
-                        href="/student/dashboard"
-                        onClick={() => setProfileDropdownOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-euro-royal font-bold transition-colors"
-                      >
-                        <LayoutDashboard className="w-4 h-4 text-euro-royal" />
-                        <span>Candidate Dashboard</span>
-                      </Link>
+                    <Link
+                      href="/student/profile"
+                      onClick={() => setProfileDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-euro-royal rounded-xl font-semibold transition-colors"
+                    >
+                      <User className="w-4 h-4 text-slate-400" />
+                      <span>My Profile</span>
+                    </Link>
 
-                      <Link
-                        href="/student/profile"
-                        onClick={() => setProfileDropdownOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-euro-royal font-bold transition-colors"
-                      >
-                        <User className="w-4 h-4 text-euro-royal" />
-                        <span>My Profile & Enrollment</span>
-                      </Link>
-
+                    <div className="border-t border-slate-100 pt-1">
                       <button
                         onClick={handleSignOut}
-                        className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-bold transition-colors text-left"
+                        className="w-full flex items-center gap-2 px-3 py-2 text-rose-600 hover:bg-rose-50 rounded-xl font-semibold transition-colors"
                       >
-                        <LogOut className="w-4 h-4" />
+                        <LogOut className="w-4 h-4 text-rose-500" />
                         <span>Sign Out</span>
                       </button>
                     </div>
-                  )}
-                </div>
-
-                {/* Direct Dashboard Link */}
-                <Link
-                  href="/student/dashboard"
-                  className="px-4 py-2 rounded-full bg-euro-royal hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm"
-                >
-                  Dashboard
-                </Link>
+                  </div>
+                )}
               </div>
             ) : (
               <>
-                {/* Login Pill Button */}
                 <Link
                   href="/student/login"
-                  className="px-5 py-2 rounded-full border-2 border-euro-royal text-euro-royal hover:bg-blue-50 text-xs sm:text-[13px] font-bold transition-all shadow-xs"
+                  className="px-3.5 py-2 text-xs sm:text-[13px] font-bold text-slate-700 hover:text-euro-royal transition-colors"
                 >
-                  Login
+                  Student Login
                 </Link>
-
-                {/* Register Now Pill */}
                 <Link
                   href="/student/register"
-                  className="px-5 py-2 rounded-full bg-gradient-to-r from-euro-royal to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs sm:text-[13px] font-bold transition-all shadow-md hover:shadow-lg active:scale-98"
+                  className="px-5 py-2 rounded-full bg-gradient-to-r from-euro-royal to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs sm:text-[13px] font-extrabold transition-all shadow-md hover:shadow-lg active:scale-98"
                 >
-                  Register Free
+                  Register Now
                 </Link>
               </>
             )}
@@ -271,7 +260,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                 </div>
                 <div>
                   <p className="font-extrabold text-slate-900 text-xs">{student.full_name || student.name || 'Candidate'}</p>
-                  <p className="text-[10px] text-slate-500">{student.email || 'Candidate Account'}</p>
+                  <p className="text-[10px] text-slate-500">{student.phone || student.email || 'Candidate Account'}</p>
                 </div>
               </div>
               <button
@@ -337,7 +326,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-2.5 text-center bg-euro-royal text-white font-bold text-xs rounded-xl shadow-sm"
               >
-                Register Free
+                Register for ETHEX
               </Link>
             </div>
           )}
