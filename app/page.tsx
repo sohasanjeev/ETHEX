@@ -823,12 +823,12 @@ export default function HomePage() {
                 </div>
                 <h4 className="font-black text-slate-900 text-base">Appear for Exam</h4>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Appear on 29th November 2026 Online from home (CBT proctored) or Offline at EURO Campus PCMC / Shikrapur.
+                  Appear on 29th November 2026 Offline at EURO Campus (PCMC / Shikrapur) or Online CBT from home.
                 </p>
               </div>
-              <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-amber-700 flex items-center gap-1">
-                <Trophy className="w-3.5 h-3.5" />
-                <span>Win Up to 90% Scholarship</span>
+              <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-amber-700 flex items-center gap-1.5 leading-snug">
+                <Trophy className="w-4 h-4 flex-shrink-0 text-amber-500" />
+                <span>Get an ISRO educational trip as well as up to 90% scholarship</span>
               </div>
             </div>
           </div>
@@ -1527,7 +1527,7 @@ export default function HomePage() {
                   INSTITUTIONAL COLLABORATION
                 </span>
                 <h3 className="text-xl font-black text-slate-900 mt-1">
-                  Invite ETHEX in Your School
+                  Invite EURO to Your School
                 </h3>
               </div>
               <button
@@ -1644,6 +1644,23 @@ export default function HomePage() {
           </div>
         </div>
       )}
+
+      {/* TEMPORARY FLOATING BADGE: INVITE EURO TO YOUR SCHOOL */}
+      <button
+        onClick={() => setSchoolModalOpen(true)}
+        className="fixed bottom-20 md:bottom-6 right-3 sm:right-6 z-40 group flex items-center gap-2 px-3 sm:px-3.5 py-2 bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 hover:from-blue-900 hover:to-indigo-900 text-white rounded-full shadow-2xl border border-amber-400/50 backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 text-xs font-bold"
+        title="Invite EURO to Your School"
+      >
+        <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-black text-[10px] shadow-xs flex-shrink-0">
+          🏫
+        </span>
+        <span className="hidden sm:inline font-extrabold text-[11px] text-amber-300 tracking-tight">
+          Invite EURO to your school
+        </span>
+        <span className="sm:hidden font-extrabold text-[10px] text-amber-300 tracking-tight">
+          Invite EURO
+        </span>
+      </button>
 
       {/* MOBILE STICKY BOTTOM REGISTRATION BAR (ALLEN TALLENTEX MOBILE APP/WEB UX) */}
       <div className="block md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#060D1E]/95 backdrop-blur-md border-t border-blue-900/60 p-3 shadow-2xl">

@@ -31,7 +31,7 @@ function RegisterForm() {
     phone: '',
     currentClass: 'Class 10',
     targetStream: 'Foundation',
-    examMode: 'ONLINE',
+    examMode: 'OFFLINE',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -302,7 +302,7 @@ function RegisterForm() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Email Address (Optional)</label>
+                <label className="text-xs font-bold text-slate-700">Email Address</label>
                 <div className="relative">
                   <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
@@ -422,21 +422,10 @@ function RegisterForm() {
             </select>
           </div>
 
-          {/* Exam Mode Toggle */}
+          {/* Exam Mode Toggle (1st: Offline Campus PCMC & Shikrapur, 2nd: Online CBT Mode) */}
           <div className="space-y-1">
             <label className="text-xs font-bold text-slate-700">Preferred Exam Mode *</label>
             <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, examMode: 'ONLINE' })}
-                className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all text-center ${
-                  formData.examMode === 'ONLINE'
-                    ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-sm'
-                    : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
-                }`}
-              >
-                Online CBT Exam (From Home)
-              </button>
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, examMode: 'OFFLINE' })}
@@ -447,6 +436,17 @@ function RegisterForm() {
                 }`}
               >
                 Offline Campus (PCMC / Shikrapur)
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, examMode: 'ONLINE' })}
+                className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all text-center ${
+                  formData.examMode === 'ONLINE'
+                    ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-sm'
+                    : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100'
+                }`}
+              >
+                Online CBT Mode (From Home)
               </button>
             </div>
           </div>
