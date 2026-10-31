@@ -33,7 +33,9 @@ export const CombinedBrandLogo: React.FC<CombinedBrandLogoProps> = ({
 
       {/* Elegant Vertical Divider */}
       <div
-        className={`h-6 sm:h-8 w-[1.5px] flex-shrink-0 ${
+        className={`${
+          size === "sm" ? "h-5 sm:h-6.5" : "h-6 sm:h-8"
+        } w-[1px] flex-shrink-0 ${
           theme === "dark" && variant !== "card" ? "bg-white/20" : "bg-slate-300"
         }`}
       ></div>

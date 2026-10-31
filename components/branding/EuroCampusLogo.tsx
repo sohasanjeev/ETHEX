@@ -13,10 +13,10 @@ export const EuroCampusLogo: React.FC<LogoProps> = ({
   theme = "light",
 }) => {
   const heightClass = {
-    sm: "h-6.5 sm:h-8.5",
-    md: "h-9 sm:h-11",
-    lg: "h-12 sm:h-14",
-    xl: "h-16 sm:h-18",
+    sm: "h-7 sm:h-8 max-w-[135px] sm:max-w-[170px]",
+    md: "h-8 sm:h-9.5 max-w-[155px] sm:max-w-[195px]",
+    lg: "h-10 sm:h-12 max-w-[185px] sm:max-w-[230px]",
+    xl: "h-12 sm:h-14 max-w-[220px] sm:max-w-[270px]",
   }[size];
 
   return (

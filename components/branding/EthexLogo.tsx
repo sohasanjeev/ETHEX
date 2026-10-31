@@ -38,7 +38,7 @@ export const EthexLogo: React.FC<EthexLogoProps> = ({
         src="/branding/ethex_logo_official_transparent.png"
         alt={`ETHEX ${year} - EURO TALENT HUNT EXAM`}
         className={`object-contain max-w-full transition-transform duration-300 hover:scale-102 ${filterStyle} ${
-          size === 'sm' ? 'h-6.5 sm:h-9' : ''
+          size === 'sm' ? 'h-7 sm:h-8 max-w-[125px] sm:max-w-[150px]' : ''
         }`}
         style={size === 'sm' ? { width: 'auto' } : { height: `${actualHeight}px`, width: 'auto' }}
       />

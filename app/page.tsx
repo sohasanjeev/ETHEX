@@ -439,26 +439,26 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white w-full max-w-full overflow-x-hidden">
-      {/* 1. FRONT BANNER: DESKTOP LANDSCAPE & MOBILE SQUARE (100% RESPONSIVE) */}
+      {/* 1. FRONT BANNER: DESKTOP LANDSCAPE & MOBILE SQUARE (100% REAL SIZE, FULL FLAGS, NO CUT-OFF) */}
       <section className="bg-gradient-to-b from-[#060D1E] via-[#09152E] to-[#0D1D3A] pt-4 pb-6 px-3 sm:px-6 lg:px-8 border-b border-blue-900/40 w-full overflow-hidden">
         <div className="max-w-7xl mx-auto w-full">
           <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-blue-500/30 bg-slate-900 cursor-pointer group w-full">
-            {/* Desktop Landscape Banner (Admin Controllable) */}
+            {/* Desktop Landscape Banner (Real Size Display, 100% Full Flags, No Cut-off) */}
             <img
               src={settings?.hero_banner_desktop_url || "/branding/hero_landscape_banner.png"}
               alt="ETHEX 2026 - EURO Talent Hunt Examination"
-              className="hidden md:block w-full h-auto object-cover max-h-[460px] group-hover:scale-[1.008] transition-transform duration-300"
+              className="hidden md:block w-full h-auto object-contain group-hover:scale-[1.004] transition-transform duration-300"
               onClick={() => {
                 const reg = document.getElementById("register");
                 if (reg) reg.scrollIntoView({ behavior: "smooth" });
                 else setPaymentModalOpen(true);
               }}
             />
-            {/* Mobile Phone Square Banner (Admin Controllable) */}
+            {/* Mobile Phone Square Banner (Real Size Display, No Cut-off) */}
             <img
               src={settings?.hero_banner_mobile_url || "/branding/ethex_tallentex_square_hero.png"}
               alt="ETHEX 2026 - EURO Talent Hunt Examination"
-              className="block md:hidden w-full h-auto max-w-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
+              className="block md:hidden w-full h-auto max-w-full object-contain group-hover:scale-[1.005] transition-transform duration-300"
               onClick={() => {
                 const reg = document.getElementById("register");
                 if (reg) reg.scrollIntoView({ behavior: "smooth" });
@@ -1281,7 +1281,7 @@ export default function HomePage() {
                 <img
                   src="/branding/euro_result_banner.jpg"
                   alt="EURO CAMPUS NEET & ISRO Results Banner"
-                  className="w-full h-auto object-contain max-h-[360px] mx-auto"
+                  className="w-full h-auto object-contain mx-auto"
                 />
               </div>
             </div>
