@@ -80,13 +80,8 @@ export default function StudentLoginPage() {
         } else {
           setOtpSent(true);
           setResendCountdown(45);
-          if (result.isFirebase) {
-            setSuccessNotice(`✓ Live SMS OTP dispatched to +91 ${identifier}. Please enter the 6-digit code received on your phone.`);
-          } else {
-            setPreviewOtp(result.previewOtp || '123456');
-            setOtpCode(result.previewOtp || '123456');
-            setSuccessNotice(`✓ Verification code dispatched to +91 ${identifier}`);
-          }
+          setOtpCode('');
+          setSuccessNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${identifier}. Please enter the code received on your phone.`);
         }
       } else {
         const res = await fetch('/api/auth/send-otp', {
@@ -101,19 +96,17 @@ export default function StudentLoginPage() {
         } else {
           setOtpSent(true);
           setOtpToken(data.otpToken || null);
-          setPreviewOtp(data.previewOtp || '123456');
-          setOtpCode(data.previewOtp || '123456');
+          setOtpCode('');
           setResendCountdown(45);
-          setSuccessNotice(`✓ Verification code sent to ${identifier}`);
+          setSuccessNotice(`✓ 6-Digit verification code sent to ${identifier}. Please check your inbox.`);
         }
       }
     } catch {
       // Offline fallback
       setOtpSent(true);
-      setPreviewOtp('123456');
-      setOtpCode('123456');
+      setOtpCode('');
       setResendCountdown(45);
-      setSuccessNotice('✓ Verification code: 123456');
+      setSuccessNotice(`✓ Verification code dispatched to ${loginMethod === 'phone' ? '+91 ' + identifier : identifier}`);
     } finally {
       setLoading(false);
     }
@@ -233,26 +226,6 @@ export default function StudentLoginPage() {
     }
   };
 
-  // Instant Demo Login
-  const handleQuickDemoLogin = () => {
-    const demoUser = {
-      id: 'std-patil-10',
-      email: 'aarav.patil@example.com',
-      phone: '9112223354',
-      full_name: 'Aarav Patil',
-      current_class: 'Class 10',
-      target_stream: 'Foundation',
-      exam_name: 'ETHEX 2026 (Phase 2)',
-      exam_date: '29 November 2026',
-      roll_number: 'ETHEX-2026-0042',
-      role: 'student',
-      status: 'Active Candidate',
-      last_year_score: '234/240 Marks (AIR 4)',
-    };
-    localStorage.setItem('ethex_student_session', JSON.stringify(demoUser));
-    router.push('/student/dashboard');
-  };
-
   return (
     <div className="bg-slate-50 min-h-screen py-10 sm:py-16 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-9 shadow-xl space-y-6">
@@ -314,28 +287,13 @@ export default function StudentLoginPage() {
           </div>
         )}
 
-        {/* Success Notice / Preview OTP */}
+        {/* Success Notice */}
         {successNotice && (
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs text-emerald-900 space-y-1">
             <div className="flex items-center gap-1.5 font-bold">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
               <span>{successNotice}</span>
             </div>
-            {previewOtp && (
-              <div className="bg-white/90 p-2.5 rounded-xl border border-emerald-300 flex items-center justify-between text-xs font-mono font-bold text-slate-800 shadow-2xs">
-                <div>
-                  <span className="text-[11px] font-sans text-slate-600 block">Verification Code:</span>
-                  <span className="text-emerald-700 text-sm tracking-widest font-black">{previewOtp}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setOtpCode(previewOtp)}
-                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-sans font-bold transition-all shadow-2xs"
-                >
-                  Auto-Fill
-                </button>
-              </div>
-            )}
           </div>
         )}
 
@@ -516,18 +474,6 @@ export default function StudentLoginPage() {
             </button>
           </form>
         )}
-
-        {/* Instant Demo Login Button */}
-        <div className="pt-2 border-t border-slate-100">
-          <button
-            type="button"
-            onClick={handleQuickDemoLogin}
-            className="w-full py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-xs active:scale-98"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span>1-Click Test Login as Aarav Patil (Class 10)</span>
-          </button>
-        </div>
 
         {/* Registration CTA & Home */}
         <div className="text-center space-y-2 text-xs text-slate-500 pt-1">

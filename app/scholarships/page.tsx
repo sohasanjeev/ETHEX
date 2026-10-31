@@ -72,17 +72,13 @@ export default function ScholarshipsPage() {
         setError(result.error || 'Failed to dispatch verification code');
       } else {
         setOtpSent(true);
-        if (result.isFirebase) {
-          setOtpNotice(`✓ Live SMS OTP dispatched to +91 ${cleanPhone}. Please enter the 6-digit code received.`);
-        } else {
-          setOtpCode(result.previewOtp || '123456');
-          setOtpNotice(`✓ Verification code dispatched to +91 ${cleanPhone}`);
-        }
+        setOtpCode('');
+        setOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${cleanPhone}. Please enter the code received on your phone.`);
       }
     } catch {
       setOtpSent(true);
-      setOtpCode('123456');
-      setOtpNotice(`✓ Test Mode: Verification code is 123456`);
+      setOtpCode('');
+      setOtpNotice(`✓ Verification code dispatched to +91 ${cleanPhone}`);
     } finally {
       setOtpSending(false);
     }
@@ -222,7 +218,7 @@ export default function ScholarshipsPage() {
                         required
                         value={otpCode}
                         onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
-                        placeholder="e.g. 123456"
+                        placeholder="Enter 6-digit code"
                         className="w-full pl-9 pr-3 py-2.5 text-sm font-mono font-bold tracking-widest border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-white text-center"
                       />
                     </div>

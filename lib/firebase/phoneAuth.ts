@@ -85,12 +85,49 @@ export const sendFirebasePhoneOtp = async (
         };
       }
     } catch (fbErr: any) {
-      console.warn('Firebase Phone Auth attempt error:', fbErr?.code || fbErr?.message);
-      // If Firebase Phone is not enabled yet in console or domain not whitelisted, fallback seamlessly
+      console.error('Firebase Phone Auth attempt error:', fbErr);
+      const code = fbErr?.code || '';
+      let msg = fbErr?.message || 'Firebase SMS delivery failed.';
+
+      if (code === 'auth/billing-not-enabled' || msg.includes('billing')) {
+        msg = 'Firebase requires a billing account (Blaze plan) to send real SMS. To test without a card, add your mobile number under "Phone numbers for testing" in Firebase Console (Authentication > Sign-in method > Phone).';
+      } else if (code === 'auth/quota-exceeded') {
+        msg = 'Firebase daily SMS quota reached. Please check Firebase billing or use test phone numbers.';
+      } else if (code === 'auth/too-many-requests') {
+        msg = 'Too many requests sent to this number. Please wait a few moments before requesting another OTP.';
+      } else if (code === 'auth/app-not-authorized') {
+        msg = 'Domain not authorized in Firebase. Please ensure this website URL is in Firebase Console > Authentication > Settings > Authorized domains.';
+      } else if (code === 'auth/captcha-check-failed') {
+        msg = 'reCAPTCHA check failed. Please refresh the page and try again.';
+      }
+
+      // If Fast2SMS or server SMS is available, try fallback
+      try {
+        const res = await fetch('/api/auth/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: cleanPhone }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          return {
+            success: true,
+            isFirebase: false,
+          };
+        }
+      } catch {
+        // Fallback failed
+      }
+
+      return {
+        success: false,
+        isFirebase: false,
+        error: msg,
+      };
     }
   }
 
-  // Seamless Server Fallback
+  // Server Fallback
   try {
     const res = await fetch('/api/auth/send-otp', {
       method: 'POST',
@@ -104,7 +141,6 @@ export const sendFirebasePhoneOtp = async (
     return {
       success: true,
       isFirebase: false,
-      previewOtp: data.previewOtp,
     };
   } catch (err: any) {
     return { success: false, isFirebase: false, error: err.message || 'Network error while sending OTP' };

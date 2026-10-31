@@ -74,12 +74,8 @@ function RegisterForm() {
         } else {
           setOtpSent(true);
           setResendCooldown(45);
-          if (result.isFirebase) {
-            setOtpNotice(`✓ Live SMS OTP dispatched to +91 ${formData.phone}. Enter the 6-digit code received.`);
-          } else {
-            setOtpCode(result.previewOtp || '123456');
-            setOtpNotice(`✓ Verification code dispatched to +91 ${formData.phone}`);
-          }
+          setOtpCode('');
+          setOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${formData.phone}. Please enter the code received on your phone.`);
         }
       } else {
         const res = await fetch('/api/auth/send-otp', {
@@ -93,16 +89,16 @@ function RegisterForm() {
         } else {
           setOtpSent(true);
           setOtpToken(data.otpToken || null);
-          setOtpCode(data.previewOtp || '123456');
+          setOtpCode('');
           setResendCooldown(45);
-          setOtpNotice(`✓ 6-digit OTP code dispatched to ${formData.email}`);
+          setOtpNotice(`✓ 6-Digit verification code dispatched to ${formData.email}. Please check your inbox.`);
         }
       }
     } catch {
       setOtpSent(true);
-      setOtpCode('123456');
+      setOtpCode('');
       setResendCooldown(45);
-      setOtpNotice(`✓ Test Mode: Verification code is 123456`);
+      setOtpNotice(`✓ Verification code dispatched to ${formData.phone || formData.email}`);
     } finally {
       setOtpSending(false);
     }
@@ -146,12 +142,7 @@ function RegisterForm() {
         }
       }
     } catch {
-      if (otpCode.trim() === '123456') {
-        setOtpVerified(true);
-        setOtpNotice('✓ Verification completed successfully!');
-      } else {
-        setOtpError('Verification failed. Use code 123456 for test mode.');
-      }
+      setOtpError('Verification failed. Please check the 6-digit code and try again.');
     } finally {
       setOtpVerifying(false);
     }
@@ -376,7 +367,7 @@ function RegisterForm() {
                         maxLength={6}
                         value={otpCode}
                         onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
-                        placeholder="Enter 6-digit OTP (e.g. 123456)"
+                        placeholder="Enter 6-digit verification code"
                         className="w-full pl-9 pr-3 py-2 text-xs font-mono font-bold tracking-widest border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-white text-center"
                       />
                     </div>
