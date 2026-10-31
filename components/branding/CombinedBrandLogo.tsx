@@ -22,9 +22,9 @@ export const CombinedBrandLogo: React.FC<CombinedBrandLogoProps> = ({
 }) => {
   const content = (
     <div
-      className={`inline-flex items-center gap-3 sm:gap-4 transition-all ${
+      className={`inline-flex items-center gap-2 sm:gap-3.5 transition-all max-w-full ${
         variant === "card"
-          ? "bg-white px-4 py-2.5 rounded-2xl shadow-md border border-slate-200 hover:shadow-lg"
+          ? "bg-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl shadow-md border border-slate-200 hover:shadow-lg"
           : ""
       } ${className}`}
     >
@@ -33,7 +33,7 @@ export const CombinedBrandLogo: React.FC<CombinedBrandLogoProps> = ({
 
       {/* Elegant Vertical Divider */}
       <div
-        className={`h-8 sm:h-10 w-[1.5px] ${
+        className={`h-6 sm:h-8 w-[1.5px] flex-shrink-0 ${
           theme === "dark" && variant !== "card" ? "bg-white/20" : "bg-slate-300"
         }`}
       ></div>

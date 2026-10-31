@@ -438,14 +438,14 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-white w-full max-w-full overflow-x-hidden">
       {/* 1. FRONT BANNER: DESKTOP LANDSCAPE & MOBILE SQUARE (100% RESPONSIVE) */}
-      <section className="bg-gradient-to-b from-[#060D1E] via-[#09152E] to-[#0D1D3A] pt-4 pb-6 px-4 sm:px-6 lg:px-8 border-b border-blue-900/40">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-blue-500/30 bg-slate-900 cursor-pointer group">
+      <section className="bg-gradient-to-b from-[#060D1E] via-[#09152E] to-[#0D1D3A] pt-4 pb-6 px-3 sm:px-6 lg:px-8 border-b border-blue-900/40 w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-blue-500/30 bg-slate-900 cursor-pointer group w-full">
             {/* Desktop Landscape Banner (Admin Controllable) */}
             <img
-              src={settings?.hero_banner_desktop_url || "/branding/ethex_tallentex_landscape_hero.png"}
+              src={settings?.hero_banner_desktop_url || "/branding/hero_landscape_banner.png"}
               alt="ETHEX 2026 - EURO Talent Hunt Examination"
               className="hidden md:block w-full h-auto object-cover max-h-[460px] group-hover:scale-[1.008] transition-transform duration-300"
               onClick={() => {
@@ -458,7 +458,7 @@ export default function HomePage() {
             <img
               src={settings?.hero_banner_mobile_url || "/branding/ethex_tallentex_square_hero.png"}
               alt="ETHEX 2026 - EURO Talent Hunt Examination"
-              className="block md:hidden w-full h-auto aspect-square object-cover group-hover:scale-[1.01] transition-transform duration-300"
+              className="block md:hidden w-full h-auto max-w-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
               onClick={() => {
                 const reg = document.getElementById("register");
                 if (reg) reg.scrollIntoView({ behavior: "smooth" });
@@ -892,7 +892,7 @@ export default function HomePage() {
                       className="w-full py-2.5 px-3 rounded-xl bg-euro-royal hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
-                      <span>Open Syllabus (New Tab)</span>
+                      <span>Open Syllabus</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
@@ -960,7 +960,7 @@ export default function HomePage() {
                       className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
                     >
                       <FileText className="w-3.5 h-3.5" />
-                      <span>Open Sample Paper (New Tab)</span>
+                      <span>Open Sample Paper</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>

@@ -16,13 +16,12 @@ export const CompanyNavbarLogo: React.FC<CompanyNavbarLogoProps> = ({
     <Link
       href={href}
       className={`inline-flex items-center gap-2.5 sm:gap-3 group focus:outline-none transition-all py-1 ${className}`}
-      title="EURO CAMPUS - मूल्यनिष्ठा: अनुशासनेन उत्कर्षाय!"
+      title="EURO CAMPUS - मूल्यनिष्ठाः अनुशासनेन उत्कर्षाय!"
     >
-      {/* Official Shield Emblem */}
       <img
-        src="/branding/euro_campus_logo_horizontal.png"
+        src="/branding/euro_campus_official_logo.png"
         alt="EURO CAMPUS Logo"
-        className="h-10 sm:h-12 w-auto object-contain filter contrast-105 drop-shadow-xs group-hover:scale-[1.02] transition-transform"
+        className="h-9 sm:h-11 w-auto object-contain filter contrast-105 drop-shadow-xs group-hover:scale-[1.02] transition-transform"
       />
     </Link>
   );

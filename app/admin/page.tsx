@@ -27,6 +27,7 @@ import {
   Trash2,
   PlayCircle,
   UploadCloud,
+  Upload,
   Check,
   HelpCircle,
   ChevronRight,
@@ -496,6 +497,29 @@ export default function AdminDashboardPage() {
       showToast('Error saving settings');
     } finally {
       setSavingSettings(false);
+    }
+  };
+
+    const handleDeviceFileUpload = async (
+    file: File,
+    onSuccess: (url: string) => void
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      showToast('Uploading file from your device...');
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || 'Upload failed');
+      }
+      onSuccess(data.url);
+      showToast('✓ File uploaded successfully from device!');
+    } catch (err: any) {
+      showToast(err.message || 'Error uploading file from device');
     }
   };
 
@@ -997,9 +1021,27 @@ export default function AdminDashboardPage() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[10px] font-bold text-slate-500 block">
-                          Desktop Banner Image URL:
-                        </label>
+                        <div className="flex items-center justify-between">
+                          <label className="text-[10px] font-bold text-slate-500 block">
+                            Desktop Banner Image URL:
+                          </label>
+                          <label className="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-[#0066FF] font-bold text-[10px] rounded-lg border border-blue-200 transition-colors">
+                            <Upload className="w-3 h-3" />
+                            <span>Upload from Device</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                if (e.target.files?.[0]) {
+                                  handleDeviceFileUpload(e.target.files[0], (url) =>
+                                    setSettings({ ...settings, hero_banner_desktop_url: url })
+                                  );
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
                         <input
                           type="text"
                           value={settings.hero_banner_desktop_url || '/branding/ethex_tallentex_landscape_hero.png'}
@@ -1028,9 +1070,27 @@ export default function AdminDashboardPage() {
                         />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[10px] font-bold text-slate-500 block">
-                          Mobile Banner Image URL:
-                        </label>
+                        <div className="flex items-center justify-between">
+                          <label className="text-[10px] font-bold text-slate-500 block">
+                            Mobile Banner Image URL:
+                          </label>
+                          <label className="cursor-pointer inline-flex items-center gap-1 px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-[10px] rounded-lg border border-amber-200 transition-colors">
+                            <Upload className="w-3 h-3" />
+                            <span>Upload from Device</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                if (e.target.files?.[0]) {
+                                  handleDeviceFileUpload(e.target.files[0], (url) =>
+                                    setSettings({ ...settings, hero_banner_mobile_url: url })
+                                  );
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
                         <input
                           type="text"
                           value={settings.hero_banner_mobile_url || '/branding/ethex_tallentex_square_hero.png'}
@@ -1133,9 +1193,33 @@ export default function AdminDashboardPage() {
                           </div>
 
                           <div className="space-y-1">
-                            <label className="text-[10px] font-bold text-slate-500 block">
-                              Syllabus PDF / Template Link:
-                            </label>
+                            <div className="flex items-center justify-between">
+                              <label className="text-[10px] font-bold text-slate-500 block">
+                                Syllabus PDF / Template:
+                              </label>
+                              <label className="cursor-pointer inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-[#0066FF] font-bold text-[10px] rounded-lg border border-blue-200 transition-colors">
+                                <Upload className="w-2.5 h-2.5" />
+                                <span>Upload File</span>
+                                <input
+                                  type="file"
+                                  accept="image/*,application/pdf"
+                                  className="hidden"
+                                  onChange={(e) => {
+                                    if (e.target.files?.[0]) {
+                                      handleDeviceFileUpload(e.target.files[0], (url) => {
+                                        const currentUrls = settings?.syllabus_urls || {};
+                                        const currentImages = settings?.syllabus_images || {};
+                                        setSettings({
+                                          ...settings,
+                                          syllabus_urls: { ...currentUrls, [item.key]: url },
+                                          syllabus_images: { ...currentImages, [item.key]: url },
+                                        });
+                                      });
+                                    }
+                                  }}
+                                />
+                              </label>
+                            </div>
                             <input
                               type="text"
                               value={currentUrl}
@@ -1213,9 +1297,31 @@ export default function AdminDashboardPage() {
                           </div>
 
                           <div className="space-y-1">
-                            <label className="text-[10px] font-bold text-slate-500 block">
-                              Sample Paper PDF / Link:
-                            </label>
+                            <div className="flex items-center justify-between">
+                              <label className="text-[10px] font-bold text-slate-500 block">
+                                Sample Paper PDF:
+                              </label>
+                              <label className="cursor-pointer inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded-lg border border-emerald-200 transition-colors">
+                                <Upload className="w-2.5 h-2.5" />
+                                <span>Upload File</span>
+                                <input
+                                  type="file"
+                                  accept="image/*,application/pdf"
+                                  className="hidden"
+                                  onChange={(e) => {
+                                    if (e.target.files?.[0]) {
+                                      handleDeviceFileUpload(e.target.files[0], (url) => {
+                                        const current = settings?.sample_paper_urls || {};
+                                        setSettings({
+                                          ...settings,
+                                          sample_paper_urls: { ...current, [item.key]: url },
+                                        });
+                                      });
+                                    }
+                                  }}
+                                />
+                              </label>
+                            </div>
                             <input
                               type="text"
                               value={sampleUrl}

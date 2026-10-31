@@ -81,26 +81,27 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm transition-all w-full overflow-x-clip">
+      <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
         {/* ROW 1: TOP LINE (COMBINED EURO CAMPUS + ETHEX LOGO ON LEFT; CALL & LOGIN ON RIGHT) */}
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-15 sm:h-20 gap-1.5 sm:gap-4">
           {/* Left: EURO CAMPUS + ETHEX Combined Logo */}
-          <div className="flex-shrink-0 py-1.5">
+          <div className="flex-shrink min-w-0 py-1 overflow-hidden">
             <CombinedBrandLogo size="sm" variant="inline" year={examYear} />
           </div>
 
           {/* Right: Helpline & Candidate Login */}
-          <div className="flex items-center space-x-2.5 sm:space-x-3">
+          <div className="flex items-center space-x-1.5 sm:space-x-3 flex-shrink-0">
             {/* Call Helpline */}
             <div className="relative">
               <a
                 href="tel:9112223354"
-                className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-xs transition-transform hover:scale-102"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 rounded-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs shadow-xs transition-transform hover:scale-102 flex-shrink-0"
                 title="Call EURO Campus Helpline: 9112223354"
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span>Call Us: 9112223354</span>
+                <span className="hidden sm:inline">Call Us: 9112223354</span>
+                <span className="sm:hidden text-[11px]">Call</span>
               </a>
             </div>
 
@@ -109,12 +110,12 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
               <div className="relative">
                 <button
                   onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-200 bg-blue-50/80 hover:bg-blue-100 text-euro-royal text-xs font-bold transition-all"
+                  className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-full border border-blue-200 bg-blue-50/80 hover:bg-blue-100 text-euro-royal text-xs font-bold transition-all flex-shrink-0"
                 >
-                  <div className="w-6 h-6 rounded-full bg-euro-royal text-white flex items-center justify-center text-[11px] font-black">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-euro-royal text-white flex items-center justify-center text-[10px] sm:text-[11px] font-black">
                     {student.full_name ? student.full_name.charAt(0).toUpperCase() : (student.name ? student.name.charAt(0).toUpperCase() : 'S')}
                   </div>
-                  <span className="max-w-[100px] truncate text-slate-800 font-extrabold hidden sm:inline">
+                  <span className="max-w-[80px] sm:max-w-[100px] truncate text-slate-800 font-extrabold hidden md:inline">
                     {student.full_name || student.name || 'Candidate'}
                   </span>
                   <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
@@ -160,7 +161,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
             ) : (
               <Link
                 href="/student/login"
-                className="px-4 sm:px-5 py-1.5 rounded-full bg-euro-royal hover:bg-blue-700 text-white font-extrabold text-xs shadow-xs transition-all active:scale-95"
+                className="px-3 sm:px-5 py-1.5 rounded-full bg-euro-royal hover:bg-blue-700 text-white font-extrabold text-xs shadow-xs transition-all active:scale-95 flex-shrink-0"
               >
                 Login
               </Link>
@@ -169,10 +170,10 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
             {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
+              className="lg:hidden p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none flex-shrink-0"
               aria-label="Toggle Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
