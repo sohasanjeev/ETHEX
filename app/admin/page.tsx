@@ -963,13 +963,13 @@ export default function AdminDashboardPage() {
               {/* 2. ACTIVE UPLOAD BOX FOR SELECTED CLASS */}
               {(() => {
                 const activeClassMeta = [
-                  { key: 'class8', label: 'Class 8', tag: 'Foundation (Science, Math & Mental Ability)' },
-                  { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation' },
-                  { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation' },
-                  { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering (PCM)' },
-                  { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical (PCB)' },
-                  { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering (PCM)' },
-                  { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical (PCB)' },
+                  { key: 'class8', label: 'Class 8 (Class 7 Going to 8)', tag: 'Foundation (Science, Math & Mental Ability)' },
+                  { key: 'class9', label: 'Class 9 (Class 8 Going to 9)', tag: 'Olympiad & Foundation' },
+                  { key: 'class10', label: 'Class 10 (Class 9 Going to 10)', tag: 'Boards & Foundation' },
+                  { key: 'jee_class11', label: 'Class 11 JEE (Class 10 Going to 11)', tag: 'Engineering (PCM)' },
+                  { key: 'neet_class11', label: 'Class 11 NEET (Class 10 Going to 11)', tag: 'Medical (PCB)' },
+                  { key: 'jee_class12', label: 'Class 12 JEE (Class 11 Going to 12)', tag: 'Engineering (PCM)' },
+                  { key: 'neet_class12', label: 'Class 12 NEET (Class 11 Going to 12)', tag: 'Medical (PCB)' },
                 ].find((c) => c.key === selectedSampleClass) || {
                   key: selectedSampleClass,
                   label: selectedSampleClass,
@@ -1499,13 +1499,13 @@ export default function AdminDashboardPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[
-                      { key: 'class8', label: 'Class 8', tag: 'Foundation' },
-                      { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation' },
-                      { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation' },
-                      { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering' },
-                      { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical' },
-                      { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering' },
-                      { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical' },
+                      { key: 'class8', label: 'Class 8', bracket: 'Class 7 Going to 8', tag: 'Foundation' },
+                      { key: 'class9', label: 'Class 9', bracket: 'Class 8 Going to 9', tag: 'Olympiad & Foundation' },
+                      { key: 'class10', label: 'Class 10', bracket: 'Class 9 Going to 10', tag: 'Boards & Foundation' },
+                      { key: 'jee_class11', label: 'Class 11 JEE', bracket: 'Class 10 Going to 11', tag: 'Engineering' },
+                      { key: 'neet_class11', label: 'Class 11 NEET', bracket: 'Class 10 Going to 11', tag: 'Medical' },
+                      { key: 'jee_class12', label: 'Class 12 JEE', bracket: 'Class 11 Going to 12', tag: 'Engineering' },
+                      { key: 'neet_class12', label: 'Class 12 NEET', bracket: 'Class 11 Going to 12', tag: 'Medical' },
                     ].map((item) => {
                       const currentUrl =
                         settings?.syllabus_urls?.[item.key] ||
@@ -1518,7 +1518,12 @@ export default function AdminDashboardPage() {
                         >
                           <div>
                             <div className="flex items-center justify-between">
-                              <span className="font-black text-xs text-slate-900">{item.label}</span>
+                              <div>
+                                <span className="font-black text-xs text-slate-900 block">{item.label}</span>
+                                <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100 inline-block mt-0.5">
+                                  ({item.bracket})
+                                </span>
+                              </div>
                               <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-md">
                                 {item.tag}
                               </span>

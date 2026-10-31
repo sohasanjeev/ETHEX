@@ -870,21 +870,79 @@ export default function HomePage() {
             <p className="text-xs sm:text-sm text-slate-600">
               Select your class below. The complete official syllabus document / template will open directly in a new tab on your browser.
             </p>
+            <div className="mt-3 p-3 sm:p-4 rounded-xl bg-blue-50/90 border border-blue-200/80 text-blue-950 text-xs sm:text-sm text-center max-w-2xl mx-auto shadow-xs">
+              <span className="font-extrabold text-[#0066FF]">💡 Understanding the Syllabus Logic:</span>{' '}
+              Each entrance exam tests the curriculum of the preceding class to qualify students for admission into the next class (e.g. the <strong>Class 9th exam</strong> covers <strong>Class 8th syllabus</strong> for a student currently in Class 8 moving to Class 9).
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {[
-              { key: 'class8', label: 'Class 8', tag: 'Foundation', desc: 'Physics, Chemistry, Biology, Math & Mental Ability', color: 'blue' },
-              { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation', desc: 'Pre-Olympiad aptitude, NCERT foundations & Mental Ability', color: 'blue' },
-              { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation', desc: 'Board mastery, NTSE/Olympiad & early competitive prep', color: 'blue' },
-              { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering', desc: 'PCM curriculum mapped to JEE Main & Advanced patterns', color: 'indigo' },
-              { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical', desc: 'NCERT line-by-line Biology, Physics & Chemistry syllabus', color: 'emerald' },
-              { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Complete 11th + 12th PCM concepts with advanced drills', color: 'indigo' },
-              { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical', desc: 'High-yield PCB topics, Botany, Zoology & mock patterns', color: 'emerald' },
+              {
+                key: 'class8',
+                label: 'Class 8',
+                bracket: 'Class 7 student going to Class 8',
+                tag: 'Foundation',
+                desc: 'Class 8 entrance test based on Class 7 syllabus (Science, Math & Mental Ability)',
+                color: 'blue',
+              },
+              {
+                key: 'class9',
+                label: 'Class 9',
+                bracket: 'Class 8 student going to Class 9',
+                tag: 'Olympiad & Foundation',
+                desc: 'Class 9 entrance test based on Class 8 syllabus (Physics, Chemistry, Biology, Math & IQ)',
+                color: 'blue',
+              },
+              {
+                key: 'class10',
+                label: 'Class 10',
+                bracket: 'Class 9 student going to Class 10',
+                tag: 'Boards & Foundation',
+                desc: 'Class 10 entrance test based on Class 9 syllabus (Science, Mathematics & Logical Reasoning)',
+                color: 'blue',
+              },
+              {
+                key: 'jee_class11',
+                label: 'Class 11 JEE (Main + Advanced)',
+                bracket: 'Class 10 student going to Class 11',
+                tag: 'Engineering',
+                desc: 'Class 11 JEE entrance test based on Class 10 syllabus (Physics, Chemistry, Math & Aptitude)',
+                color: 'indigo',
+              },
+              {
+                key: 'neet_class11',
+                label: 'Class 11 NEET',
+                bracket: 'Class 10 student going to Class 11',
+                tag: 'Medical',
+                desc: 'Class 11 NEET entrance test based on Class 10 syllabus (Physics, Chemistry, Biology & Aptitude)',
+                color: 'emerald',
+              },
+              {
+                key: 'jee_class12',
+                label: 'Class 12 JEE (Main + Advanced)',
+                bracket: 'Class 11 student going to Class 12',
+                tag: 'Engineering',
+                desc: 'Class 12 JEE entrance test based on Class 11 core curriculum (Physics, Chemistry & Math)',
+                color: 'indigo',
+              },
+              {
+                key: 'neet_class12',
+                label: 'Class 12 NEET',
+                bracket: 'Class 11 student going to Class 12',
+                tag: 'Medical',
+                desc: 'Class 12 NEET entrance test based on Class 11 core curriculum (Physics, Chemistry & Biology)',
+                color: 'emerald',
+              },
             ].map((item) => {
               const defaultSyllabusMap: Record<string, string> = {
                 class8: '/uploads/ethex_2027_class_8_syllabus.png',
                 class9: '/uploads/ethex_2027_class_9_syllabus.png',
+                class10: '/uploads/ethex_2027_class_10_syllabus.png',
+                jee_class11: '/uploads/ethex_2027_class_11_jee_syllabus.png',
+                neet_class11: '/uploads/ethex_2027_class_11_neet_syllabus.png',
+                jee_class12: '/uploads/ethex_2027_class_12_jee_syllabus.png',
+                neet_class12: '/uploads/ethex_2027_class_12_neet_syllabus.png',
               };
               const fileUrl =
                 settings?.syllabus_urls?.[item.key] ||
@@ -906,9 +964,14 @@ export default function HomePage() {
                         {item.tag}
                       </span>
                     </div>
-                    <h3 className="text-base font-black text-slate-900 group-hover:text-euro-royal transition-colors">
-                      {item.label}
-                    </h3>
+                    <div className="space-y-1">
+                      <h3 className="text-base font-black text-slate-900 group-hover:text-euro-royal transition-colors">
+                        {item.label}
+                      </h3>
+                      <span className="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md inline-block border border-blue-100">
+                        ({item.bracket})
+                      </span>
+                    </div>
                     <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
                       {item.desc}
                     </p>
@@ -941,17 +1004,63 @@ export default function HomePage() {
             <p className="text-xs sm:text-sm text-slate-600">
               Practice authentic question papers with actual exam marking scheme. Click below to open or download in a new tab.
             </p>
+            <div className="mt-3 p-3 sm:p-4 rounded-xl bg-emerald-50/90 border border-emerald-200/80 text-emerald-950 text-xs sm:text-sm text-center max-w-2xl mx-auto shadow-xs">
+              <span className="font-extrabold text-emerald-800">📝 Target Class Preparation:</span>{' '}
+              Each sample question paper tests the preceding grade curriculum to evaluate readiness for the target class (e.g. the <strong>Class 9 paper</strong> is for a <strong>Class 8 student moving to Class 9</strong>).
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {[
-              { key: 'class8', label: 'Class 8', tag: 'Foundation', desc: 'Sample question paper covering Physics, Chemistry, Biology & IQ' },
-              { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation', desc: 'Model test paper for Pre-Olympiad, Science & Math' },
-              { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation', desc: 'ETHEX Class 10 full length model paper & answer keys' },
-              { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Model paper based on JEE Main & Advanced difficulty' },
-              { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical', desc: 'Full length mock paper with 60 questions for NEET aspirants' },
-              { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Intensive JEE paper covering complete 11th & 12th syllabus' },
-              { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical', desc: 'Actual NEET-UG format sample paper with Botany & Zoology' },
+              {
+                key: 'class8',
+                label: 'Class 8',
+                bracket: 'Class 7 student going to Class 8',
+                tag: 'Foundation',
+                desc: 'Sample question paper based on Class 7 syllabus (Science, Math & Mental Ability)',
+              },
+              {
+                key: 'class9',
+                label: 'Class 9',
+                bracket: 'Class 8 student going to Class 9',
+                tag: 'Olympiad & Foundation',
+                desc: 'Sample question paper based on Class 8 syllabus (Physics, Chemistry, Biology, Math & IQ)',
+              },
+              {
+                key: 'class10',
+                label: 'Class 10',
+                bracket: 'Class 9 student going to Class 10',
+                tag: 'Boards & Foundation',
+                desc: 'Sample question paper based on Class 9 syllabus (Science, Mathematics & Logical Reasoning)',
+              },
+              {
+                key: 'jee_class11',
+                label: 'Class 11 JEE (Main + Advanced)',
+                bracket: 'Class 10 student going to Class 11',
+                tag: 'Engineering',
+                desc: 'Sample question paper based on Class 10 syllabus (Physics, Chemistry, Math & Aptitude)',
+              },
+              {
+                key: 'neet_class11',
+                label: 'Class 11 NEET',
+                bracket: 'Class 10 student going to Class 11',
+                tag: 'Medical',
+                desc: 'Full length mock paper based on Class 10 syllabus for medical aspirants',
+              },
+              {
+                key: 'jee_class12',
+                label: 'Class 12 JEE (Main + Advanced)',
+                bracket: 'Class 11 student going to Class 12',
+                tag: 'Engineering',
+                desc: 'Intensive JEE paper covering Class 11 PCM syllabus with advanced drills',
+              },
+              {
+                key: 'neet_class12',
+                label: 'Class 12 NEET',
+                bracket: 'Class 11 student going to Class 12',
+                tag: 'Medical',
+                desc: 'Actual NEET-UG format sample paper with Botany, Zoology, Physics & Chemistry',
+              },
             ].map((item) => {
               const defaultSampleMap: Record<string, string> = {
                 class8: '/uploads/ethex_2027_class_8_sample_paper.pdf',
@@ -980,9 +1089,14 @@ export default function HomePage() {
                         {item.tag}
                       </span>
                     </div>
-                    <h3 className="text-base font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
-                      {item.label}
-                    </h3>
+                    <div className="space-y-1">
+                      <h3 className="text-base font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                        {item.label}
+                      </h3>
+                      <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md inline-block border border-emerald-100">
+                        ({item.bracket})
+                      </span>
+                    </div>
                     <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
                       {item.desc}
                     </p>
