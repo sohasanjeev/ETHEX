@@ -62,8 +62,8 @@ export default function ContactPage() {
               </p>
               <div className="pt-2 flex items-center gap-2">
                 <Phone className="w-4 h-4 text-euro-royal" />
-                <a href="tel:9607035688" className="font-bold text-xs text-slate-800 hover:text-euro-royal">
-                  +91 9607035688
+                <a href="tel:9112233995" className="font-bold text-xs text-slate-800 hover:text-euro-royal">
+                  +91 91122 33995
                 </a>
               </div>
             </div>

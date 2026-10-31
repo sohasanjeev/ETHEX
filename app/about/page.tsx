@@ -136,7 +136,7 @@ export default function AboutPage() {
             </p>
             <div className="pt-2 flex items-center gap-2 text-xs font-bold text-euro-navy">
               <Phone className="w-3.5 h-3.5 text-euro-royal" />
-              <span>Helpline: 9607035688</span>
+              <span>Helpline: 9112233995</span>
             </div>
           </div>
         </div>

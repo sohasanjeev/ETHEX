@@ -695,9 +695,9 @@ export default function HomePage() {
       </section>
 
 
-      {/* 4. INVITE YOUR FRIENDS TO EXPERIENCE ETHEX (ALLEN TALLENTEX "SHARE NOW") */}
+      {/* 4. SPREAD THE WORD: INVITE FRIENDS & INVITE EURO TO YOUR SCHOOL */}
       <section className="py-10 sm:py-12 bg-white border-b border-slate-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-6 sm:p-8 border border-blue-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 text-center md:text-left">
               <span className="text-[10px] font-black uppercase tracking-wider text-[#0066FF] bg-blue-100/70 px-2.5 py-0.5 rounded-full border border-blue-300">
@@ -745,6 +745,28 @@ export default function HomePage() {
                 <Share2 className="w-4 h-4" />
               </button>
             </div>
+          </div>
+
+          {/* Institutional Collaboration Card: Invite EURO to Your School */}
+          <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-3xl p-6 sm:p-8 text-slate-950 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg border border-amber-400">
+            <div className="space-y-1.5 text-center md:text-left">
+              <span className="text-[10px] font-black uppercase tracking-wider bg-slate-950 text-white px-2.5 py-0.5 rounded-full">
+                INSTITUTIONAL COLLABORATION
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-950">
+                Invite EURO to Your School
+              </h3>
+              <p className="text-xs sm:text-sm font-bold text-slate-900/90 max-w-xl">
+                Are you a School Principal or Coordinator? Invite EURO CAMPUS to host ETHEX 2026 on your campus with full logistical support, student rank analysis &amp; institutional recognition.
+              </p>
+            </div>
+            <button
+              onClick={() => setSchoolModalOpen(true)}
+              className="px-6 py-3 bg-slate-950 hover:bg-slate-900 text-white font-black text-xs sm:text-sm rounded-xl shadow-xl flex items-center gap-2 flex-shrink-0 transition-transform active:scale-98"
+            >
+              <Users className="w-4 h-4 text-amber-400" />
+              <span>Invite EURO to Your School</span>
+            </button>
           </div>
         </div>
       </section>
@@ -1198,33 +1220,11 @@ export default function HomePage() {
               </div>
               <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
                 <span className="text-slate-500 font-semibold">Direct Helpline:</span>
-                <a href="tel:9607035688" className="font-extrabold text-[#0066FF] hover:underline flex items-center gap-1">
-                  <Phone className="w-3.5 h-3.5" /> 9607035688
+                <a href="tel:9112233995" className="font-extrabold text-[#0066FF] hover:underline flex items-center gap-1">
+                  <Phone className="w-3.5 h-3.5" /> +91 91122 33995
                 </a>
               </div>
             </div>
-          </div>
-
-          {/* Institutional Collaboration Card: Invite ETHEX in Your School */}
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-3xl p-6 sm:p-8 text-slate-950 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg">
-            <div className="space-y-1.5 text-center sm:text-left">
-              <span className="text-[10px] font-black uppercase tracking-wider bg-slate-950 text-white px-2.5 py-0.5 rounded-full">
-                INSTITUTIONAL COLLABORATION
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-950">
-                Are You a School Principal or Coordinator?
-              </h3>
-              <p className="text-xs sm:text-sm font-bold text-slate-900/90 max-w-xl">
-                Invite EURO CAMPUS to host ETHEX 2026 on your campus with full logistical support, student rank analysis & institutional recognition.
-              </p>
-            </div>
-            <button
-              onClick={() => setSchoolModalOpen(true)}
-              className="px-6 py-3 bg-slate-950 hover:bg-slate-900 text-white font-black text-xs sm:text-sm rounded-xl shadow-xl flex items-center gap-2 flex-shrink-0 transition-transform active:scale-98"
-            >
-              <Users className="w-4 h-4 text-amber-400" />
-              <span>Invite ETHEX in Your School</span>
-            </button>
           </div>
         </div>
       </section>

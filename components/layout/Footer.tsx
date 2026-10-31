@@ -15,7 +15,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({
   officialEuroWebsiteUrl = process.env.NEXT_PUBLIC_EURO_OFFICIAL_WEBSITE_URL || 'https://eurocampus.in/',
   pcmcPhone = '9112223354',
-  shikrapurPhone = '9607035688',
+  shikrapurPhone = '9112233995',
   officialEmail = 'admissions@eurocampus.edu.in',
 }) => {
   return (

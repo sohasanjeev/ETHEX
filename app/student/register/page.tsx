@@ -171,7 +171,7 @@ function RegisterForm() {
     setError(null);
 
     if (!otpVerified) {
-      setError('Please verify your Mobile/Email with the 6-digit OTP code before proceeding.');
+      setError('Please verify your Mobile number with the 6-digit OTP code before proceeding.');
       return;
     }
 
@@ -277,42 +277,26 @@ function RegisterForm() {
             </div>
           </div>
 
-          {/* Contact Details & OTP Verification */}
+          {/* Contact Details & OTP Verification (Mobile only - no email) */}
           <div className="space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Mobile Number *</label>
-                <div className="relative">
-                  <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                  <input
-                    type="tel"
-                    required
-                    maxLength={10}
-                    value={formData.phone}
-                    onChange={(e) => {
-                      setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '') });
-                      setOtpSent(false);
-                      setOtpVerified(false);
-                      setOtpNotice(null);
-                    }}
-                    placeholder="10-digit mobile"
-                    className="w-full pl-9 pr-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium tracking-wide"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Email Address</label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="student@example.com"
-                    className="w-full pl-9 pr-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium"
-                  />
-                </div>
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-700">Mobile Number *</label>
+              <div className="relative">
+                <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <input
+                  type="tel"
+                  required
+                  maxLength={10}
+                  value={formData.phone}
+                  onChange={(e) => {
+                    setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '') });
+                    setOtpSent(false);
+                    setOtpVerified(false);
+                    setOtpNotice(null);
+                  }}
+                  placeholder="10-digit mobile number"
+                  className="w-full pl-9 pr-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-medium tracking-wide"
+                />
               </div>
             </div>
 

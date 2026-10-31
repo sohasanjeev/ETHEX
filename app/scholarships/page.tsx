@@ -270,11 +270,11 @@ export default function ScholarshipsPage() {
                   <span>PCMC Helpline: 9112223354</span>
                 </a>
                 <a
-                  href="tel:9607035688"
+                  href="tel:9112233995"
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-amber-50 text-slate-800 font-bold rounded-xl border border-amber-300 shadow-2xs transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#0066FF]" />
-                  <span>Shikrapur Helpline: 9607035688</span>
+                  <span>Shikrapur Helpline: 9112233995</span>
                 </a>
                 <a
                   href="https://eurocampus.in/"
