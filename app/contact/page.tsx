@@ -151,15 +151,12 @@ export default function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, studentClass: e.target.value })}
                         className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-euro-royal bg-white"
                       >
-                        <option value="Class 5">Class 5</option>
-                        <option value="Class 6">Class 6</option>
-                        <option value="Class 7">Class 7</option>
                         <option value="Class 8">Class 8</option>
                         <option value="Class 9">Class 9 (Foundation)</option>
                         <option value="Class 10">Class 10 (Foundation)</option>
-                        <option value="Class 11 JEE">Class 11 (JEE Main + Adv)</option>
+                        <option value="Class 11 JEE (Main + Advanced)">Class 11 (JEE Main + Advanced)</option>
                         <option value="Class 11 NEET">Class 11 (NEET Medical)</option>
-                        <option value="Class 12 JEE">Class 12 (JEE Main + Adv)</option>
+                        <option value="Class 12 JEE (Main + Advanced)">Class 12 (JEE Main + Advanced)</option>
                         <option value="Class 12 NEET">Class 12 (NEET Medical)</option>
                       </select>
                     </div>

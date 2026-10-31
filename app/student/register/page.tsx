@@ -404,7 +404,7 @@ function RegisterForm() {
             )}
           </div>
 
-          {/* Target Class Selection: Class 6 to Class 12 */}
+          {/* Target Class Selection: Class 8 to Class 12 */}
           <div className="space-y-1">
             <label className="text-xs font-bold text-slate-700">Target Class *</label>
             <select
@@ -412,14 +412,12 @@ function RegisterForm() {
               onChange={(e) => setFormData({ ...formData, currentClass: e.target.value })}
               className="w-full px-3 py-2.5 text-xs border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-slate-50 font-bold text-slate-800"
             >
-              <option value="Class 6">Class 6</option>
-              <option value="Class 7">Class 7</option>
               <option value="Class 8">Class 8</option>
               <option value="Class 9">Class 9</option>
               <option value="Class 10">Class 10</option>
-              <option value="JEE Mains + Advanced Class 11">Class 11 JEE</option>
+              <option value="Class 11 JEE (Main + Advanced)">Class 11 JEE (Main + Advanced)</option>
               <option value="Class 11 NEET">Class 11 NEET</option>
-              <option value="JEE Mains + Advanced Class 12">Class 12 JEE</option>
+              <option value="Class 12 JEE (Main + Advanced)">Class 12 JEE (Main + Advanced)</option>
               <option value="Class 12 NEET">Class 12 NEET</option>
             </select>
           </div>

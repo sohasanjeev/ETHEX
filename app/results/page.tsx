@@ -278,6 +278,7 @@ export default function ResultsPage() {
                   <span className="text-[11px] text-slate-400 block">
                     Enter the 10-digit mobile number used during ETHEX 2026 registration to retrieve your verified scorecard.
                   </span>
+                  <div id="recaptcha-results-container" className="my-1 flex justify-center"></div>
                 </div>
 
                 {otpNotice && (

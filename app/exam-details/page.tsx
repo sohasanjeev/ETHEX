@@ -5,26 +5,18 @@ import { CheckCircle2, AlertCircle, ArrowRight, Clock, HelpCircle, Monitor, Buil
 export const metadata = {
   title: 'Exam Details & Eligibility — ETHEX 2026 | EURO Campus',
   description:
-    'Detailed examination breakdown, eligible classes (5 to 12), online and offline examination modes, and registration procedures for ETHEX 2026.',
+    'Detailed examination breakdown, eligible classes (8 to 12), online and offline examination modes, and registration procedures for ETHEX 2026.',
 };
 
 export default function ExamDetailsPage() {
   const categories = [
     {
-      grade: 'Classes 5 & 6',
-      stream: 'Junior Science & Math Aptitude',
+      grade: 'Class 8',
+      stream: 'Foundation & STEM Olympiad Search',
       duration: '60 Minutes',
-      questions: '40 Questions',
-      marking: '+4 / 0 (No negative marking)',
-      eligibility: 'Students currently studying in Class 5 or 6 in any recognized state, CBSE, or ICSE board school.',
-    },
-    {
-      grade: 'Classes 7 & 8',
-      stream: 'Middle School STEM Search',
-      duration: '60 Minutes',
-      questions: '40 Questions',
-      marking: '+4 / 0 (No negative marking)',
-      eligibility: 'Students currently enrolled in Class 7 or 8 preparing for science Olympiads and foundation courses.',
+      questions: '60 Questions',
+      marking: '+4 / -1',
+      eligibility: 'Students currently enrolled in Class 8 preparing for science Olympiads and pre-foundation courses.',
     },
     {
       grade: 'Classes 9 & 10',

@@ -32,8 +32,12 @@ export interface SiteSettings {
   announcement_bar_text: string;
   announcement_bar_active: boolean;
   registration_fee?: number;
+  hero_banner_desktop_url?: string;
+  hero_banner_mobile_url?: string;
   syllabus_pamphlet_url?: string;
   syllabus_images?: Record<string, string>;
+  syllabus_urls?: Record<string, string>;
+  sample_paper_urls?: Record<string, string>;
   results_pamphlet_url?: string;
   results_headline?: string;
   updated_at: string;

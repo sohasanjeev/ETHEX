@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import CompanyNavbarLogo from '@/components/branding/CompanyNavbarLogo';
+import CombinedBrandLogo from '@/components/branding/CombinedBrandLogo';
 import { sendFirebasePhoneOtp, verifyFirebasePhoneOtp } from '@/lib/firebase/phoneAuth';
 import {
   Phone,
@@ -231,7 +231,7 @@ export default function StudentLoginPage() {
       <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-9 shadow-xl space-y-6">
         {/* Brand Header */}
         <div className="flex flex-col items-center text-center space-y-2">
-          <CompanyNavbarLogo />
+          <CombinedBrandLogo size="sm" variant="inline" />
           <div className="pt-2">
             <span className="text-[10px] font-black text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 uppercase tracking-wider">
               STUDENT PORTAL
@@ -351,6 +351,9 @@ export default function StudentLoginPage() {
                   </div>
                 )}
 
+                {/* Invisible reCAPTCHA container for Firebase */}
+                <div id="recaptcha-login-container" className="my-1 flex justify-center"></div>
+
                 <button
                   type="submit"
                   disabled={loading}
@@ -409,6 +412,9 @@ export default function StudentLoginPage() {
                     </button>
                   )}
                 </div>
+
+                {/* Invisible reCAPTCHA container for Firebase */}
+                <div id="recaptcha-login-container" className="my-1 flex justify-center"></div>
 
                 <button
                   type="submit"

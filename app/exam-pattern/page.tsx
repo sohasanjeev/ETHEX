@@ -89,15 +89,15 @@ export default function ExamPatternPage() {
         {/* Subject-Wise Patterns */}
         <div className="space-y-6">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
-            Stream-Wise Subject Breakdown (Classes 7 to 12)
+            Stream-Wise Subject Breakdown (Classes 8 to 12)
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Class 7 & 8 Foundation */}
+            {/* Class 8 Foundation */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg">Foundation (Classes 7 & 8)</h3>
+                  <h3 className="font-bold text-slate-900 text-lg">Foundation (Class 8)</h3>
                   <p className="text-[11px] text-slate-500">Future Science Champ & Olympiad Foundation</p>
                 </div>
                 <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-2.5 py-1 rounded">

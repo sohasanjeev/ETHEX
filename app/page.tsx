@@ -27,6 +27,7 @@ import {
   Star,
   CheckCircle2,
   BookOpen,
+  FileText,
   Award,
   PlayCircle,
   Zap,
@@ -50,10 +51,8 @@ export default function HomePage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [exams, setExams] = useState<Exam[]>([]);
 
-  // Streamlined 9-Class tabs strictly requested by user
+  // Target classes for ETHEX 2026 (Classes 8 to 12 only)
   const [activePatternTab, setActivePatternTab] = useState<
-    | 'class6'
-    | 'class7'
     | 'class8'
     | 'class9'
     | 'class10'
@@ -231,38 +230,8 @@ export default function HomePage() {
     }
   };
 
-  // Pattern data for all 9 classes
+  // Pattern data for target classes (Classes 8 to 12 only)
   const patternTabs = {
-    class6: {
-      name: 'Class 6',
-      category: 'Class 6',
-      target: 'Junior Foundation & National Olympiad Gateway',
-      subjects: [
-        { name: 'Physics', qs: 10, marks: 40, syllabus: 'Motion & Measurement, Light & Shadows, Electricity, Magnets' },
-        { name: 'Chemistry', qs: 10, marks: 40, syllabus: 'Sorting Materials, Separation of Substances, Air & Water' },
-        { name: 'Biology & Math', qs: 25, marks: 100, syllabus: 'Food Components, Plants, Knowing Numbers, Basic Geometry' },
-        { name: 'Mental Ability & Astronomy', qs: 15, marks: 60, syllabus: 'Series Completion, Coding-Decoding, Solar System, ISRO Missions' },
-      ],
-      totalQs: 60,
-      totalMarks: 240,
-      duration: '90 Minutes',
-      marking: '+4 for correct, -1 for wrong response',
-    },
-    class7: {
-      name: 'Class 7',
-      category: 'Class 7',
-      target: 'Science & Mathematical Olympiads, Science Champ Foundation',
-      subjects: [
-        { name: 'Physics', qs: 15, marks: 60, syllabus: 'Motion and Time, Heat, Light, Electric Current & Effects' },
-        { name: 'Chemistry', qs: 15, marks: 60, syllabus: 'Acids, Bases & Salts, Physical & Chemical Changes, Water' },
-        { name: 'Biology & Math', qs: 15, marks: 60, syllabus: 'Nutrition in Plants/Animals, Integers, Fractions, Simple Equations' },
-        { name: 'Mental Ability & Astronomy', qs: 15, marks: 60, syllabus: 'Pattern Series, Coding-Decoding, Space Science Basics, ISRO Missions' },
-      ],
-      totalQs: 60,
-      totalMarks: 240,
-      duration: '60 Minutes',
-      marking: '+4 for correct, -1 for wrong response',
-    },
     class8: {
       name: 'Class 8',
       category: 'Class 8',
@@ -309,8 +278,8 @@ export default function HomePage() {
       marking: '+4 for correct, -1 for wrong response',
     },
     jee_class11: {
-      name: 'JEE Mains + Advanced Class 11',
-      category: 'JEE Mains + Advanced Class 11',
+      name: 'Class 11 JEE (Main + Advanced)',
+      category: 'Class 11 JEE (Main + Advanced)',
       target: 'IIT-JEE Main + Advanced 2028, MHT-CET Engineering, BITSAT',
       subjects: [
         { name: 'Physics', qs: 20, marks: 80, syllabus: 'Kinematics, Laws of Motion, Work Energy Power, Rotational Motion, Thermodynamics' },
@@ -323,8 +292,8 @@ export default function HomePage() {
       marking: '+4 for correct, -1 for wrong response',
     },
     jee_class12: {
-      name: 'JEE Mains + Advanced Class 12',
-      category: 'JEE Mains + Advanced Class 12',
+      name: 'Class 12 JEE (Main + Advanced)',
+      category: 'Class 12 JEE (Main + Advanced)',
       target: 'IIT-JEE Main + Advanced 2027, Engineering Ranks & Scholarships',
       subjects: [
         { name: 'Physics', qs: 20, marks: 80, syllabus: 'Electrostatics, Current Electricity, Magnetism, Optics, Modern Physics' },
@@ -474,9 +443,9 @@ export default function HomePage() {
       <section className="bg-gradient-to-b from-[#060D1E] via-[#09152E] to-[#0D1D3A] pt-4 pb-6 px-4 sm:px-6 lg:px-8 border-b border-blue-900/40">
         <div className="max-w-7xl mx-auto">
           <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-blue-500/30 bg-slate-900 cursor-pointer group">
-            {/* Desktop Landscape Banner (Exact User Graphic) */}
+            {/* Desktop Landscape Banner (Admin Controllable) */}
             <img
-              src="/branding/ethex_tallentex_landscape_hero.png"
+              src={settings?.hero_banner_desktop_url || "/branding/ethex_tallentex_landscape_hero.png"}
               alt="ETHEX 2026 - EURO Talent Hunt Examination"
               className="hidden md:block w-full h-auto object-cover max-h-[460px] group-hover:scale-[1.008] transition-transform duration-300"
               onClick={() => {
@@ -485,9 +454,9 @@ export default function HomePage() {
                 else setPaymentModalOpen(true);
               }}
             />
-            {/* Mobile Phone Square Banner (Art-Directed 1:1 Aspect Ratio) */}
+            {/* Mobile Phone Square Banner (Admin Controllable) */}
             <img
-              src="/branding/ethex_tallentex_square_hero.png"
+              src={settings?.hero_banner_mobile_url || "/branding/ethex_tallentex_square_hero.png"}
               alt="ETHEX 2026 - EURO Talent Hunt Examination"
               className="block md:hidden w-full h-auto aspect-square object-cover group-hover:scale-[1.01] transition-transform duration-300"
               onClick={() => {
@@ -517,7 +486,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
-              Flagship national talent examination conducted by <strong className="text-white">EURO CAMPUS</strong> for ambitious students of <strong className="text-amber-300">Classes 7 to 12</strong>. Comprehensive benchmarking, Competitive Success Index (CSI), and up to 90% fee waivers for JEE, NEET & Foundation.
+              Flagship national talent examination conducted by <strong className="text-white">EURO CAMPUS</strong> for ambitious students of <strong className="text-amber-300">Classes 8 to 12</strong>. Comprehensive benchmarking, Competitive Success Index (CSI), and up to 90% fee waivers for JEE, NEET & Foundation.
             </p>
           </div>
 
@@ -693,14 +662,12 @@ export default function HomePage() {
                     onChange={(e) => setQuickClass(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0066FF] text-sm bg-slate-50 font-bold text-slate-800"
                   >
-                    <option value="Class 6">Class 6</option>
-                    <option value="Class 7">Class 7</option>
                     <option value="Class 8">Class 8</option>
                     <option value="Class 9">Class 9</option>
                     <option value="Class 10">Class 10</option>
-                    <option value="JEE Mains + Advanced Class 11">Class 11 JEE</option>
+                    <option value="Class 11 JEE (Main + Advanced)">Class 11 JEE (Main + Advanced)</option>
                     <option value="Class 11 NEET">Class 11 NEET</option>
-                    <option value="JEE Mains + Advanced Class 12">Class 12 JEE</option>
+                    <option value="Class 12 JEE (Main + Advanced)">Class 12 JEE (Main + Advanced)</option>
                     <option value="Class 12 NEET">Class 12 NEET</option>
                   </select>
                 </div>
@@ -727,29 +694,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ALLEN TALLENTEX TRUST PROOF BAR */}
-      <section className="bg-slate-900 text-white py-6 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-black text-amber-400">15+ Years</div>
-              <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Academic Legacy</div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-black text-sky-400">50,000+</div>
-              <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Students Tested</div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-black text-emerald-400">₹2.5 Cr+</div>
-              <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Scholarships Awarded</div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-black text-purple-400">98.4%</div>
-              <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Parent Trust Rating</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 4. INVITE YOUR FRIENDS TO EXPERIENCE ETHEX (ALLEN TALLENTEX "SHARE NOW") */}
       <section className="py-10 sm:py-12 bg-white border-b border-slate-200">
@@ -829,7 +773,7 @@ export default function HomePage() {
                 </div>
                 <h4 className="font-black text-slate-900 text-base">Fill 3 Basic Details</h4>
                 <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Enter your 10-digit mobile number, student full name, and select your target class from Classes 7 to 12.
+                  Enter your 10-digit mobile number, student full name, and select your target class from Classes 8 to 12.
                 </p>
               </div>
               <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-[#0066FF] flex items-center gap-1">
@@ -891,163 +835,141 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. SYLLABUS & EXAM PATTERN TEMPLATES (CLASSES 6 TO 12 IMAGE FORMAT) */}
+      {/* 3. SYLLABUS SECTION (CLASSES 8 TO 12 ONLY - OPENS IN NEW TAB ON CHROME) */}
       <section className="py-14 sm:py-20 bg-white border-t border-slate-200" id="syllabus">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
-              OFFICIAL SYLLABUS
+              OFFICIAL SYLLABUS (CLASSES 8–12)
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-              Exam Syllabus & Template Breakdown
+              Exam Syllabus &amp; Template Breakdown
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
-              Select your class below to view and download the official ETHEX syllabus template.
+              Select your class below. The complete official syllabus document / template will open directly in a new tab on your browser.
             </p>
           </div>
 
-          {/* Interactive Class Tabs: Exactly the 9 Classes */}
-          <div className="flex items-center justify-center flex-wrap gap-2">
-            {(
-              [
-                { tab: 'class6', name: 'Class 6' },
-                { tab: 'class7', name: 'Class 7' },
-                { tab: 'class8', name: 'Class 8' },
-                { tab: 'class9', name: 'Class 9' },
-                { tab: 'class10', name: 'Class 10' },
-                { tab: 'jee_class11', name: 'Class 11 JEE' },
-                { tab: 'neet_class11', name: 'Class 11 NEET' },
-                { tab: 'jee_class12', name: 'Class 12 JEE' },
-                { tab: 'neet_class12', name: 'Class 12 NEET' },
-              ] as const
-            ).map((item) => (
-              <button
-                key={item.tab}
-                onClick={() => setActivePatternTab(item.tab)}
-                className={`px-4 sm:px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold transition-all border ${
-                  activePatternTab === item.tab
-                    ? 'bg-[#0066FF] text-white border-[#0066FF] shadow-sm scale-105'
-                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
-          </div>
-
-          {/* Image-Based Syllabus Template Box */}
-          <div className="bg-slate-950 rounded-3xl border-2 border-slate-800 p-4 sm:p-6 shadow-2xl space-y-4 max-w-5xl mx-auto">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-white pb-3 border-b border-slate-800">
-              <div className="flex items-center gap-2.5">
-                <span className="px-3 py-1 rounded-full text-xs font-black bg-amber-400 text-slate-950 uppercase tracking-wider">
-                  {patternTabs[activePatternTab]?.name || 'Syllabus'}
-                </span>
-                <span className="text-xs text-slate-400 font-bold hidden sm:inline">
-                  Click image to expand full-screen
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSyllabusModalImage(
-                      settings?.syllabus_images?.[activePatternTab] ||
-                        `/branding/syllabus/${activePatternTab}.svg`
-                    )
-                  }
-                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl border border-slate-700 transition-all flex items-center gap-1.5"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-6xl mx-auto">
+            {[
+              { key: 'class8', label: 'Class 8', tag: 'Foundation', desc: 'Physics, Chemistry, Biology, Math & Mental Ability', color: 'blue' },
+              { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation', desc: 'Pre-Olympiad aptitude, NCERT foundations & Mental Ability', color: 'blue' },
+              { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation', desc: 'Board mastery, NTSE/Olympiad & early competitive prep', color: 'blue' },
+              { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering', desc: 'PCM curriculum mapped to JEE Main & Advanced patterns', color: 'indigo' },
+              { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical', desc: 'NCERT line-by-line Biology, Physics & Chemistry syllabus', color: 'emerald' },
+              { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Complete 11th + 12th PCM concepts with advanced drills', color: 'indigo' },
+              { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical', desc: 'High-yield PCB topics, Botany, Zoology & mock patterns', color: 'emerald' },
+            ].map((item) => {
+              const fileUrl =
+                settings?.syllabus_urls?.[item.key] ||
+                settings?.syllabus_images?.[item.key] ||
+                `/branding/syllabus/${item.key}.svg`;
+              return (
+                <div
+                  key={item.key}
+                  className="bg-slate-50 hover:bg-white rounded-2xl border border-slate-200 hover:border-blue-400 p-5 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
                 >
-                  <Eye className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Open Fullscreen</span>
-                </button>
-                <a
-                  href={
-                    settings?.syllabus_images?.[activePatternTab] ||
-                    `/branding/syllabus/${activePatternTab}.svg`
-                  }
-                  download={`ETHEX-2026-Syllabus-${activePatternTab}.svg`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3.5 py-1.5 bg-[#0066FF] hover:bg-blue-600 text-white text-xs font-extrabold rounded-xl transition-all flex items-center gap-1.5 shadow-sm"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download Image</span>
-                </a>
-              </div>
-            </div>
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">ETHEX 2026</span>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100/70 text-euro-royal">
+                        {item.tag}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-black text-slate-900 group-hover:text-euro-royal transition-colors">
+                      {item.label}
+                    </h3>
+                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
 
-            {/* Official Syllabus Image Creative Display */}
-            <div
-              onClick={() =>
-                setSyllabusModalImage(
-                  settings?.syllabus_images?.[activePatternTab] ||
-                    `/branding/syllabus/${activePatternTab}.svg`
-                )
-              }
-              className="relative cursor-pointer group rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center transition-all hover:border-blue-500/50"
-            >
-              <img
-                src={
-                  settings?.syllabus_images?.[activePatternTab] ||
-                  `/branding/syllabus/${activePatternTab}.svg`
-                }
-                alt={`${patternTabs[activePatternTab]?.name || 'Class'} Syllabus Template`}
-                className="w-full h-auto max-h-[620px] object-contain transition-transform duration-300 group-hover:scale-[1.01]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
-                <span className="px-4 py-2 rounded-xl bg-white/90 backdrop-blur-md text-slate-900 font-extrabold text-xs shadow-lg flex items-center gap-2">
-                  <Eye className="w-4 h-4 text-[#0066FF]" />
-                  <span>Click to view high-resolution full-screen</span>
-                </span>
-              </div>
-            </div>
+                  <div className="pt-4 mt-2 border-t border-slate-200/60">
+                    <a
+                      href={fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 px-3 rounded-xl bg-euro-royal hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>Open Syllabus (New Tab)</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Lightbox Modal for Syllabus Fullscreen View */}
-      {syllabusModalImage && (
-        <div
-          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
-          onClick={() => setSyllabusModalImage(null)}
-        >
-          <div
-            className="relative bg-slate-900 rounded-3xl border border-slate-700 max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="p-3 sm:p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between text-white">
-              <span className="text-xs font-bold text-slate-300">
-                ETHEX 2026 Official Syllabus Template
-              </span>
-              <div className="flex items-center gap-2">
-                <a
-                  href={syllabusModalImage}
-                  download="ETHEX-Syllabus.svg"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1 bg-[#0066FF] hover:bg-blue-600 text-white rounded-lg text-xs font-bold flex items-center gap-1"
+      {/* 4. SAMPLE PAPER SECTION (CLASSES 8 TO 12 ONLY - OPENS IN NEW TAB ON CHROME) */}
+      <section className="py-14 sm:py-20 bg-slate-50 border-t border-slate-200" id="sample-papers">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-wider">
+              OFFICIAL SAMPLE PAPERS (CLASSES 8–12)
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+              ETHEX Official Model Question Papers
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600">
+              Practice authentic question papers with actual exam marking scheme. Click below to open or download in a new tab.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-6xl mx-auto">
+            {[
+              { key: 'class8', label: 'Class 8', tag: 'Foundation', desc: 'Sample question paper covering Physics, Chemistry, Biology & IQ' },
+              { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation', desc: 'Model test paper for Pre-Olympiad, Science & Math' },
+              { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation', desc: 'ETHEX Class 10 full length model paper & answer keys' },
+              { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Model paper based on JEE Main & Advanced difficulty' },
+              { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical', desc: 'Full length mock paper with 60 questions for NEET aspirants' },
+              { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Intensive JEE paper covering complete 11th & 12th syllabus' },
+              { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical', desc: 'Actual NEET-UG format sample paper with Botany & Zoology' },
+            ].map((item) => {
+              const fileUrl =
+                settings?.sample_paper_urls?.[item.key] ||
+                settings?.syllabus_urls?.[item.key] ||
+                `/branding/syllabus/${item.key}.svg`;
+              return (
+                <div
+                  key={item.key}
+                  className="bg-white hover:bg-emerald-50/40 rounded-2xl border border-slate-200 hover:border-emerald-400 p-5 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download</span>
-                </a>
-                <button
-                  onClick={() => setSyllabusModalImage(null)}
-                  className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-            <div className="overflow-auto p-2 sm:p-4 flex items-center justify-center bg-slate-950">
-              <img
-                src={syllabusModalImage}
-                alt="Fullscreen Syllabus Template"
-                className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
-              />
-            </div>
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">SAMPLE PAPER</span>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-800">
+                        {item.tag}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                      {item.label}
+                    </h3>
+                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-2 border-t border-slate-200/60">
+                    <a
+                      href={fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>Open Sample Paper (New Tab)</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-      )}
+      </section>
 
       {/* 5. COURSES WE OFFER AT EURO CAMPUS (ALLEN CLASSROOM & ONLINE COURSES) */}
       <section className="py-14 sm:py-20 bg-slate-50 border-t border-slate-200" id="courses">
@@ -1189,7 +1111,7 @@ export default function HomePage() {
                   <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">
                     PRE-FOUNDATION
                   </span>
-                  <span className="text-xs font-bold text-slate-400">Classes 7, 8, 9 & 10</span>
+                  <span className="text-xs font-bold text-slate-400">Classes 8, 9 & 10</span>
                 </div>
                 <h3 className="text-lg font-black text-slate-900">
                   Pre-Foundation & Olympiad Program
@@ -1337,7 +1259,7 @@ export default function HomePage() {
                 35 Govt. MBBS Selections & National ISRO Tour Qualifiers
               </h3>
               <p className="text-xs sm:text-sm text-blue-100/90 leading-relaxed">
-                Celebrating outstanding excellence across Maharashtra! 7 students scored 600+ in NEET led by Mithilesh Shimpi (650/720) and Sulagna Triathy (632/720), alongside our national ISRO/NASA Educational Tour winners from Classes 7 to 10.
+                Celebrating outstanding excellence across Maharashtra! 7 students scored 600+ in NEET led by Mithilesh Shimpi (650/720) and Sulagna Triathy (632/720), alongside our national ISRO/NASA Educational Tour winners from Classes 8 to 10.
               </p>
               <div className="grid grid-cols-3 gap-3 pt-2">
                 <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/15 text-center">
@@ -1704,7 +1626,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1">
-                      Estimated Students (Classes 7–12)
+                      Estimated Students (Classes 8–12)
                     </label>
                     <input
                       type="number"

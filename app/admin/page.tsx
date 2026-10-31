@@ -966,11 +966,90 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
+                {/* Homepage Hero Banner Manager (Desktop & Mobile 100% Controllable) */}
+                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+                    <div>
+                      <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-euro-royal" />
+                        <span>Homepage Hero Banner Control</span>
+                      </h3>
+                      <p className="text-[11px] text-slate-500">
+                        Admin can change the official front banner image for desktop landscape and mobile square views.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Desktop Landscape Banner */}
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="font-black text-xs text-slate-900">Desktop Landscape Banner</span>
+                        <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+                          Wide Aspect Ratio
+                        </span>
+                      </div>
+                      <div className="relative rounded-lg overflow-hidden bg-slate-900 border border-slate-200 h-32 flex items-center justify-center">
+                        <img
+                          src={settings.hero_banner_desktop_url || '/branding/ethex_tallentex_landscape_hero.png'}
+                          alt="Desktop Banner Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-slate-500 block">
+                          Desktop Banner Image URL:
+                        </label>
+                        <input
+                          type="text"
+                          value={settings.hero_banner_desktop_url || '/branding/ethex_tallentex_landscape_hero.png'}
+                          onChange={(e) =>
+                            setSettings({ ...settings, hero_banner_desktop_url: e.target.value })
+                          }
+                          className="w-full text-[11px] font-mono p-2 border border-slate-300 rounded-lg bg-slate-50 focus:bg-white"
+                          placeholder="/branding/hero_landscape_banner.png"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Mobile Phone Square Banner */}
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="font-black text-xs text-slate-900">Mobile Phone Square Banner</span>
+                        <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">
+                          1:1 Aspect Ratio
+                        </span>
+                      </div>
+                      <div className="relative rounded-lg overflow-hidden bg-slate-900 border border-slate-200 h-32 flex items-center justify-center">
+                        <img
+                          src={settings.hero_banner_mobile_url || '/branding/ethex_tallentex_square_hero.png'}
+                          alt="Mobile Banner Preview"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-slate-500 block">
+                          Mobile Banner Image URL:
+                        </label>
+                        <input
+                          type="text"
+                          value={settings.hero_banner_mobile_url || '/branding/ethex_tallentex_square_hero.png'}
+                          onChange={(e) =>
+                            setSettings({ ...settings, hero_banner_mobile_url: e.target.value })
+                          }
+                          className="w-full text-[11px] font-mono p-2 border border-slate-300 rounded-lg bg-slate-50 focus:bg-white"
+                          placeholder="/branding/hero_mobile_banner.png"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Helpline Numbers & Support */}
                 <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
                   <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
                     <Phone className="w-4 h-4 text-euro-royal" />
-                    Official Helplines & Contact Details
+                    Official Helplines &amp; Contact Details
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -1004,34 +1083,34 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* Class-Wise Syllabus Creatives & Image Templates (Classes 6 to 12) */}
+                {/* Class-Wise Syllabus Creatives & Image Templates (Classes 8 to 12 only) */}
                 <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
                     <div>
                       <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
                         <BookOpen className="w-4 h-4 text-euro-royal" />
-                        <span>Class-Wise Syllabus Creatives &amp; Image Templates</span>
+                        <span>Class-Wise Syllabus Creatives &amp; Templates (Classes 8–12)</span>
                       </h3>
                       <p className="text-[11px] text-slate-500">
-                        Upload or paste the image URL for each class. When students click a class on the website, this image creative is displayed full-screen with no text.
+                        Upload or paste the PDF / image URL for each class. When students click a class on the website, this document opens directly in a new tab.
                       </p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[
-                      { key: 'class6', label: 'Class 6' },
-                      { key: 'class7', label: 'Class 7' },
-                      { key: 'class8', label: 'Class 8' },
-                      { key: 'class9', label: 'Class 9' },
-                      { key: 'class10', label: 'Class 10' },
-                      { key: 'jee_class11', label: 'Class 11 JEE' },
-                      { key: 'neet_class11', label: 'Class 11 NEET' },
-                      { key: 'jee_class12', label: 'Class 12 JEE' },
-                      { key: 'neet_class12', label: 'Class 12 NEET' },
+                      { key: 'class8', label: 'Class 8', tag: 'Foundation' },
+                      { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation' },
+                      { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation' },
+                      { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering' },
+                      { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical' },
+                      { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering' },
+                      { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical' },
                     ].map((item) => {
-                      const imgUrl =
-                        settings?.syllabus_images?.[item.key] || `/branding/syllabus/${item.key}.svg`;
+                      const currentUrl =
+                        settings?.syllabus_urls?.[item.key] ||
+                        settings?.syllabus_images?.[item.key] ||
+                        `/branding/syllabus/${item.key}.svg`;
                       return (
                         <div
                           key={item.key}
@@ -1041,12 +1120,12 @@ export default function AdminDashboardPage() {
                             <div className="flex items-center justify-between">
                               <span className="font-black text-xs text-slate-900">{item.label}</span>
                               <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded-md">
-                                Image Template
+                                {item.tag}
                               </span>
                             </div>
                             <div className="mt-2 relative rounded-lg overflow-hidden bg-slate-900 border border-slate-200 h-28 flex items-center justify-center">
                               <img
-                                src={imgUrl}
+                                src={currentUrl}
                                 alt={item.label}
                                 className="w-full h-full object-contain"
                               />
@@ -1055,16 +1134,96 @@ export default function AdminDashboardPage() {
 
                           <div className="space-y-1">
                             <label className="text-[10px] font-bold text-slate-500 block">
-                              Template Image Link / URL:
+                              Syllabus PDF / Template Link:
                             </label>
                             <input
                               type="text"
-                              value={settings?.syllabus_images?.[item.key] || `/branding/syllabus/${item.key}.svg`}
+                              value={currentUrl}
                               onChange={(e) => {
-                                const current = settings?.syllabus_images || {};
+                                const currentUrls = settings?.syllabus_urls || {};
+                                const currentImages = settings?.syllabus_images || {};
                                 setSettings({
                                   ...settings,
+                                  syllabus_urls: {
+                                    ...currentUrls,
+                                    [item.key]: e.target.value,
+                                  },
                                   syllabus_images: {
+                                    ...currentImages,
+                                    [item.key]: e.target.value,
+                                  },
+                                });
+                              }}
+                              className="w-full text-[11px] font-mono p-1.5 border border-slate-300 rounded-lg bg-slate-50 focus:bg-white"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Class-Wise Sample Papers (Classes 8 to 12 only) */}
+                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+                    <div>
+                      <h3 className="font-extrabold text-sm text-euro-navy flex items-center gap-2">
+                        <FileText className="w-4 h-4 text-emerald-600" />
+                        <span>Class-Wise Sample Papers (Classes 8–12)</span>
+                      </h3>
+                      <p className="text-[11px] text-slate-500">
+                        Set the sample paper PDF link for each class. When students click a class under Sample Paper, it opens directly in a new tab.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                      { key: 'class8', label: 'Class 8', tag: 'Foundation' },
+                      { key: 'class9', label: 'Class 9', tag: 'Olympiad & Foundation' },
+                      { key: 'class10', label: 'Class 10', tag: 'Boards & Foundation' },
+                      { key: 'jee_class11', label: 'Class 11 JEE (Main + Advanced)', tag: 'Engineering' },
+                      { key: 'neet_class11', label: 'Class 11 NEET', tag: 'Medical' },
+                      { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering' },
+                      { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical' },
+                    ].map((item) => {
+                      const sampleUrl =
+                        settings?.sample_paper_urls?.[item.key] ||
+                        settings?.syllabus_urls?.[item.key] ||
+                        `/branding/syllabus/${item.key}.svg`;
+                      return (
+                        <div
+                          key={item.key}
+                          className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs space-y-2.5 flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between">
+                              <span className="font-black text-xs text-slate-900">{item.label}</span>
+                              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
+                                {item.tag}
+                              </span>
+                            </div>
+                            <div className="mt-2 relative rounded-lg overflow-hidden bg-slate-900 border border-slate-200 h-28 flex items-center justify-center">
+                              <img
+                                src={sampleUrl}
+                                alt={item.label}
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-1">
+                            <label className="text-[10px] font-bold text-slate-500 block">
+                              Sample Paper PDF / Link:
+                            </label>
+                            <input
+                              type="text"
+                              value={sampleUrl}
+                              onChange={(e) => {
+                                const current = settings?.sample_paper_urls || {};
+                                setSettings({
+                                  ...settings,
+                                  sample_paper_urls: {
                                     ...current,
                                     [item.key]: e.target.value,
                                   },
@@ -2129,9 +2288,6 @@ export default function AdminDashboardPage() {
                     onChange={(e) => setNewExamData({ ...newExamData, class_category: e.target.value })}
                     className="w-full p-2 border border-slate-300 rounded-xl bg-white"
                   >
-                    <option value="Class 5">Class 5</option>
-                    <option value="Class 6">Class 6</option>
-                    <option value="Class 7">Class 7</option>
                     <option value="Class 8">Class 8</option>
                     <option value="Class 9">Class 9</option>
                     <option value="Class 10">Class 10</option>
@@ -2231,7 +2387,6 @@ export default function AdminDashboardPage() {
                     onChange={(e) => setChampionForm({ ...championForm, target_class: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold bg-white"
                   >
-                    <option value="Class 7">Class 7</option>
                     <option value="Class 8">Class 8</option>
                     <option value="Class 9">Class 9</option>
                     <option value="Class 10">Class 10</option>
@@ -2425,14 +2580,12 @@ export default function AdminDashboardPage() {
                     onChange={(e) => setResultForm({ ...resultForm, class_category: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold bg-white"
                   >
-                    <option value="Class 6">Class 6</option>
-                    <option value="Class 7">Class 7</option>
                     <option value="Class 8">Class 8</option>
                     <option value="Class 9">Class 9</option>
                     <option value="Class 10">Class 10</option>
-                    <option value="Class 11 JEE">Class 11 JEE</option>
+                    <option value="Class 11 JEE (Main + Advanced)">Class 11 JEE (Main + Advanced)</option>
                     <option value="Class 11 NEET">Class 11 NEET</option>
-                    <option value="Class 12 JEE">Class 12 JEE</option>
+                    <option value="Class 12 JEE (Main + Advanced)">Class 12 JEE (Main + Advanced)</option>
                     <option value="Class 12 NEET">Class 12 NEET</option>
                   </select>
                 </div>

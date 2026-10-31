@@ -64,7 +64,7 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
             <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-lg">
               ETHEX 2026 (EURO TALENT HUNT EXAM) is the flagship talent identification, diagnostic, and
-              scholarship examination conducted by EURO CAMPUS for students of Classes 6 to 12.
+              scholarship examination conducted by EURO CAMPUS for students of Classes 8 to 12.
             </p>
 
             {/* Visit Official EURO Campus Website */}
