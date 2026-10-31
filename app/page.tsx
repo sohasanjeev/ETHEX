@@ -882,9 +882,14 @@ export default function HomePage() {
               { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Complete 11th + 12th PCM concepts with advanced drills', color: 'indigo' },
               { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical', desc: 'High-yield PCB topics, Botany, Zoology & mock patterns', color: 'emerald' },
             ].map((item) => {
+              const defaultSyllabusMap: Record<string, string> = {
+                class8: '/uploads/ethex_2027_class_8_syllabus.png',
+                class9: '/uploads/ethex_2027_class_9_syllabus.png',
+              };
               const fileUrl =
                 settings?.syllabus_urls?.[item.key] ||
                 settings?.syllabus_images?.[item.key] ||
+                defaultSyllabusMap[item.key] ||
                 `/branding/syllabus/${item.key}.svg`;
               return (
                 <a
@@ -948,8 +953,14 @@ export default function HomePage() {
               { key: 'jee_class12', label: 'Class 12 JEE (Main + Advanced)', tag: 'Engineering', desc: 'Intensive JEE paper covering complete 11th & 12th syllabus' },
               { key: 'neet_class12', label: 'Class 12 NEET', tag: 'Medical', desc: 'Actual NEET-UG format sample paper with Botany & Zoology' },
             ].map((item) => {
+              const defaultSampleMap: Record<string, string> = {
+                class8: '/uploads/ethex_2027_class_8_sample_paper.pdf',
+                class9: '/uploads/ethex_2027_class_9_sample_paper.pdf',
+                class10: '/uploads/ethex_2027_class_10_sample_paper.pdf',
+              };
               const fileUrl =
                 settings?.sample_paper_urls?.[item.key] ||
+                defaultSampleMap[item.key] ||
                 settings?.syllabus_urls?.[item.key] ||
                 `/branding/syllabus/${item.key}.svg`;
               return (
