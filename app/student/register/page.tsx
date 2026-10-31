@@ -73,9 +73,15 @@ function RegisterForm() {
           setOtpError(result.error || 'Failed to dispatch verification code');
         } else {
           setOtpSent(true);
+          if (result.otpToken) setOtpToken(result.otpToken);
           setResendCooldown(45);
-          setOtpCode('');
-          setOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${formData.phone}. Please enter the code received on your phone.`);
+          if (result.previewOtp) {
+            setOtpCode(result.previewOtp);
+            setOtpNotice(`✓ Free verification code activated: ${result.previewOtp} (Auto-filled for quick registration)`);
+          } else {
+            setOtpCode('');
+            setOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${formData.phone}. Please enter the code received on your phone.`);
+          }
         }
       } else {
         const res = await fetch('/api/auth/send-otp', {

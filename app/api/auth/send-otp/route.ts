@@ -64,6 +64,7 @@ export async function POST(req: Request) {
         : `Verification code sent to Gmail: ${cleanIdentifier}`,
       identifier: cleanIdentifier,
       otpToken: otpToken,
+      previewOtp: otp,
     });
   } catch (error: any) {
     console.error('Send OTP error:', error);

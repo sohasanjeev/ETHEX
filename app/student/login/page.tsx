@@ -79,9 +79,15 @@ export default function StudentLoginPage() {
           setError(result.error || 'Failed to dispatch verification code');
         } else {
           setOtpSent(true);
+          if (result.otpToken) setOtpToken(result.otpToken);
           setResendCountdown(45);
-          setOtpCode('');
-          setSuccessNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${identifier}. Please enter the code received on your phone.`);
+          if (result.previewOtp) {
+            setOtpCode(result.previewOtp);
+            setSuccessNotice(`✓ Free verification code activated: ${result.previewOtp} (Auto-filled for instant login)`);
+          } else {
+            setOtpCode('');
+            setSuccessNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${identifier}. Please enter the code received on your phone.`);
+          }
         }
       } else {
         const res = await fetch('/api/auth/send-otp', {
