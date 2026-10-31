@@ -558,7 +558,7 @@ export default function HomePage() {
           </div>
 
           {/* Dynamic Live Countdown Box */}
-          <div className="max-w-2xl mx-auto bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 border border-blue-500/40 rounded-2xl p-4 sm:p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+          <div className="max-w-2xl w-full mx-auto bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 border border-blue-500/40 rounded-2xl p-4 sm:p-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-amber-300 flex-shrink-0">
                 <Calendar className="w-6 h-6" />
@@ -600,8 +600,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Center 3-Field Quick Registration Box */}
-          <div className="max-w-xl mx-auto bg-white rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden text-slate-900">
+          {/* Center 3-Field Quick Registration Box (Matches Countdown Timer Width on Desktop) */}
+          <div className="max-w-2xl w-full mx-auto bg-white rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden text-slate-900">
             <div className="bg-gradient-to-r from-[#0066FF] to-blue-700 text-white px-6 py-4 flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-black uppercase tracking-wider text-blue-200">
@@ -695,9 +695,32 @@ export default function HomePage() {
       </section>
 
 
-      {/* 4. SPREAD THE WORD: INVITE FRIENDS & INVITE EURO TO YOUR SCHOOL */}
+      {/* 4. SPREAD THE WORD: INVITE EURO TO YOUR SCHOOL & INVITE FRIENDS */}
       <section className="py-10 sm:py-12 bg-white border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* 1. Institutional Collaboration Card: Invite EURO to Your School (Up) */}
+          <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-3xl p-6 sm:p-8 text-slate-950 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg border border-amber-400">
+            <div className="space-y-1.5 text-center md:text-left">
+              <span className="text-[10px] font-black uppercase tracking-wider bg-slate-950 text-white px-2.5 py-0.5 rounded-full">
+                INSTITUTIONAL COLLABORATION
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-950">
+                Invite EURO to Your School
+              </h3>
+              <p className="text-xs sm:text-sm font-bold text-slate-900/90 max-w-xl">
+                Are you a School Principal or Coordinator? Invite EURO CAMPUS to host ETHEX 2026 on your campus with full logistical support, student rank analysis &amp; institutional recognition.
+              </p>
+            </div>
+            <button
+              onClick={() => setSchoolModalOpen(true)}
+              className="px-6 py-3 bg-slate-950 hover:bg-slate-900 text-white font-black text-xs sm:text-sm rounded-xl shadow-xl flex items-center gap-2 flex-shrink-0 transition-transform active:scale-98"
+            >
+              <Users className="w-4 h-4 text-amber-400" />
+              <span>Invite EURO to Your School</span>
+            </button>
+          </div>
+
+          {/* 2. Share with Friends Card: Invite Your Friends to Experience ETHEX (Down) */}
           <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-6 sm:p-8 border border-blue-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 text-center md:text-left">
               <span className="text-[10px] font-black uppercase tracking-wider text-[#0066FF] bg-blue-100/70 px-2.5 py-0.5 rounded-full border border-blue-300">
@@ -745,28 +768,6 @@ export default function HomePage() {
                 <Share2 className="w-4 h-4" />
               </button>
             </div>
-          </div>
-
-          {/* Institutional Collaboration Card: Invite EURO to Your School */}
-          <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-3xl p-6 sm:p-8 text-slate-950 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg border border-amber-400">
-            <div className="space-y-1.5 text-center md:text-left">
-              <span className="text-[10px] font-black uppercase tracking-wider bg-slate-950 text-white px-2.5 py-0.5 rounded-full">
-                INSTITUTIONAL COLLABORATION
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-950">
-                Invite EURO to Your School
-              </h3>
-              <p className="text-xs sm:text-sm font-bold text-slate-900/90 max-w-xl">
-                Are you a School Principal or Coordinator? Invite EURO CAMPUS to host ETHEX 2026 on your campus with full logistical support, student rank analysis &amp; institutional recognition.
-              </p>
-            </div>
-            <button
-              onClick={() => setSchoolModalOpen(true)}
-              className="px-6 py-3 bg-slate-950 hover:bg-slate-900 text-white font-black text-xs sm:text-sm rounded-xl shadow-xl flex items-center gap-2 flex-shrink-0 transition-transform active:scale-98"
-            >
-              <Users className="w-4 h-4 text-amber-400" />
-              <span>Invite EURO to Your School</span>
-            </button>
           </div>
         </div>
       </section>
