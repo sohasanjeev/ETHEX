@@ -20,6 +20,7 @@ import {
   RotateCcw,
   Eye,
   ExternalLink,
+  Clock,
 } from 'lucide-react';
 import { Result, ResultChampion } from '@/lib/types';
 import CombinedBrandLogo from '@/components/branding/CombinedBrandLogo';
@@ -43,6 +44,7 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [notFoundMessage, setNotFoundMessage] = useState<string | null>(null);
 
   // Dynamic Champions & Results Wall
   const [champions, setChampions] = useState<ResultChampion[]>([]);
@@ -124,6 +126,7 @@ export default function ResultsPage() {
     setLoading(true);
     setError(null);
     setResult(null);
+    setNotFoundMessage(null);
 
     try {
       // 1. Verify OTP
@@ -148,13 +151,15 @@ export default function ResultsPage() {
       const resultData = await resultRes.json();
 
       if (!resultRes.ok || !resultData.result) {
-        throw new Error(
-          resultData.error ||
-            `No published examination result found for mobile number +91 ${cleanPhone}. Please check or contact administrator.`
+        setResult(null);
+        setNotFoundMessage(
+          `Thank you for verifying your mobile number (+91 ${cleanPhone}). The ETHEX 2026 examination results and scorecards have not been uploaded by the administration yet. The evaluation is currently in progress. Please check back soon once results are declared, or reach out to our campus helplines.`
         );
+        return;
       }
 
       setResult(resultData.result);
+      setNotFoundMessage(null);
     } catch (err: any) {
       setError(err.message || 'Verification failed. Please try again.');
     } finally {
@@ -169,18 +174,20 @@ export default function ResultsPage() {
     setLoading(true);
     setError(null);
     setResult(null);
+    setNotFoundMessage(null);
 
     try {
       const res = await fetch(`/api/results/lookup?query=${encodeURIComponent(rollNumberQuery.trim())}`);
       const data = await res.json();
 
       if (!res.ok || !data.result) {
-        setError(
-          data.error ||
-            'No published result found for the provided Roll / Application Number. Please check and try again.'
+        setResult(null);
+        setNotFoundMessage(
+          `No examination scorecard published yet for "${rollNumberQuery.trim()}". Examination results for ETHEX 2026 are currently under evaluation and will be uploaded soon by the administration.`
         );
       } else {
         setResult(data.result);
+        setNotFoundMessage(null);
       }
     } catch (err: any) {
       setError('Unable to reach result server. Please try again later.');
@@ -279,7 +286,7 @@ export default function ResultsPage() {
                     )}
                   </div>
                   <span className="text-[11px] text-slate-400 block">
-                    Sample test numbers: <strong className="text-[#0066FF] cursor-pointer" onClick={() => setPhone('9112223354')}>9112223354</strong> (Tanishka), <strong className="text-[#0066FF] cursor-pointer" onClick={() => setPhone('9607035688')}>9607035688</strong> (Mithilesh), <strong className="text-[#0066FF] cursor-pointer" onClick={() => setPhone('9876543210')}>9876543210</strong> (Aryan)
+                    Enter the 10-digit mobile number used during ETHEX 2026 registration to retrieve your verified scorecard.
                   </span>
                 </div>
 
@@ -351,6 +358,52 @@ export default function ResultsPage() {
               </div>
             )}
           </div>
+
+          {/* Polite Notice When No Result Uploaded by Admin Yet */}
+          {notFoundMessage && (
+            <div className="bg-amber-50/90 border-2 border-amber-300 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-sm animate-in fade-in duration-300">
+              <div className="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center mx-auto border border-amber-300">
+                <Clock className="w-6 h-6" />
+              </div>
+              <div className="space-y-1.5 max-w-xl mx-auto">
+                <span className="text-xs font-black uppercase tracking-wider text-amber-850 bg-amber-200/80 px-3 py-1 rounded-full border border-amber-300">
+                  EVALUATION IN PROGRESS • RESULT AWAITED
+                </span>
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 pt-2">
+                  Results Have Not Been Declared Yet
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed pt-1">
+                  {notFoundMessage}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-amber-200/80 flex flex-wrap items-center justify-center gap-3 text-xs">
+                <a
+                  href="tel:9112223354"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-amber-50 text-slate-800 font-bold rounded-xl border border-amber-300 shadow-2xs transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#0066FF]" />
+                  <span>PCMC Helpline: 9112223354</span>
+                </a>
+                <a
+                  href="tel:9607035688"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-amber-50 text-slate-800 font-bold rounded-xl border border-amber-300 shadow-2xs transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#0066FF]" />
+                  <span>Shikrapur Helpline: 9607035688</span>
+                </a>
+                <a
+                  href="https://eurocampus.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow-2xs transition-colors"
+                >
+                  <span>Visit eurocampus.in</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          )}
 
           {/* DISPLAY VERIFIED RESULT, SCHOLARSHIP & OFFICIAL PDF DOWNLOAD */}
           {result && (

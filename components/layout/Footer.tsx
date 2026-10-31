@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import CombinedBrandLogo from '../branding/CombinedBrandLogo';
-import { ExternalLink, Phone, Mail, MapPin, Shield, Award, CheckCircle2, Building, GraduationCap, HelpCircle } from 'lucide-react';
+import { ExternalLink, Phone, Mail, MapPin, Award, Building } from 'lucide-react';
 
 interface FooterProps {
   officialEuroWebsiteUrl?: string;
@@ -56,133 +56,75 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
-          {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Brand & Official EURO Campus Website */}
+          <div className="lg:col-span-6 space-y-5">
             <div>
               <CombinedBrandLogo size="md" variant="card" />
             </div>
-            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-lg">
               ETHEX 2026 (EURO TALENT HUNT EXAM) is the flagship talent identification, diagnostic, and
-              scholarship examination organized by EURO CAMPUS for students of Classes 7 to 12.
+              scholarship examination conducted by EURO CAMPUS for students of Classes 6 to 12.
             </p>
 
-            {/* Official EURO Campus Website Pill */}
+            {/* Visit Official EURO Campus Website */}
             <div className="pt-2">
               <a
                 href={officialEuroWebsiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black text-xs rounded-xl shadow-md hover:shadow-lg transition-all group"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg transition-all group"
               >
-                <span>Visit Official EURO Campus Website</span>
-                <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                <span>Visit Official EURO Campus Website for More Info</span>
+                <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-white font-black text-xs tracking-wider uppercase border-b border-slate-800 pb-2">
-              Examination
+          {/* Campus Test Centres */}
+          <div className="lg:col-span-6 space-y-4 bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-7">
+            <h4 className="text-white font-black text-sm tracking-wider uppercase border-b border-slate-800 pb-3 flex items-center gap-2">
+              <Building className="w-4 h-4 text-amber-400" />
+              <span>Campus Test Centres</span>
             </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <Link href="/exam-pattern" className="hover:text-amber-400 transition-colors font-medium">
-                  Exam Pattern & Marking (+4/-1)
-                </Link>
-              </li>
-              <li>
-                <Link href="/#syllabus" className="hover:text-amber-400 transition-colors font-medium">
-                  Syllabus Breakdown
-                </Link>
-              </li>
-              <li>
-                <Link href="/scholarships" className="hover:text-amber-400 transition-colors font-medium">
-                  Scholarships & Awards
-                </Link>
-              </li>
-              <li>
-                <Link href="/student/exam/simulation" className="hover:text-amber-400 transition-colors font-medium">
-                  Online CBT Mock Simulator
-                </Link>
-              </li>
-              <li>
-                <Link href="/results" className="hover:text-amber-400 transition-colors font-medium">
-                  Results & Scorecard
-                </Link>
-              </li>
-              <li>
-                <Link href="/faqs" className="hover:text-amber-400 transition-colors font-medium">
-                  Frequently Asked Questions (FAQs)
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Student & Faculty Portals */}
-          <div className="space-y-3">
-            <h4 className="text-white font-black text-xs tracking-wider uppercase border-b border-slate-800 pb-2">
-              Portals & Services
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <Link href="/student/register" className="hover:text-amber-400 transition-colors font-medium">
-                  Register for ETHEX
-                </Link>
-              </li>
-              <li>
-                <Link href="/student/login" className="hover:text-amber-400 transition-colors font-medium">
-                  Student Sign In (via OTP)
-                </Link>
-              </li>
-              <li>
-                <Link href="/student/dashboard" className="hover:text-amber-400 transition-colors font-medium">
-                  Download Admit Card
-                </Link>
-              </li>
-              <li>
-                <Link href="/centres" className="hover:text-amber-400 transition-colors font-medium flex items-center gap-1.5">
-                  <Building className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Examination Centres (PCMC & Shikrapur)</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/teacher" className="hover:text-amber-400 transition-colors font-medium flex items-center gap-1.5 text-slate-400">
-                  <GraduationCap className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Teacher Portal & Question Studio</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin" className="text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 font-medium">
-                  <Shield className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Admin Control Portal</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact & Centres */}
-          <div className="space-y-3">
-            <h4 className="text-white font-black text-xs tracking-wider uppercase border-b border-slate-800 pb-2">
-              Campus Test Centres
-            </h4>
-            <div className="space-y-2.5 text-xs text-slate-400">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                <span>
-                  <strong className="text-slate-200">PCMC Centre:</strong> 4th Floor, above Vijay Sales, Empire Estate Phase-II, Chinchwad, Pune — 411019
-                </span>
+            <div className="space-y-4 text-xs sm:text-sm text-slate-400">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-1" />
+                <div className="space-y-1">
+                  <span className="text-slate-200 font-bold block">PCMC Campus (Main Examination Centre)</span>
+                  <span className="text-xs text-slate-400 block leading-relaxed">
+                    4th Floor, above Vijay Sales, Empire Estate Phase-II, Chinchwad, Pune — 411019
+                  </span>
+                  <a
+                    href={`tel:${pcmcPhone}`}
+                    className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-bold text-xs pt-0.5"
+                  >
+                    <Phone className="w-3 h-3" />
+                    <span>Call PCMC: {pcmcPhone}</span>
+                  </a>
+                </div>
               </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                <span>
-                  <strong className="text-slate-200">Shikrapur Centre:</strong> Kalamkar Vasti, Hivare Road, Shikrapur, Pune — 412208
-                </span>
+
+              <div className="flex items-start gap-3 pt-3 border-t border-slate-800/80">
+                <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0 mt-1" />
+                <div className="space-y-1">
+                  <span className="text-slate-200 font-bold block">Shikrapur Campus (Academic Complex)</span>
+                  <span className="text-xs text-slate-400 block leading-relaxed">
+                    Kalamkar Vasti, Hivare Road, Shikrapur, Pune — 412208
+                  </span>
+                  <a
+                    href={`tel:${shikrapurPhone}`}
+                    className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-bold text-xs pt-0.5"
+                  >
+                    <Phone className="w-3 h-3" />
+                    <span>Call Shikrapur: {shikrapurPhone}</span>
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center gap-2 pt-1 text-slate-300">
+
+              <div className="flex items-center gap-2 pt-2 border-t border-slate-800/80 text-xs text-slate-300">
                 <Mail className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
-                <span>{officialEmail}</span>
+                <span>Helpline Email: <strong>{officialEmail}</strong></span>
               </div>
             </div>
           </div>

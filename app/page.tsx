@@ -1060,11 +1060,11 @@ export default function HomePage() {
               Courses We Offer at EURO CAMPUS
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 font-medium">
-              Flagship classroom and residential coaching programs for Engineering, Medical & Foundation aspirants.
+              Flagship classroom coaching programs for Engineering, Medical & Foundation aspirants.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Course 1: JEE Main + Advanced */}
             <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-blue-400 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
@@ -1219,52 +1219,6 @@ export default function HomePage() {
                 <span>Enrol via ETHEX Scholarship</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
-            </div>
-
-            {/* Course 5: Residential Coaching */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-rose-400 transition-all card-hover-effect flex flex-col justify-between md:col-span-2 lg:col-span-2">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-rose-700 bg-rose-50 px-2.5 py-0.5 rounded border border-rose-200">
-                    GURUKUL RESIDENTIAL
-                  </span>
-                  <span className="text-xs font-bold text-slate-400">Available at PCMC & Shikrapur</span>
-                </div>
-                <h3 className="text-lg font-black text-slate-900">
-                  Residential Campus Program (Integrated Hostel + Coaching)
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Immersive 24/7 learning ecosystem with supervised study halls, round-the-clock faculty doubt clinics, hygienic food, sports facilities, and pure academic focus without travel distractions.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-xs text-slate-700">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-3.5 h-3.5 text-rose-600 flex-shrink-0" />
-                    <span>Dedicated hostel wings for boys & girls</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-3.5 h-3.5 text-rose-600 flex-shrink-0" />
-                    <span>Daily 14-Hour structured academic routine</span>
-                  </div>
-                </div>
-              </div>
-              <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
-                <button
-                  onClick={() => {
-                    const reg = document.getElementById('register');
-                    if (reg) reg.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="w-full sm:w-auto px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all"
-                >
-                  Apply for Residential Seat
-                </button>
-                <a
-                  href="tel:9112223354"
-                  className="text-xs font-bold text-slate-600 hover:text-euro-royal flex items-center gap-1.5"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#0066FF]" />
-                  <span>Call Residential Warden: 9112223354</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>

@@ -132,7 +132,7 @@ export default function AboutPage() {
               Euro Campus Academic Complex, Pune-Nagar Highway, Shikrapur - 412208
             </p>
             <p className="text-xs text-slate-500">
-              Expansive campus offering integrated junior college programs, residential facilities for outstation students, doubt clearing counters, and Olympiad study cells.
+              Expansive campus offering integrated junior college programs, doubt clearing counters, and Olympiad study cells.
             </p>
             <div className="pt-2 flex items-center gap-2 text-xs font-bold text-euro-navy">
               <Phone className="w-3.5 h-3.5 text-euro-royal" />

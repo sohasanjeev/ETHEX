@@ -17,6 +17,8 @@ import {
   AlertCircle,
   FileText,
   Printer,
+  Clock,
+  ExternalLink,
 } from 'lucide-react';
 import { SiteSettings, ScholarshipRule, Result } from '@/lib/types';
 import CombinedBrandLogo from '@/components/branding/CombinedBrandLogo';
@@ -36,6 +38,7 @@ export default function ScholarshipsPage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [notFoundMessage, setNotFoundMessage] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/site-settings')
@@ -97,6 +100,7 @@ export default function ScholarshipsPage() {
     setLoading(true);
     setError(null);
     setResult(null);
+    setNotFoundMessage(null);
 
     try {
       const verifyRes = await fetch('/api/auth/verify-otp', {
@@ -119,13 +123,15 @@ export default function ScholarshipsPage() {
       const resultData = await resultRes.json();
 
       if (!resultRes.ok || !resultData.result) {
-        throw new Error(
-          resultData.error ||
-            `No published scholarship record found for mobile number +91 ${cleanPhone}. Please verify your number.`
+        setResult(null);
+        setNotFoundMessage(
+          `Thank you for verifying your mobile number (+91 ${cleanPhone}). Scholarship awards and certificates for ETHEX 2026 have not been declared yet. The evaluation is currently in progress. Your fee waiver tier and official scholarship letter will be visible here once results are announced.`
         );
+        return;
       }
 
       setResult(resultData.result);
+      setNotFoundMessage(null);
     } catch (err: any) {
       setError(err.message || 'Verification failed. Please try again.');
     } finally {
@@ -197,7 +203,7 @@ export default function ScholarshipsPage() {
                   )}
                 </div>
                 <span className="text-[11px] text-slate-400 block">
-                  Quick test numbers: <strong className="text-[#0066FF] cursor-pointer" onClick={() => setPhone('9112223354')}>9112223354</strong> (90% + ISRO Tour), <strong className="text-[#0066FF] cursor-pointer" onClick={() => setPhone('9607035688')}>9607035688</strong> (Govt. MBBS), <strong className="text-[#0066FF] cursor-pointer" onClick={() => setPhone('9876543210')}>9876543210</strong> (90% Waiver)
+                  Enter the 10-digit mobile number used during registration to retrieve your verified scholarship award.
                 </span>
               </div>
 
@@ -246,6 +252,52 @@ export default function ScholarshipsPage() {
               </div>
             )}
           </div>
+
+          {/* Polite Notice When No Scholarship Declared/Uploaded Yet */}
+          {notFoundMessage && (
+            <div className="bg-amber-50/90 border-2 border-amber-300 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-sm animate-in fade-in duration-300">
+              <div className="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center mx-auto border border-amber-300">
+                <Clock className="w-6 h-6" />
+              </div>
+              <div className="space-y-1.5 max-w-xl mx-auto">
+                <span className="text-xs font-black uppercase tracking-wider text-amber-850 bg-amber-200/80 px-3 py-1 rounded-full border border-amber-300">
+                  SCHOLARSHIP AWARDS UNDER EVALUATION
+                </span>
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 pt-2">
+                  Scholarship Allocations Have Not Been Declared Yet
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed pt-1">
+                  {notFoundMessage}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-amber-200/80 flex flex-wrap items-center justify-center gap-3 text-xs">
+                <a
+                  href="tel:9112223354"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-amber-50 text-slate-800 font-bold rounded-xl border border-amber-300 shadow-2xs transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#0066FF]" />
+                  <span>PCMC Helpline: 9112223354</span>
+                </a>
+                <a
+                  href="tel:9607035688"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-amber-50 text-slate-800 font-bold rounded-xl border border-amber-300 shadow-2xs transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#0066FF]" />
+                  <span>Shikrapur Helpline: 9607035688</span>
+                </a>
+                <a
+                  href="https://eurocampus.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow-2xs transition-colors"
+                >
+                  <span>Visit eurocampus.in</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          )}
 
           {/* VERIFIED SCHOLARSHIP CERTIFICATE & PROPER PDF DOWNLOAD */}
           {result && (
