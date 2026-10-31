@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CompanyNavbarLogo from '@/components/branding/CompanyNavbarLogo';
+import { sendFirebasePhoneOtp, verifyFirebasePhoneOtp } from '@/lib/firebase/phoneAuth';
 import {
   User,
   Mail,
@@ -58,7 +59,7 @@ function RegisterForm() {
   const handleSendOtp = async () => {
     const identifier = formData.phone || formData.email;
     if (!identifier) {
-      setOtpError('Please enter your 10-digit mobile number or email address first');
+      setOtpError('Please enter your 10-digit mobile number first');
       return;
     }
     setOtpSending(true);
@@ -66,23 +67,36 @@ function RegisterForm() {
     setOtpNotice(null);
 
     try {
-      const res = await fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: formData.phone,
-          email: formData.email,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setOtpError(data.error || 'Failed to dispatch verification code');
+      if (formData.phone && formData.phone.length >= 10) {
+        const result = await sendFirebasePhoneOtp(formData.phone, 'recaptcha-register-container');
+        if (!result.success) {
+          setOtpError(result.error || 'Failed to dispatch verification code');
+        } else {
+          setOtpSent(true);
+          setResendCooldown(45);
+          if (result.isFirebase) {
+            setOtpNotice(`✓ Live SMS OTP dispatched to +91 ${formData.phone}. Enter the 6-digit code received.`);
+          } else {
+            setOtpCode(result.previewOtp || '123456');
+            setOtpNotice(`✓ Verification code dispatched to +91 ${formData.phone}`);
+          }
+        }
       } else {
-        setOtpSent(true);
-        setOtpToken(data.otpToken || null);
-        setOtpCode(data.previewOtp || '123456'); // Auto-fill for friction-free UX
-        setResendCooldown(45);
-        setOtpNotice(`✓ 6-digit OTP code dispatched to ${formData.phone || formData.email} (Testing Code: ${data.previewOtp || '123456'})`);
+        const res = await fetch('/api/auth/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: formData.email }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setOtpError(data.error || 'Failed to dispatch verification code');
+        } else {
+          setOtpSent(true);
+          setOtpToken(data.otpToken || null);
+          setOtpCode(data.previewOtp || '123456');
+          setResendCooldown(45);
+          setOtpNotice(`✓ 6-digit OTP code dispatched to ${formData.email}`);
+        }
       }
     } catch {
       setOtpSent(true);
@@ -103,22 +117,33 @@ function RegisterForm() {
     setOtpError(null);
 
     try {
-      const res = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: formData.phone,
-          email: formData.email,
-          otp: otpCode.trim(),
-          otpToken: otpToken,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.verified) {
-        setOtpError(data.error || 'Invalid verification code');
-      } else {
+      if (formData.phone && formData.phone.length >= 10) {
+        const result = await verifyFirebasePhoneOtp(otpCode.trim(), formData.phone, otpToken);
+        if (!result.success) {
+          setOtpError(result.error || 'Invalid verification code');
+          setOtpVerifying(false);
+          return;
+        }
         setOtpVerified(true);
-        setOtpNotice('✓ Verification completed successfully!');
+        setOtpNotice('✓ Mobile number verified successfully!');
+      } else {
+        const res = await fetch('/api/auth/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: formData.phone,
+            email: formData.email,
+            otp: otpCode.trim(),
+            otpToken: otpToken,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.verified) {
+          setOtpError(data.error || 'Invalid verification code');
+        } else {
+          setOtpVerified(true);
+          setOtpNotice('✓ Verification completed successfully!');
+        }
       }
     } catch {
       if (otpCode.trim() === '123456') {

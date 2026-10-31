@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { SiteSettings, ScholarshipRule, Result } from '@/lib/types';
 import CombinedBrandLogo from '@/components/branding/CombinedBrandLogo';
+import { sendFirebasePhoneOtp, verifyFirebasePhoneOtp } from '@/lib/firebase/phoneAuth';
 
 export default function ScholarshipsPage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
@@ -66,16 +67,18 @@ export default function ScholarshipsPage() {
     setOtpNotice(null);
 
     try {
-      const res = await fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: cleanPhone }),
-      });
-      const data = await res.json();
-      setOtpSent(true);
-      setOtpToken(data.otpToken || null);
-      setOtpCode(data.previewOtp || '123456');
-      setOtpNotice(`✓ 6-digit OTP code dispatched to +91 ${cleanPhone} (Test Code: ${data.previewOtp || '123456'})`);
+      const result = await sendFirebasePhoneOtp(cleanPhone, 'recaptcha-scholarships-container');
+      if (!result.success) {
+        setError(result.error || 'Failed to dispatch verification code');
+      } else {
+        setOtpSent(true);
+        if (result.isFirebase) {
+          setOtpNotice(`✓ Live SMS OTP dispatched to +91 ${cleanPhone}. Please enter the 6-digit code received.`);
+        } else {
+          setOtpCode(result.previewOtp || '123456');
+          setOtpNotice(`✓ Verification code dispatched to +91 ${cleanPhone}`);
+        }
+      }
     } catch {
       setOtpSent(true);
       setOtpCode('123456');
@@ -103,18 +106,9 @@ export default function ScholarshipsPage() {
     setNotFoundMessage(null);
 
     try {
-      const verifyRes = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: cleanPhone,
-          otp: otpCode.trim(),
-          otpToken: otpToken,
-        }),
-      });
-      const verifyData = await verifyRes.json();
-      if (!verifyRes.ok) {
-        throw new Error(verifyData.error || 'Invalid OTP code');
+      const verifyRes = await verifyFirebasePhoneOtp(otpCode.trim(), cleanPhone, otpToken);
+      if (!verifyRes.success) {
+        throw new Error(verifyRes.error || 'Invalid OTP code');
       }
 
       setOtpVerified(true);
