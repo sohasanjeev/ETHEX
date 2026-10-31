@@ -36,7 +36,10 @@ export default function TeacherPortalPage() {
   const [selectedExamId, setSelectedExamId] = useState<string>('');
   const [showPdfModal, setShowPdfModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [activeTab, setActiveTab] = useState<'my_tests' | 'templates' | 'question_bank'>('my_tests');
+  const [activeTab, setActiveTab] = useState<'my_tests' | 'templates' | 'question_bank' | 'sample_papers'>('my_tests');
+  const [selectedClass, setSelectedClass] = useState<string>('class8');
+  const [settings, setSettings] = useState<any>(null);
+  const [uploadingPdf, setUploadingPdf] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
@@ -47,12 +50,15 @@ export default function TeacherPortalPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [examsRes, tplRes] = await Promise.all([
+      const [examsRes, tplRes, setRes] = await Promise.all([
+        fetch('/api/site-settings'),
         fetch('/api/exams'),
         fetch('/api/templates'),
       ]);
-      const examsData = await examsRes.json();
-      const tplData = await tplRes.json();
+      const setData = await examsRes.json();
+      const examsData = await tplRes.json();
+      const tplData = await setRes.json();
+      if (setData && !setData.error) setSettings(setData);
 
       if (examsData.exams) {
         setExams(examsData.exams);
@@ -180,6 +186,13 @@ export default function TeacherPortalPage() {
                 <UploadCloud className="w-4 h-4 text-amber-300" />
                 <span>Upload Question Paper PDF</span>
               </button>
+              <button
+                onClick={() => setActiveTab('sample_papers')}
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs sm:text-sm rounded-xl transition-all flex items-center gap-2 shadow-md"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Upload Class 8–12 Sample Papers</span>
+              </button>
             </div>
           </div>
         </div>
@@ -208,6 +221,17 @@ export default function TeacherPortalPage() {
             >
               <Layers className="w-4 h-4" />
               <span>Ready-Made Templates ({templates.length})</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('sample_papers')}
+              className={`pb-3 px-4 text-xs sm:text-sm font-bold flex items-center gap-2 border-b-2 transition-all ${
+                activeTab === 'sample_papers'
+                  ? 'border-emerald-600 text-emerald-700'
+                  : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <UploadCloud className="w-4 h-4 text-emerald-600" />
+              <span>Upload Sample Papers (Classes 8–12)</span>
             </button>
           </div>
 

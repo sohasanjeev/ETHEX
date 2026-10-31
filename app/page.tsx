@@ -865,9 +865,12 @@ export default function HomePage() {
                 settings?.syllabus_images?.[item.key] ||
                 `/branding/syllabus/${item.key}.svg`;
               return (
-                <div
+                <a
                   key={item.key}
-                  className="bg-slate-50 hover:bg-white rounded-2xl border border-slate-200 hover:border-blue-400 p-5 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
+                  href={fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-slate-50 hover:bg-white rounded-2xl border border-slate-200 hover:border-blue-500 p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group cursor-pointer block text-left"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
@@ -885,18 +888,13 @@ export default function HomePage() {
                   </div>
 
                   <div className="pt-4 mt-2 border-t border-slate-200/60">
-                    <a
-                      href={fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 px-3 rounded-xl bg-euro-royal hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
-                    >
+                    <div className="w-full py-2.5 px-3 rounded-xl bg-euro-royal group-hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95">
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>Open Syllabus</span>
                       <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
+                    </div>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>
@@ -933,9 +931,12 @@ export default function HomePage() {
                 settings?.syllabus_urls?.[item.key] ||
                 `/branding/syllabus/${item.key}.svg`;
               return (
-                <div
+                <a
                   key={item.key}
-                  className="bg-white hover:bg-emerald-50/40 rounded-2xl border border-slate-200 hover:border-emerald-400 p-5 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
+                  href={fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white hover:bg-emerald-50/50 rounded-2xl border border-slate-200 hover:border-emerald-500 p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group cursor-pointer block text-left"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
@@ -953,18 +954,13 @@ export default function HomePage() {
                   </div>
 
                   <div className="pt-4 mt-2 border-t border-slate-200/60">
-                    <a
-                      href={fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95"
-                    >
+                    <div className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 group-hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95">
                       <FileText className="w-3.5 h-3.5" />
                       <span>Open Sample Paper</span>
                       <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
+                    </div>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>

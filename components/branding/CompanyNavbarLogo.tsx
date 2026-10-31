@@ -21,7 +21,7 @@ export const CompanyNavbarLogo: React.FC<CompanyNavbarLogoProps> = ({
       <img
         src="/branding/euro_campus_official_logo.png"
         alt="EURO CAMPUS Logo"
-        className="h-7 sm:h-8 w-auto max-w-[135px] sm:max-w-[170px] object-contain filter contrast-105 drop-shadow-xs group-hover:scale-[1.02] transition-transform"
+        className="h-10 sm:h-12 w-auto max-w-[195px] sm:max-w-[250px] object-contain filter contrast-105 drop-shadow-xs group-hover:scale-[1.02] transition-transform"
       />
     </Link>
   );

@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ examYear = '2026' }) => {
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm transition-all w-full overflow-x-clip">
       <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
         {/* ROW 1: TOP LINE (COMBINED EURO CAMPUS + ETHEX LOGO ON LEFT; CALL & LOGIN ON RIGHT) */}
-        <div className="flex items-center justify-between h-14 sm:h-16 gap-1.5 sm:gap-4">
+        <div className="flex items-center justify-between min-h-[72px] sm:min-h-[84px] py-2 sm:py-2.5 gap-2 sm:gap-4">
           {/* Left: EURO CAMPUS + ETHEX Combined Logo */}
           <div className="flex-shrink min-w-0 py-1 overflow-hidden">
             <CombinedBrandLogo size="sm" variant="inline" year={examYear} />

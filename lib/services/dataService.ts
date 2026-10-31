@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import {
   SiteSettings,
   Exam,
@@ -793,8 +795,29 @@ let teachersState: TeacherAccount[] = [
 
 // Data Service API
 export const dataService = {
-  // Site Settings & CMS
+  // Site Settings & CMS (with persistent disk backup)
   getSiteSettings: async (): Promise<SiteSettings> => {
+    try {
+      const filePath = path.join(process.cwd(), 'data', 'site_settings.json');
+      if (fs.existsSync(filePath)) {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const diskSettings = JSON.parse(raw);
+        siteSettingsState = {
+          ...siteSettingsState,
+          ...diskSettings,
+          sample_paper_urls: {
+            ...siteSettingsState.sample_paper_urls,
+            ...(diskSettings.sample_paper_urls || {}),
+          },
+          syllabus_urls: {
+            ...siteSettingsState.syllabus_urls,
+            ...(diskSettings.syllabus_urls || {}),
+          },
+        };
+      }
+    } catch (e) {
+      // Fallback to in-memory state
+    }
     return { ...siteSettingsState };
   },
 
@@ -802,8 +825,28 @@ export const dataService = {
     siteSettingsState = {
       ...siteSettingsState,
       ...updates,
+      sample_paper_urls: {
+        ...siteSettingsState.sample_paper_urls,
+        ...(updates.sample_paper_urls || {}),
+      },
+      syllabus_urls: {
+        ...siteSettingsState.syllabus_urls,
+        ...(updates.syllabus_urls || {}),
+      },
       updated_at: new Date().toISOString(),
     };
+
+    try {
+      const dataDir = path.join(process.cwd(), 'data');
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+      const filePath = path.join(dataDir, 'site_settings.json');
+      fs.writeFileSync(filePath, JSON.stringify(siteSettingsState, null, 2), 'utf-8');
+    } catch (e) {
+      console.warn('Could not persist site_settings to disk:', e);
+    }
+
     return { ...siteSettingsState };
   },
 

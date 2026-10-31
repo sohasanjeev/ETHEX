@@ -12,11 +12,12 @@ export const EuroCampusLogo: React.FC<LogoProps> = ({
   size = "md",
   theme = "light",
 }) => {
+  // 150% dimension scaling (+50% larger) for clear institutional presence
   const heightClass = {
-    sm: "h-7 sm:h-8 max-w-[135px] sm:max-w-[170px]",
-    md: "h-8 sm:h-9.5 max-w-[155px] sm:max-w-[195px]",
-    lg: "h-10 sm:h-12 max-w-[185px] sm:max-w-[230px]",
-    xl: "h-12 sm:h-14 max-w-[220px] sm:max-w-[270px]",
+    sm: "h-10 sm:h-12 max-w-[195px] sm:max-w-[250px]",
+    md: "h-11 sm:h-13 max-w-[220px] sm:max-w-[275px]",
+    lg: "h-13 sm:h-16 max-w-[260px] sm:max-w-[320px]",
+    xl: "h-16 sm:h-20 max-w-[310px] sm:max-w-[380px]",
   }[size];
 
   return (

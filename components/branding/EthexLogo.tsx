@@ -16,11 +16,11 @@ export const EthexLogo: React.FC<EthexLogoProps> = ({
   height,
 }) => {
   const heightMap = {
-    sm: 36,
-    md: 48,
-    lg: 68,
-    xl: 92,
-    hero: 125,
+    sm: 52,
+    md: 68,
+    lg: 88,
+    xl: 110,
+    hero: 140,
   }[size];
 
   const actualHeight = height || heightMap;
@@ -33,12 +33,12 @@ export const EthexLogo: React.FC<EthexLogoProps> = ({
 
   return (
     <div className={`inline-flex items-center justify-center select-none ${className}`}>
-      {/* Authentic High-Resolution Transparent ETHEX Official Logo */}
+      {/* Authentic High-Resolution Transparent ETHEX Official Logo (150% scaled) */}
       <img
         src="/branding/ethex_logo_official_transparent.png"
         alt={`ETHEX ${year} - EURO TALENT HUNT EXAM`}
         className={`object-contain max-w-full transition-transform duration-300 hover:scale-102 ${filterStyle} ${
-          size === 'sm' ? 'h-7 sm:h-8 max-w-[125px] sm:max-w-[150px]' : ''
+          size === 'sm' ? 'h-10 sm:h-12 max-w-[175px] sm:max-w-[220px]' : ''
         }`}
         style={size === 'sm' ? { width: 'auto' } : { height: `${actualHeight}px`, width: 'auto' }}
       />
