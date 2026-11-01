@@ -552,7 +552,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-gradient-to-b from-[#E7EFF8] via-[#EEF4FA] to-[#E3EAF3] text-slate-900 py-12 sm:py-16 border-b border-slate-200/80" id="about">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 border border-blue-200 text-[#0066FF] text-xs font-black uppercase tracking-wider shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 border border-blue-200 text-[#0066FF] text-xs font-black uppercase tracking-widest font-black shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span>EURO TALENT HUNT EXAMINATION • ETHEX 2026</span>
             </div>
@@ -564,7 +564,7 @@ export default function HomePage() {
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
               Flagship national talent examination conducted by <strong className="text-slate-900 font-bold">EURO CAMPUS</strong> for ambitious students of <strong className="text-[#0066FF] font-bold">Classes 8 to 12</strong>. Comprehensive benchmarking, Competitive Success Index (CSI), and up to 90% fee waivers for JEE, NEET &amp; Foundation.
             </p>
           </div>
@@ -582,7 +582,7 @@ export default function HomePage() {
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div className="text-amber-600 font-black text-xl">Up to 90% Scholarship</div>
-                <div className="text-xs text-slate-600 leading-relaxed font-medium">
+                <div className="text-xs text-slate-700 leading-relaxed font-medium">
                   Direct admission fee waivers across all EURO Campus classroom courses from a ₹2.5 Cr pool.
                 </div>
               </div>
@@ -592,7 +592,7 @@ export default function HomePage() {
                   <Rocket className="w-5 h-5" />
                 </div>
                 <div className="text-purple-600 font-black text-xl">ISRO Educational Tour</div>
-                <div className="text-xs text-slate-600 leading-relaxed font-medium">
+                <div className="text-xs text-slate-700 leading-relaxed font-medium">
                   National top performers qualify for an all-expenses-sponsored educational tour to ISRO satellite centres.
                 </div>
               </div>
@@ -602,7 +602,7 @@ export default function HomePage() {
                   <Trophy className="w-5 h-5" />
                 </div>
                 <div className="text-emerald-600 font-black text-xl">₹10 Lakh Cash Prizes</div>
-                <div className="text-xs text-slate-600 leading-relaxed font-medium">
+                <div className="text-xs text-slate-700 leading-relaxed font-medium">
                   State rankers and merit toppers earn direct monetary honors and academic excellence awards.
                 </div>
               </div>
@@ -612,7 +612,7 @@ export default function HomePage() {
                   <BarChart3 className="w-5 h-5" />
                 </div>
                 <div className="text-[#0066FF] font-black text-xl">CSI Diagnostic Report</div>
-                <div className="text-xs text-slate-600 leading-relaxed font-medium">
+                <div className="text-xs text-slate-700 leading-relaxed font-medium">
                   Detailed subject-wise Competitive Success Index, time analysis, and Pune University Certification support.
                 </div>
               </div>
@@ -625,13 +625,13 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-[#DFE7F1] via-[#E8EEF6] to-[#E1E8F2] border-b border-slate-200/80" id="register">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
               ONLINE REGISTRATIONS ONLY
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
               Register for ETHEX 2026
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium">
+            <p className="text-xs sm:text-sm text-slate-700 font-medium">
               Join thousands of students across India. Instant admit card and roll number generation in 2 minutes.
             </p>
           </div>
@@ -643,7 +643,7 @@ export default function HomePage() {
                 <Calendar className="w-6 h-6" />
               </div>
               <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded w-fit border border-amber-400/30">
+                <div className="text-[10px] font-black uppercase tracking-widest font-black text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded w-fit border border-amber-400/30">
                   EXAM DATE
                 </div>
                 <div className="text-base sm:text-lg font-black text-white mt-0.5">
@@ -659,22 +659,22 @@ export default function HomePage() {
             <div className="flex items-center gap-2 text-center">
               <div className="bg-slate-900/90 border border-slate-700 text-white rounded-xl px-3 py-1.5 min-w-[50px] shadow-inner">
                 <span className="block text-lg font-black text-amber-300">{timeLeft.days}</span>
-                <span className="block text-[8px] uppercase tracking-wider text-slate-400">Days</span>
+                <span className="block text-[8px] uppercase tracking-widest font-black text-slate-400">Days</span>
               </div>
               <span className="text-amber-300 font-bold">:</span>
               <div className="bg-slate-900/90 border border-slate-700 text-white rounded-xl px-3 py-1.5 min-w-[50px] shadow-inner">
                 <span className="block text-lg font-black text-amber-300">{timeLeft.hours}</span>
-                <span className="block text-[8px] uppercase tracking-wider text-slate-400">Hrs</span>
+                <span className="block text-[8px] uppercase tracking-widest font-black text-slate-400">Hrs</span>
               </div>
               <span className="text-amber-300 font-bold">:</span>
               <div className="bg-slate-900/90 border border-slate-700 text-white rounded-xl px-3 py-1.5 min-w-[50px] shadow-inner">
                 <span className="block text-lg font-black text-amber-300">{timeLeft.minutes}</span>
-                <span className="block text-[8px] uppercase tracking-wider text-slate-400">Min</span>
+                <span className="block text-[8px] uppercase tracking-widest font-black text-slate-400">Min</span>
               </div>
               <span className="text-amber-300 font-bold">:</span>
               <div className="bg-slate-900/90 border border-slate-700 text-white rounded-xl px-3 py-1.5 min-w-[50px] shadow-inner">
                 <span className="block text-lg font-black text-amber-300">{timeLeft.seconds}</span>
-                <span className="block text-[8px] uppercase tracking-wider text-slate-400">Sec</span>
+                <span className="block text-[8px] uppercase tracking-widest font-black text-slate-400">Sec</span>
               </div>
             </div>
           </div>
@@ -683,7 +683,7 @@ export default function HomePage() {
           <div className="max-w-2xl w-full mx-auto bg-white rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden text-slate-900">
             <div className="bg-gradient-to-r from-[#0066FF] to-blue-700 text-white px-6 py-4 flex items-center justify-between">
               <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-blue-200">
+                <div className="text-[10px] font-black uppercase tracking-widest font-black text-blue-200">
                   FAST REGISTRATION PORTAL
                 </div>
                 <div className="text-base font-black">Register for ETHEX 2026</div>
@@ -872,7 +872,7 @@ export default function HomePage() {
           {/* 1. Institutional Collaboration Card: Invite EURO to Your School (Up) */}
           <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-3xl p-6 sm:p-8 text-slate-950 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg border border-amber-400">
             <div className="space-y-1.5 text-center md:text-left">
-              <span className="text-[10px] font-black uppercase tracking-wider bg-slate-950 text-white px-2.5 py-0.5 rounded-full">
+              <span className="text-[10px] font-black uppercase tracking-widest font-black bg-slate-950 text-white px-2.5 py-0.5 rounded-full">
                 INSTITUTIONAL COLLABORATION
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-slate-950">
@@ -894,7 +894,7 @@ export default function HomePage() {
           {/* 2. Share with Friends Card: Invite Your Friends to Experience ETHEX (Down) */}
           <div className="bg-gradient-to-r from-[#061229] via-[#0B1E48] to-[#122A63] rounded-3xl p-6 sm:p-8 border border-blue-500/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 text-white relative overflow-hidden">
             <div className="space-y-2 text-center md:text-left relative z-10">
-              <span className="text-[10px] font-black uppercase tracking-wider text-cyan-300 bg-blue-500/20 px-2.5 py-0.5 rounded-full border border-blue-400/40">
+              <span className="text-[10px] font-black uppercase tracking-widest font-black text-cyan-300 bg-blue-500/20 px-2.5 py-0.5 rounded-full border border-blue-400/40">
                 SPREAD THE WORD
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-white">
@@ -947,28 +947,25 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E6EDF5] via-[#EDF3FA] to-[#E3EAF3] border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
               SIMPLE & FAST ONBOARDING
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               How to Register in 4 Easy Steps
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium">
+            <p className="text-xs sm:text-sm text-slate-700 font-medium">
               A hassle-free registration process designed so parents and students can register in less than 2 minutes.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Step 1 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-blue-50 text-[#0066FF] font-black text-sm flex items-center justify-center border border-blue-200">
                   01
                 </div>
-                <h4 className="font-black text-slate-900 text-base">Fill 3 Basic Details</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Enter your 10-digit mobile number, student full name, and select your target class from Classes 8 to 12.
-                </p>
+                <h4 className="font-black text-slate-950 text-base">Fill 3 Basic Details</h4>
               </div>
               <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-[#0066FF] flex items-center gap-1">
                 <span>No lengthy forms</span>
@@ -976,15 +973,12 @@ export default function HomePage() {
             </div>
 
             {/* Step 2 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 font-black text-sm flex items-center justify-center border border-purple-200">
                   02
                 </div>
-                <h4 className="font-black text-slate-900 text-base">Pay Nominal Fee</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Pay ₹100 registration fee using UPI QR code, Google Pay, PhonePe, Paytm, or Debit/Credit Card.
-                </p>
+                <h4 className="font-black text-slate-950 text-base">Pay Nominal Fee</h4>
               </div>
               <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-purple-600 flex items-center gap-1">
                 <CreditCard className="w-3.5 h-3.5" />
@@ -993,15 +987,12 @@ export default function HomePage() {
             </div>
 
             {/* Step 3 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 font-black text-sm flex items-center justify-center border border-emerald-200">
                   03
                 </div>
-                <h4 className="font-black text-slate-900 text-base">Get Admit Card</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Immediately receive your official ETHEX Roll Number and instant download access to your Admit Card.
-                </p>
+                <h4 className="font-black text-slate-950 text-base">Get Admit Card</h4>
               </div>
               <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-emerald-700 flex items-center gap-1">
                 <Download className="w-3.5 h-3.5" />
@@ -1010,19 +1001,16 @@ export default function HomePage() {
             </div>
 
             {/* Step 4 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between">
+            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 font-black text-sm flex items-center justify-center border border-amber-200">
                   04
                 </div>
-                <h4 className="font-black text-slate-900 text-base">Appear for Exam</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Appear on 29th November 2026 Offline at EURO Campus (PCMC / Shikrapur) or Online CBT from home.
-                </p>
+                <h4 className="font-black text-slate-950 text-base">Appear for Exam</h4>
               </div>
               <div className="pt-2 border-t border-slate-100 text-[11px] font-bold text-amber-700 flex items-center gap-1.5 leading-snug">
                 <Trophy className="w-4 h-4 flex-shrink-0 text-amber-500" />
-                <span>Get an ISRO educational trip as well as up to 90% scholarship</span>
+                <span>ISRO Educational Trip & Scholarship</span>
               </div>
             </div>
           </div>
@@ -1033,10 +1021,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E3EAF3] via-[#E9EFF7] to-[#E1E8F2] border-t border-slate-200/80" id="syllabus">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
               OFFICIAL SYLLABUS (CLASSES 8–12)
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               Exam Syllabus &amp; Template Breakdown
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -1131,13 +1119,13 @@ export default function HomePage() {
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">ETHEX 2026</span>
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest font-black">ETHEX 2026</span>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100/70 text-euro-royal">
                         {item.tag}
                       </span>
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-base font-black text-slate-900 group-hover:text-euro-royal transition-colors">
+                      <h3 className="text-base font-black text-slate-950 group-hover:text-euro-royal transition-colors">
                         {item.label}
                       </h3>
                       <span className="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md inline-block border border-blue-100">
@@ -1164,10 +1152,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E1E8F2] via-[#E8EEF6] to-[#E3EAF3] border-t border-slate-200/80" id="sample-papers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-widest font-black">
               OFFICIAL SAMPLE PAPERS (CLASSES 8–12)
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               ETHEX Official Model Question Papers
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -1253,13 +1241,13 @@ export default function HomePage() {
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">SAMPLE PAPER</span>
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest font-black">SAMPLE PAPER</span>
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-800">
                         {item.tag}
                       </span>
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-base font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                      <h3 className="text-base font-black text-slate-950 group-hover:text-emerald-700 transition-colors">
                         {item.label}
                       </h3>
                       <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md inline-block border border-emerald-100">
@@ -1286,13 +1274,13 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E3EAF3] via-[#ECF2F8] to-[#E1E8F2] border-t border-slate-200/80" id="courses">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
               PROGRAMS & ACADEMICS
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight">
               Courses We Offer at EURO CAMPUS
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 font-medium">
+            <p className="text-xs sm:text-sm text-slate-700 font-medium">
               Flagship classroom coaching programs for Engineering, Medical & Foundation aspirants.
             </p>
           </div>
@@ -1302,15 +1290,15 @@ export default function HomePage() {
             <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-blue-400 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
+                  <span className="text-[10px] font-black uppercase tracking-widest font-black text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
                     ENGINEERING
                   </span>
                   <span className="text-xs font-bold text-slate-400">Class 11, 12 & Droppers</span>
                 </div>
-                <h3 className="text-lg font-black text-slate-900">
+                <h3 className="text-lg font-black text-slate-950">
                   JEE (Main & Advanced) Classroom Program
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
                   Rigorous preparation covering Physics, Chemistry, and Advanced Mathematics. Daily practice problems (DPP), Computer-Based Testing (CBT), and faculty mentorship.
                 </p>
                 <div className="pt-2 space-y-1.5 text-xs text-slate-700">
@@ -1341,15 +1329,15 @@ export default function HomePage() {
             <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-emerald-400 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
+                  <span className="text-[10px] font-black uppercase tracking-widest font-black text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
                     MEDICAL
                   </span>
                   <span className="text-xs font-bold text-slate-400">Class 11, 12 & Repeaters</span>
                 </div>
-                <h3 className="text-lg font-black text-slate-900">
+                <h3 className="text-lg font-black text-slate-950">
                   NEET-UG Medical Entrance Program
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
                   NCERT line-by-line decoding in Biology, formula application in Physics & Chemistry. Regular error-analysis sessions targeting 650+ in NEET.
                 </p>
                 <div className="pt-2 space-y-1.5 text-xs text-slate-700">
@@ -1380,15 +1368,15 @@ export default function HomePage() {
             <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-purple-400 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded border border-purple-200">
+                  <span className="text-[10px] font-black uppercase tracking-widest font-black text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded border border-purple-200">
                     STATE PREMIER
                   </span>
                   <span className="text-xs font-bold text-slate-400">Class 12 & Droppers</span>
                 </div>
-                <h3 className="text-lg font-black text-slate-900">
+                <h3 className="text-lg font-black text-slate-950">
                   MHT-CET & State Board Comprehensive
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
                   Target COEP Tech, VJTI, and top Maharashtra government colleges with 99.5+ percentile speed-accuracy drills and State Textbook mastery.
                 </p>
                 <div className="pt-2 space-y-1.5 text-xs text-slate-700">
@@ -1419,15 +1407,15 @@ export default function HomePage() {
             <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-amber-400 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">
+                  <span className="text-[10px] font-black uppercase tracking-widest font-black text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">
                     PRE-FOUNDATION
                   </span>
                   <span className="text-xs font-bold text-slate-400">Classes 8, 9 & 10</span>
                 </div>
-                <h3 className="text-lg font-black text-slate-900">
+                <h3 className="text-lg font-black text-slate-950">
                   Pre-Foundation & Olympiad Program
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                <p className="text-xs text-slate-700 leading-relaxed font-medium">
                   Early competitive aptitude, critical thinking, and Olympiad training (NSEJS, PRMO, NSO, IMO) along with strong school board foundations.
                 </p>
                 <div className="pt-2 space-y-1.5 text-xs text-slate-700">
@@ -1461,10 +1449,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E1E8F2] via-[#E8EEF6] to-[#E3EAF3] border-t border-slate-200/80" id="centres">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
               AUTHORISED TEST CENTRES
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               EURO Campus Offline Examination Centres
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -1482,7 +1470,7 @@ export default function HomePage() {
                 <Building className="w-5 h-5 text-amber-500" />
               </div>
               <div>
-                <h3 className="text-lg font-black text-slate-900">EURO CAMPUS — PCMC</h3>
+                <h3 className="text-lg font-black text-slate-950">EURO CAMPUS — PCMC</h3>
                 <p className="text-xs text-slate-600 flex items-start gap-1.5 mt-1 leading-relaxed">
                   <MapPin className="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" />
                   <span>4th Floor, above Vijay Sales, Empire Estate Phase-II, Chinchwad, Pune — 411019</span>
@@ -1505,7 +1493,7 @@ export default function HomePage() {
                 <Building className="w-5 h-5 text-amber-500" />
               </div>
               <div>
-                <h3 className="text-lg font-black text-slate-900">EURO CAMPUS — Shikrapur</h3>
+                <h3 className="text-lg font-black text-slate-950">EURO CAMPUS — Shikrapur</h3>
                 <p className="text-xs text-slate-600 flex items-start gap-1.5 mt-1 leading-relaxed">
                   <MapPin className="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" />
                   <span>Kalamkar Vasti, Hivare Road, Shikrapur, Pune — 412208, Maharashtra</span>
@@ -1526,10 +1514,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E3EAF3] via-[#ECF2F8] to-[#E1E8F2] border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
               SUCCESS STORIES
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               EURO CAMPUS Champions & ISRO Tour Qualifiers
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -1574,7 +1562,7 @@ export default function HomePage() {
                   </div>
 
                   <div>
-                    <h4 className="font-black text-slate-900 text-base leading-tight">{achiever.name}</h4>
+                    <h4 className="font-black text-slate-950 text-base leading-tight">{achiever.name}</h4>
                     <p className="text-[11px] font-semibold text-slate-600 mt-0.5">{achiever.school}</p>
                     <p className="text-[10px] font-bold text-slate-400">{achiever.grade}</p>
                   </div>
@@ -1583,7 +1571,7 @@ export default function HomePage() {
                     ★ {achiever.badge}
                   </span>
 
-                  <p className="text-xs text-slate-600 leading-relaxed italic border-t border-slate-200/80 pt-2.5">
+                  <p className="text-xs text-slate-700 leading-relaxed italic border-t border-slate-200/80 pt-2.5">
                     &ldquo;{achiever.quote}&rdquo;
                   </p>
                 </div>
@@ -1602,10 +1590,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E1E8F2] via-[#E8EEF6] to-[#DFE7F2] border-t border-slate-200/80" id="faqs">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="text-center sm:text-left space-y-1">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
+            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
               CLEAR DOUBTS
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               Frequently Asked Questions
             </h2>
           </div>
@@ -1628,7 +1616,7 @@ export default function HomePage() {
                   />
                 </button>
                 {openFaq === idx && (
-                  <div className="px-5 pb-4 text-xs sm:text-[13px] text-slate-600 leading-relaxed border-t border-slate-200 pt-3 bg-white">
+                  <div className="px-5 pb-4 text-xs sm:text-[13px] text-slate-700 leading-relaxed border-t border-slate-200 pt-3 bg-white">
                     {faq.a}
                   </div>
                 )}
@@ -1644,7 +1632,7 @@ export default function HomePage() {
           <span className="block text-[10px] font-black text-[#0066FF] uppercase">
             ETHEX 2026
           </span>
-          <span className="block text-xs font-black text-slate-900">
+          <span className="block text-xs font-black text-slate-950">
             29 Nov 2026 • Cl 7–12
           </span>
         </div>
@@ -1725,7 +1713,7 @@ export default function HomePage() {
                 <span className="text-[10px] font-bold text-[#0066FF] bg-blue-50 px-2 py-0.5 rounded border border-blue-200 uppercase">
                   OFFICIAL CURRICULUM
                 </span>
-                <h3 className="text-lg font-black text-slate-900 mt-1">
+                <h3 className="text-lg font-black text-slate-950 mt-1">
                   {samplePaperModalClass} — Syllabus & Blueprint
                 </h3>
               </div>
@@ -1791,7 +1779,7 @@ export default function HomePage() {
                 <span className="text-[10px] font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200 uppercase">
                   INSTITUTIONAL COLLABORATION
                 </span>
-                <h3 className="text-xl font-black text-slate-900 mt-1">
+                <h3 className="text-xl font-black text-slate-950 mt-1">
                   Invite EURO to Your School
                 </h3>
               </div>
@@ -1811,7 +1799,7 @@ export default function HomePage() {
                 <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-7 h-7" />
                 </div>
-                <h4 className="text-base font-black text-slate-900">
+                <h4 className="text-base font-black text-slate-950">
                   Inquiry Received Successfully!
                 </h4>
                 <p className="text-xs text-slate-600">
@@ -1931,7 +1919,7 @@ export default function HomePage() {
       <div className="block md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#060D1E]/95 backdrop-blur-md border-t border-blue-900/60 p-3 shadow-2xl">
         <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-wider text-amber-300">
+            <div className="text-[10px] font-black uppercase tracking-widest font-black text-amber-300">
               ETHEX 2026 • 29 NOV
             </div>
             <div className="text-xs font-black text-white">
