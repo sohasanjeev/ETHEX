@@ -517,9 +517,9 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-white w-full max-w-full overflow-x-hidden">
       {/* 1. FRONT BANNER: DESKTOP LANDSCAPE & MOBILE SQUARE (100% REAL SIZE, FULL FLAGS, NO CUT-OFF) */}
-      <section className="bg-gradient-to-b from-[#060D1E] via-[#09152E] to-[#0D1D3A] pt-4 pb-6 px-3 sm:px-6 lg:px-8 border-b border-blue-900/40 w-full overflow-hidden">
+      <section className="bg-gradient-to-b from-[#F0F7FF] via-blue-50/50 to-white pt-4 pb-6 px-3 sm:px-6 lg:px-8 border-b border-blue-100 w-full overflow-hidden">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-blue-500/30 bg-slate-900 cursor-pointer group w-full">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-blue-200/80 bg-white cursor-pointer group w-full">
             {/* Desktop Landscape Banner (Real Size Display, 100% Full Flags, No Cut-off) */}
             <img
               src={settings?.hero_banner_desktop_url || "/branding/hero_landscape_banner.png"}
@@ -547,70 +547,70 @@ export default function HomePage() {
       </section>
 
       {/* 2. EURO • ETHEX: WHAT IS ETHEX & WHY TO PARTICIPATE */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0D1D3A] via-[#09152E] to-[#060D1E] text-white py-12 sm:py-16 border-b border-blue-900/40" id="about">
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-blue-50/40 to-[#F8FAFC] text-slate-900 py-12 sm:py-16 border-b border-slate-200" id="about">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/40 text-blue-200 text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 border border-blue-200 text-[#0066FF] text-xs font-black uppercase tracking-wider shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <span>EURO TALENT HUNT EXAMINATION • ETHEX 2026</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-tight">
               ETHEX 2026 <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-amber-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0052CC] via-[#0066FF] to-blue-700">
                 Euro Talent Hunt Examination
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed">
-              Flagship national talent examination conducted by <strong className="text-white">EURO CAMPUS</strong> for ambitious students of <strong className="text-amber-300">Classes 8 to 12</strong>. Comprehensive benchmarking, Competitive Success Index (CSI), and up to 90% fee waivers for JEE, NEET & Foundation.
+            <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+              Flagship national talent examination conducted by <strong className="text-slate-900 font-bold">EURO CAMPUS</strong> for ambitious students of <strong className="text-[#0066FF] font-bold">Classes 8 to 12</strong>. Comprehensive benchmarking, Competitive Success Index (CSI), and up to 90% fee waivers for JEE, NEET &amp; Foundation.
             </p>
           </div>
 
           {/* 4 Allen Tallentex Benefit Badges (Why to Participate) */}
           <div className="space-y-4">
             <div className="text-center">
-              <span className="text-xs font-black text-amber-300 tracking-wider uppercase">
+              <span className="text-xs font-black text-[#0066FF] bg-blue-50 px-4 py-1 rounded-full border border-blue-200 tracking-wider uppercase inline-block shadow-2xs">
                 ★ WHY TO PARTICIPATE IN ETHEX 2026? ★
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="bg-white/5 border border-white/10 backdrop-blur-sm p-5 rounded-2xl space-y-2 hover:border-amber-400/50 transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center font-black">
+              <div className="bg-white border border-amber-200/80 hover:border-amber-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-black">
                   <GraduationCap className="w-5 h-5" />
                 </div>
-                <div className="text-amber-400 font-black text-xl">Up to 90% Scholarship</div>
-                <div className="text-xs text-slate-300 leading-relaxed font-medium">
+                <div className="text-amber-600 font-black text-xl">Up to 90% Scholarship</div>
+                <div className="text-xs text-slate-600 leading-relaxed font-medium">
                   Direct admission fee waivers across all EURO Campus classroom courses from a ₹2.5 Cr pool.
                 </div>
               </div>
 
-              <div className="bg-white/5 border border-white/10 backdrop-blur-sm p-5 rounded-2xl space-y-2 hover:border-purple-400/50 transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-purple-400/20 text-purple-300 flex items-center justify-center font-black">
+              <div className="bg-white border border-purple-200/80 hover:border-purple-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center font-black">
                   <Rocket className="w-5 h-5" />
                 </div>
-                <div className="text-purple-300 font-black text-xl">ISRO Educational Tour</div>
-                <div className="text-xs text-slate-300 leading-relaxed font-medium">
+                <div className="text-purple-600 font-black text-xl">ISRO Educational Tour</div>
+                <div className="text-xs text-slate-600 leading-relaxed font-medium">
                   National top performers qualify for an all-expenses-sponsored educational tour to ISRO satellite centres.
                 </div>
               </div>
 
-              <div className="bg-white/5 border border-white/10 backdrop-blur-sm p-5 rounded-2xl space-y-2 hover:border-emerald-400/50 transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-black">
+              <div className="bg-white border border-emerald-200/80 hover:border-emerald-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-black">
                   <Trophy className="w-5 h-5" />
                 </div>
-                <div className="text-emerald-400 font-black text-xl">₹10 Lakh Cash Prizes</div>
-                <div className="text-xs text-slate-300 leading-relaxed font-medium">
+                <div className="text-emerald-600 font-black text-xl">₹10 Lakh Cash Prizes</div>
+                <div className="text-xs text-slate-600 leading-relaxed font-medium">
                   State rankers and merit toppers earn direct monetary honors and academic excellence awards.
                 </div>
               </div>
 
-              <div className="bg-white/5 border border-white/10 backdrop-blur-sm p-5 rounded-2xl space-y-2 hover:border-blue-400/50 transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-sky-400/20 text-sky-300 flex items-center justify-center font-black">
+              <div className="bg-white border border-blue-200/80 hover:border-blue-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-[#0066FF] flex items-center justify-center font-black">
                   <BarChart3 className="w-5 h-5" />
                 </div>
-                <div className="text-sky-400 font-black text-xl">CSI Diagnostic Report</div>
-                <div className="text-xs text-slate-300 leading-relaxed font-medium">
+                <div className="text-[#0066FF] font-black text-xl">CSI Diagnostic Report</div>
+                <div className="text-xs text-slate-600 leading-relaxed font-medium">
                   Detailed subject-wise Competitive Success Index, time analysis, and Pune University Certification support.
                 </div>
               </div>
@@ -877,23 +877,23 @@ export default function HomePage() {
           </div>
 
           {/* 2. Share with Friends Card: Invite Your Friends to Experience ETHEX (Down) */}
-          <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-6 sm:p-8 border border-blue-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-2 text-center md:text-left">
-              <span className="text-[10px] font-black uppercase tracking-wider text-[#0066FF] bg-blue-100/70 px-2.5 py-0.5 rounded-full border border-blue-300">
+          <div className="bg-gradient-to-r from-[#061229] via-[#0B1E48] to-[#122A63] rounded-3xl p-6 sm:p-8 border border-blue-500/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 text-white relative overflow-hidden">
+            <div className="space-y-2 text-center md:text-left relative z-10">
+              <span className="text-[10px] font-black uppercase tracking-wider text-cyan-300 bg-blue-500/20 px-2.5 py-0.5 rounded-full border border-blue-400/40">
                 SPREAD THE WORD
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+              <h3 className="text-xl sm:text-2xl font-black text-white">
                 Invite Your Friends to Experience ETHEX
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-lg font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm text-blue-100/90 max-w-lg font-medium leading-relaxed">
                 Empower your peers to benchmark their preparation nationally, compete for up to 90% scholarship, and qualify for an ISRO Educational Tour!
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 flex-shrink-0">
+            <div className="flex flex-wrap items-center justify-center gap-3 flex-shrink-0 relative z-10">
               <button
                 onClick={handleShareWhatsApp}
-                className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm flex items-center gap-2 transition-transform active:scale-95"
+                className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs rounded-xl shadow-lg flex items-center gap-2 transition-transform active:scale-95"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Share on WhatsApp</span>
@@ -901,16 +901,16 @@ export default function HomePage() {
 
               <button
                 onClick={handleCopyShareLink}
-                className={"px-4 py-2.5 font-bold text-xs rounded-xl border transition-all flex items-center gap-2 " + (copiedShareLink ? "bg-emerald-50 text-emerald-700 border-emerald-300" : "bg-white hover:bg-slate-50 text-slate-800 border-slate-300 shadow-2xs")}
+                className={"px-4 py-2.5 font-bold text-xs rounded-xl border transition-all flex items-center gap-2 " + (copiedShareLink ? "bg-emerald-600 text-white border-emerald-400 shadow-md" : "bg-white/10 hover:bg-white/20 text-white border-white/20 shadow-sm")}
               >
                 {copiedShareLink ? (
                   <>
-                    <CheckCircle className="w-4 h-4 text-emerald-600" />
+                    <CheckCircle className="w-4 h-4 text-emerald-300" />
                     <span>Link Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4 text-slate-600" />
+                    <Copy className="w-4 h-4 text-blue-200" />
                     <span>Copy Link</span>
                   </>
                 )}
@@ -918,7 +918,7 @@ export default function HomePage() {
 
               <button
                 onClick={handleNativeShare}
-                className="p-2.5 bg-blue-100 hover:bg-blue-200 text-euro-royal rounded-xl border border-blue-200 transition-colors"
+                className="p-2.5 bg-white/10 hover:bg-white/20 text-blue-200 rounded-xl border border-white/20 transition-colors"
                 title="Share via device options"
               >
                 <Share2 className="w-4 h-4" />
