@@ -64,7 +64,7 @@ export const setupInvisibleRecaptcha = (containerId: string = 'recaptcha-contain
 export const sendFirebasePhoneOtp = async (
   rawPhone: string,
   containerId: string = 'recaptcha-container'
-): Promise<{ success: boolean; isFirebase: boolean; isLiveSms?: boolean; previewOtp?: string; otpToken?: string; error?: string }> => {
+): Promise<{ success: boolean; isFirebase: boolean; isLiveSms?: boolean; devFallbackOtp?: string; previewOtp?: string; otpToken?: string; error?: string }> => {
   const cleanPhone = rawPhone.replace(/\D/g, '').slice(-10);
   if (cleanPhone.length !== 10) {
     return { success: false, isFirebase: false, error: 'Please enter a valid 10-digit mobile number' };
@@ -101,6 +101,7 @@ export const sendFirebasePhoneOtp = async (
             success: true,
             isFirebase: false,
             isLiveSms: !!data.isLiveSms,
+            devFallbackOtp: data.devFallbackOtp,
             otpToken: data.otpToken,
           };
         }
@@ -130,6 +131,7 @@ export const sendFirebasePhoneOtp = async (
       success: true,
       isFirebase: false,
       isLiveSms: !!data.isLiveSms,
+      devFallbackOtp: data.devFallbackOtp,
       otpToken: data.otpToken,
     };
   } catch (err: any) {

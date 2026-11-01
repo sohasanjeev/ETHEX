@@ -107,10 +107,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: `6-digit verification code dispatched to +91 ${cleanIdentifier}`,
+      message: isLiveSms
+        ? `6-digit verification code dispatched to +91 ${cleanIdentifier}`
+        : `Fast2SMS Carrier SMS pending KYC verification. Use test code: ${otp}`,
       identifier: cleanIdentifier,
       otpToken: otpToken,
       isLiveSms: isLiveSms,
+      devFallbackOtp: !isLiveSms ? otp : undefined,
     });
   } catch (error: any) {
     console.error('Send OTP error:', error);

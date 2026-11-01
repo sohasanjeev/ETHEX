@@ -41,6 +41,7 @@ function RegisterForm() {
   const [otpVerified, setOtpVerified] = useState(false);
   const [otpCode, setOtpCode] = useState('');
   const [otpToken, setOtpToken] = useState<string | null>(null);
+  const [fallbackOtp, setFallbackOtp] = useState<string | null>(null);
   const [otpSending, setOtpSending] = useState(false);
   const [otpVerifying, setOtpVerifying] = useState(false);
   const [otpError, setOtpError] = useState<string | null>(null);
@@ -74,6 +75,7 @@ function RegisterForm() {
         } else {
           setOtpSent(true);
           if (result.otpToken) setOtpToken(result.otpToken);
+          if (result.devFallbackOtp) setFallbackOtp(result.devFallbackOtp);
           setResendCooldown(45);
           setOtpCode('');
           setOtpNotice(`✓ 6-Digit SMS verification code sent to +91 ${formData.phone}. Please check your phone messages.`);
@@ -90,6 +92,7 @@ function RegisterForm() {
         } else {
           setOtpSent(true);
           setOtpToken(data.otpToken || null);
+          if (data.devFallbackOtp) setFallbackOtp(data.devFallbackOtp);
           setOtpCode('');
           setResendCooldown(45);
           setOtpNotice(`✓ 6-Digit verification code dispatched to ${formData.email}. Please check your inbox.`);
@@ -344,27 +347,42 @@ function RegisterForm() {
                 )}
 
                 {otpSent && (
-                  <div className="flex items-center gap-2 pt-1">
-                    <div className="relative flex-1">
-                      <KeyRound className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                      <input
-                        type="text"
-                        maxLength={6}
-                        value={otpCode}
-                        onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
-                        placeholder="Enter 6-digit verification code"
-                        className="w-full pl-9 pr-3 py-2 text-xs font-mono font-bold tracking-widest border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-white text-center"
-                      />
+                  <>
+                    <div className="flex items-center gap-2 pt-1">
+                      <div className="relative flex-1">
+                        <KeyRound className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                        <input
+                          type="text"
+                          maxLength={6}
+                          value={otpCode}
+                          onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
+                          placeholder="Enter 6-digit verification code"
+                          className="w-full pl-9 pr-3 py-2 text-xs font-mono font-bold tracking-widest border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0066FF] bg-white text-center"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        disabled={otpVerifying || otpCode.length !== 6}
+                        onClick={handleVerifyOtp}
+                        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all shadow-xs disabled:opacity-50 flex items-center gap-1"
+                      >
+                        {otpVerifying ? 'Verifying...' : 'Verify OTP'}
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      disabled={otpVerifying || otpCode.length !== 6}
-                      onClick={handleVerifyOtp}
-                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all shadow-xs disabled:opacity-50 flex items-center gap-1"
-                    >
-                      {otpVerifying ? 'Verifying...' : 'Verify OTP'}
-                    </button>
-                  </div>
+
+                    {fallbackOtp && (
+                      <div className="flex items-center justify-between p-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-950 text-xs mt-2">
+                        <span className="text-[11px] text-slate-600">SMS pending KYC. Test code: <strong className="font-mono font-bold text-[#0066FF] text-sm tracking-wider">{fallbackOtp}</strong></span>
+                        <button
+                          type="button"
+                          onClick={() => setOtpCode(fallbackOtp)}
+                          className="px-2.5 py-1 bg-[#0066FF] hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs"
+                        >
+                          Use Code
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             ) : (

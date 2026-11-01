@@ -82,6 +82,7 @@ export default function HomePage() {
   const [quickOtpVerified, setQuickOtpVerified] = useState(false);
   const [quickOtpCode, setQuickOtpCode] = useState('');
   const [quickOtpToken, setQuickOtpToken] = useState<string | null>(null);
+  const [quickFallbackOtp, setQuickFallbackOtp] = useState<string | null>(null);
   const [quickOtpSending, setQuickOtpSending] = useState(false);
   const [quickOtpVerifying, setQuickOtpVerifying] = useState(false);
   const [quickOtpError, setQuickOtpError] = useState<string | null>(null);
@@ -212,6 +213,7 @@ export default function HomePage() {
       } else {
         setQuickOtpSent(true);
         if (result.otpToken) setQuickOtpToken(result.otpToken);
+        if (result.devFallbackOtp) setQuickFallbackOtp(result.devFallbackOtp);
         setQuickResendCooldown(45);
         setQuickOtpCode('');
         setQuickOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${clean}. Please check your phone messages.`);
@@ -515,9 +517,9 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-white w-full max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#EEF2F6] w-full max-w-full overflow-x-hidden">
       {/* 1. FRONT BANNER: DESKTOP LANDSCAPE & MOBILE SQUARE (100% REAL SIZE, FULL FLAGS, NO CUT-OFF) */}
-      <section className="bg-gradient-to-b from-[#F0F7FF] via-blue-50/50 to-white pt-4 pb-6 px-3 sm:px-6 lg:px-8 border-b border-blue-100 w-full overflow-hidden">
+      <section className="bg-gradient-to-b from-[#E2ECF8] via-[#EAF2F9] to-[#E5EDF6] pt-4 pb-6 px-3 sm:px-6 lg:px-8 border-b border-blue-200/70 w-full overflow-hidden">
         <div className="max-w-7xl mx-auto w-full">
           <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-blue-200/80 bg-white cursor-pointer group w-full">
             {/* Desktop Landscape Banner (Real Size Display, 100% Full Flags, No Cut-off) */}
@@ -547,7 +549,7 @@ export default function HomePage() {
       </section>
 
       {/* 2. EURO • ETHEX: WHAT IS ETHEX & WHY TO PARTICIPATE */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white via-blue-50/40 to-[#F8FAFC] text-slate-900 py-12 sm:py-16 border-b border-slate-200" id="about">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#E7EFF8] via-[#EEF4FA] to-[#E3EAF3] text-slate-900 py-12 sm:py-16 border-b border-slate-200/80" id="about">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 border border-blue-200 text-[#0066FF] text-xs font-black uppercase tracking-wider shadow-xs">
@@ -620,7 +622,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. ONLINE REGISTRATIONS ONLY: REGISTER FOR ETHEX (3-FIELD QUICK PORTAL + LIVE COUNTDOWN) */}
-      <section className="py-12 sm:py-16 bg-[#F8FAFC] border-b border-slate-200" id="register">
+      <section className="py-12 sm:py-16 bg-gradient-to-b from-[#DFE7F1] via-[#E8EEF6] to-[#E1E8F2] border-b border-slate-200/80" id="register">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
@@ -778,6 +780,19 @@ export default function HomePage() {
                           {quickOtpVerifying ? 'Verifying...' : 'Verify OTP'}
                         </button>
                       </div>
+
+                      {quickFallbackOtp && (
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-blue-100/80 border border-blue-200 text-blue-950 text-xs mt-1.5">
+                          <span className="text-[11px]">Carrier pending KYC. Test code: <strong className="font-mono font-bold text-[#0066FF] tracking-wider">{quickFallbackOtp}</strong></span>
+                          <button
+                            type="button"
+                            onClick={() => setQuickOtpCode(quickFallbackOtp)}
+                            className="px-2 py-0.5 bg-[#0066FF] hover:bg-blue-700 text-white rounded text-[11px] font-bold transition-all"
+                          >
+                            Use Code
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -852,7 +867,7 @@ export default function HomePage() {
 
 
       {/* 4. SPREAD THE WORD: INVITE EURO TO YOUR SCHOOL & INVITE FRIENDS */}
-      <section className="py-10 sm:py-12 bg-white border-b border-slate-200">
+      <section className="py-10 sm:py-12 bg-gradient-to-b from-[#E1E8F2] to-[#E6EDF5] border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           {/* 1. Institutional Collaboration Card: Invite EURO to Your School (Up) */}
           <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-3xl p-6 sm:p-8 text-slate-950 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg border border-amber-400">
@@ -929,7 +944,7 @@ export default function HomePage() {
       </section>
 
       {/* 2C. 4-STEP REGISTRATION PROCESS (EXACT ALLEN TALLENTEX REPLICA INFOGRAPHIC) */}
-      <section className="py-14 sm:py-20 bg-[#F8FAFC] border-t border-slate-200">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E6EDF5] via-[#EDF3FA] to-[#E3EAF3] border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
@@ -1015,7 +1030,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. SYLLABUS SECTION (CLASSES 8 TO 12 ONLY - OPENS IN NEW TAB ON CHROME) */}
-      <section className="py-14 sm:py-20 bg-white border-t border-slate-200" id="syllabus">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E3EAF3] via-[#E9EFF7] to-[#E1E8F2] border-t border-slate-200/80" id="syllabus">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
@@ -1149,7 +1164,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. SAMPLE PAPER SECTION (CLASSES 8 TO 12 ONLY - OPENS IN NEW TAB ON CHROME) */}
-      <section className="py-14 sm:py-20 bg-slate-50 border-t border-slate-200" id="sample-papers">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E1E8F2] via-[#E8EEF6] to-[#E3EAF3] border-t border-slate-200/80" id="sample-papers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-wider">
@@ -1274,7 +1289,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. COURSES WE OFFER AT EURO CAMPUS (ALLEN CLASSROOM & ONLINE COURSES) */}
-      <section className="py-14 sm:py-20 bg-slate-50 border-t border-slate-200" id="courses">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E3EAF3] via-[#ECF2F8] to-[#E1E8F2] border-t border-slate-200/80" id="courses">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
@@ -1449,7 +1464,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. OFFLINE CAMPUSES & "INVITE ETHEX IN YOUR SCHOOL" SECTION */}
-      <section className="py-14 sm:py-20 bg-white border-t border-slate-200" id="centres">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E1E8F2] via-[#E8EEF6] to-[#E3EAF3] border-t border-slate-200/80" id="centres">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
@@ -1514,7 +1529,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. PROVEN ACHIEVERS / WALL OF FAME */}
-      <section className="py-14 sm:py-20 bg-[#F8FAFC] border-t border-slate-200">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E3EAF3] via-[#ECF2F8] to-[#E1E8F2] border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">
@@ -1590,7 +1605,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. FREQUENTLY ASKED QUESTIONS ACCORDION */}
-      <section className="py-14 sm:py-20 bg-white border-t border-slate-200" id="faqs">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E1E8F2] via-[#E8EEF6] to-[#DFE7F2] border-t border-slate-200/80" id="faqs">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="text-center sm:text-left space-y-1">
             <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-wider">

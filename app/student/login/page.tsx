@@ -35,6 +35,7 @@ export default function StudentLoginPage() {
   // Flow states
   const [otpSent, setOtpSent] = useState(false);
   const [otpToken, setOtpToken] = useState<string | null>(null);
+  const [fallbackOtp, setFallbackOtp] = useState<string | null>(null);
   const [resendCountdown, setResendCountdown] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -79,6 +80,7 @@ export default function StudentLoginPage() {
         } else {
           setOtpSent(true);
           if (result.otpToken) setOtpToken(result.otpToken);
+          if (result.devFallbackOtp) setFallbackOtp(result.devFallbackOtp);
           setResendCountdown(45);
           setOtpCode('');
           setSuccessNotice(`✓ 6-Digit SMS verification code sent to +91 ${identifier}. Please check your phone messages.`);
@@ -96,6 +98,7 @@ export default function StudentLoginPage() {
         } else {
           setOtpSent(true);
           setOtpToken(data.otpToken || null);
+          if (data.devFallbackOtp) setFallbackOtp(data.devFallbackOtp);
           setOtpCode('');
           setResendCountdown(45);
           setSuccessNotice(`✓ 6-Digit verification code sent to ${identifier}. Please check your inbox.`);
@@ -394,6 +397,22 @@ export default function StudentLoginPage() {
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0066FF] text-base font-mono font-bold tracking-widest text-center bg-slate-50"
                   />
                 </div>
+
+                {fallbackOtp && (
+                  <div className="p-3 bg-blue-50/90 border border-blue-200/90 rounded-xl text-blue-950 text-xs flex items-center justify-between shadow-2xs">
+                    <div>
+                      <span className="font-extrabold text-[#0066FF] block">Carrier Gateway Notice:</span>
+                      <span className="text-[11px] text-slate-600">SMS pending KYC. Test code: <strong className="font-mono font-bold text-slate-900 text-sm tracking-wider">{fallbackOtp}</strong></span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setOtpCode(fallbackOtp)}
+                      className="px-2.5 py-1 bg-[#0066FF] hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs flex-shrink-0"
+                    >
+                      Use Code
+                    </button>
+                  </div>
+                )}
 
                 <div className="flex items-center justify-between text-xs text-slate-500">
                   <span>Didn&apos;t receive code?</span>
