@@ -76,6 +76,7 @@ let siteSettingsState: SiteSettings = {
   },
   results_pamphlet_url: '/branding/euro_result_banner.jpg',
   results_headline: 'EURO CAMPUS Champions — NEET 650+ & National ISRO Tour Qualifiers',
+  fast2sms_api_key: process.env.FAST2SMS_API_KEY || '',
   updated_at: new Date().toISOString(),
 };
 

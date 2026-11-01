@@ -33,13 +33,24 @@ export async function POST(req: Request) {
     // Generate tamper-proof stateless token
     const otpToken = generateOtpToken(cleanIdentifier, otp, expiresAt);
 
-    // If Fast2SMS API Key is present, dispatch live SMS directly to Indian carrier
-    if (isPhone && process.env.FAST2SMS_API_KEY) {
+    // If Fast2SMS API Key is present in environment or site settings, dispatch live SMS directly to Indian carrier
+    let fast2smsKey = process.env.FAST2SMS_API_KEY || '';
+    if (!fast2smsKey) {
+      try {
+        const { dataService } = await import('@/lib/services/dataService');
+        const settings = await dataService.getSiteSettings();
+        fast2smsKey = settings?.fast2sms_api_key || '';
+      } catch {
+        // Ignore settings read error
+      }
+    }
+
+    if (isPhone && fast2smsKey) {
       try {
         const smsRes = await fetch('https://www.fast2sms.com/dev/bulkV2', {
           method: 'POST',
           headers: {
-            authorization: process.env.FAST2SMS_API_KEY,
+            authorization: fast2smsKey,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({

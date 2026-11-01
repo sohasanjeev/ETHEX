@@ -1372,42 +1372,14 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Featured Official Result Banner from eurocampus.in */}
-          <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-blue-500/20 flex flex-col lg:flex-row items-center gap-8">
-            <div className="lg:w-1/2 space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider">
-                <Trophy className="w-3.5 h-3.5" />
-                OFFICIAL NEET & ISRO SELECTIONS
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-                35 Govt. MBBS Selections & National ISRO Tour Qualifiers
-              </h3>
-              <p className="text-xs sm:text-sm text-blue-100/90 leading-relaxed">
-                Celebrating outstanding excellence across Maharashtra! 7 students scored 600+ in NEET led by Mithilesh Shimpi (650/720) and Sulagna Triathy (632/720), alongside our national ISRO/NASA Educational Tour winners from Classes 8 to 10.
-              </p>
-              <div className="grid grid-cols-3 gap-3 pt-2">
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/15 text-center">
-                  <span className="text-2xl font-black text-amber-300">35</span>
-                  <p className="text-[10px] sm:text-xs text-blue-200 font-semibold mt-0.5">Govt. MBBS</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/15 text-center">
-                  <span className="text-2xl font-black text-amber-300">7</span>
-                  <p className="text-[10px] sm:text-xs text-blue-200 font-semibold mt-0.5">NEET 600+</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl border border-white/15 text-center">
-                  <span className="text-2xl font-black text-amber-300">12+</span>
-                  <p className="text-[10px] sm:text-xs text-blue-200 font-semibold mt-0.5">ISRO Winners</p>
-                </div>
-              </div>
-            </div>
-            <div className="lg:w-1/2 w-full">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 bg-slate-950">
-                <img
-                  src="/branding/euro_result_banner.jpg"
-                  alt="EURO CAMPUS NEET & ISRO Results Banner"
-                  className="w-full h-auto object-contain mx-auto"
-                />
-              </div>
+          {/* Featured Official Result Banner: Prominent Full-Width Presentation */}
+          <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 rounded-3xl p-3 sm:p-6 text-white shadow-2xl border border-blue-500/30 overflow-hidden">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-slate-950 w-full flex items-center justify-center">
+              <img
+                src={settings?.results_pamphlet_url || "/branding/euro_result_banner.jpg"}
+                alt="EURO CAMPUS Champions & ISRO Tour Qualifiers"
+                className="w-full h-auto max-h-[720px] object-contain rounded-xl mx-auto"
+              />
             </div>
           </div>
 

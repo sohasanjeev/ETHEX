@@ -40,6 +40,7 @@ export interface SiteSettings {
   sample_paper_urls?: Record<string, string>;
   results_pamphlet_url?: string;
   results_headline?: string;
+  fast2sms_api_key?: string;
   updated_at: string;
 }
 
