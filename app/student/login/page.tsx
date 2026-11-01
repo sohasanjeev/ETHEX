@@ -81,7 +81,10 @@ export default function StudentLoginPage() {
           setOtpSent(true);
           if (result.otpToken) setOtpToken(result.otpToken);
           setResendCountdown(45);
-          if (result.previewOtp) {
+          if (result.isLiveSms || result.isFirebase) {
+            setOtpCode('');
+            setSuccessNotice(`✓ Live SMS verification code sent to +91 ${identifier}. Please check your phone messages.`);
+          } else if (result.previewOtp) {
             setOtpCode(result.previewOtp);
             setSuccessNotice(`✓ Free verification code activated: ${result.previewOtp} (Auto-filled for instant login)`);
           } else {

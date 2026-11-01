@@ -64,7 +64,7 @@ export const setupInvisibleRecaptcha = (containerId: string = 'recaptcha-contain
 export const sendFirebasePhoneOtp = async (
   rawPhone: string,
   containerId: string = 'recaptcha-container'
-): Promise<{ success: boolean; isFirebase: boolean; previewOtp?: string; otpToken?: string; error?: string }> => {
+): Promise<{ success: boolean; isFirebase: boolean; isLiveSms?: boolean; previewOtp?: string; otpToken?: string; error?: string }> => {
   const cleanPhone = rawPhone.replace(/\D/g, '').slice(-10);
   if (cleanPhone.length !== 10) {
     return { success: false, isFirebase: false, error: 'Please enter a valid 10-digit mobile number' };
@@ -82,12 +82,13 @@ export const sendFirebasePhoneOtp = async (
         return {
           success: true,
           isFirebase: true,
+          isLiveSms: true,
         };
       }
     } catch (fbErr: any) {
       console.warn('Firebase Phone Auth attempt:', fbErr?.code || fbErr?.message);
 
-      // Smoothly activate serverless free OTP verification fallback
+      // Smoothly activate Fast2SMS & serverless OTP verification fallback
       try {
         const res = await fetch('/api/auth/send-otp', {
           method: 'POST',
@@ -99,7 +100,8 @@ export const sendFirebasePhoneOtp = async (
           return {
             success: true,
             isFirebase: false,
-            previewOtp: data.previewOtp || '123456',
+            isLiveSms: !!data.isLiveSms,
+            previewOtp: data.previewOtp,
             otpToken: data.otpToken,
           };
         }
@@ -129,7 +131,8 @@ export const sendFirebasePhoneOtp = async (
     return {
       success: true,
       isFirebase: false,
-      previewOtp: data.previewOtp || '123456',
+      isLiveSms: !!data.isLiveSms,
+      previewOtp: data.previewOtp,
       otpToken: data.otpToken,
     };
   } catch (err: any) {

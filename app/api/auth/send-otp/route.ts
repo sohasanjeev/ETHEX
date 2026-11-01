@@ -45,6 +45,7 @@ export async function POST(req: Request) {
       }
     }
 
+    let isLiveSms = false;
     if (isPhone && fast2smsKey) {
       try {
         const smsRes = await fetch('https://www.fast2sms.com/dev/bulkV2', {
@@ -61,21 +62,27 @@ export async function POST(req: Request) {
         });
         const smsData = await smsRes.json();
         console.log(`[Fast2SMS] SMS dispatch result for ${cleanIdentifier}:`, smsData);
+        if (smsData?.return) {
+          isLiveSms = true;
+        }
       } catch (smsErr) {
         console.error('Fast2SMS dispatch error:', smsErr);
       }
     }
 
-    console.log(`[ETHEX AUTH] OTP generated for ${cleanIdentifier}: ${otp}`);
+    console.log(`[ETHEX AUTH] OTP generated for ${cleanIdentifier}: ${otp} (Live SMS: ${isLiveSms})`);
 
     return NextResponse.json({
       success: true,
-      message: isPhone
+      message: isLiveSms
+        ? `Live SMS verification code dispatched to +91 ${cleanIdentifier}`
+        : isPhone
         ? `6-digit verification code dispatched to +91 ${cleanIdentifier}`
         : `Verification code sent to Gmail: ${cleanIdentifier}`,
       identifier: cleanIdentifier,
       otpToken: otpToken,
-      previewOtp: otp,
+      previewOtp: isLiveSms ? undefined : otp,
+      isLiveSms: isLiveSms,
     });
   } catch (error: any) {
     console.error('Send OTP error:', error);
