@@ -46,7 +46,10 @@ export async function POST(req: Request) {
     }
 
     let isLiveSms = false;
+    let smsProviderMessage = '';
+
     if (isPhone && fast2smsKey) {
+      // 1. Try Fast2SMS Route 'q' (Quick SMS - instant delivery without DLT template)
       try {
         const smsRes = await fetch('https://www.fast2sms.com/dev/bulkV2', {
           method: 'POST',
@@ -55,18 +58,48 @@ export async function POST(req: Request) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            variables_values: otp,
-            route: 'otp',
+            route: 'q',
+            message: `Your ETHEX 2026 verification code is ${otp}. Valid for 15 minutes. Please do not share. - EURO CAMPUS`,
+            flash: 0,
             numbers: cleanIdentifier,
           }),
         });
         const smsData = await smsRes.json();
-        console.log(`[Fast2SMS] SMS dispatch result for ${cleanIdentifier}:`, smsData);
+        console.log(`[Fast2SMS Route 'q'] dispatch result for ${cleanIdentifier}:`, smsData);
         if (smsData?.return) {
           isLiveSms = true;
+          smsProviderMessage = 'SMS delivered via Quick Route';
+        } else {
+          smsProviderMessage = smsData?.message || '';
         }
       } catch (smsErr) {
-        console.error('Fast2SMS dispatch error:', smsErr);
+        console.error('[Fast2SMS Route q] dispatch error:', smsErr);
+      }
+
+      // 2. If route 'q' did not dispatch, try route 'otp'
+      if (!isLiveSms) {
+        try {
+          const otpRes = await fetch('https://www.fast2sms.com/dev/bulkV2', {
+            method: 'POST',
+            headers: {
+              authorization: fast2smsKey,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              route: 'otp',
+              variables_values: otp,
+              numbers: cleanIdentifier,
+            }),
+          });
+          const otpData = await otpRes.json();
+          console.log(`[Fast2SMS Route 'otp'] dispatch result for ${cleanIdentifier}:`, otpData);
+          if (otpData?.return) {
+            isLiveSms = true;
+            smsProviderMessage = 'SMS delivered via OTP Route';
+          }
+        } catch (otpErr) {
+          console.error('[Fast2SMS Route otp] dispatch error:', otpErr);
+        }
       }
     }
 
