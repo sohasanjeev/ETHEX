@@ -535,7 +535,7 @@ export default function HomePage() {
             />
             {/* Mobile Phone Square Banner (Real Size Display, No Cut-off) */}
             <img
-              src={settings?.hero_banner_mobile_url || "/branding/ethex_tallentex_square_hero.png"}
+              src={settings?.hero_banner_mobile_url || "/branding/hero_mobile_banner.png"}
               alt="ETHEX 2026 - EURO Talent Hunt Examination"
               className="block md:hidden w-full h-auto max-w-full object-contain group-hover:scale-[1.005] transition-transform duration-300"
               onClick={() => {
