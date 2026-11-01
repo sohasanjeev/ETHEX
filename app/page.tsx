@@ -577,42 +577,42 @@ export default function HomePage() {
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="bg-white border border-amber-200/80 hover:border-amber-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-black">
+              <div className="bg-gradient-to-br from-amber-50/95 via-orange-50/35 to-white/95 border-2 border-amber-200/90 hover:border-amber-400 p-6 rounded-3xl space-y-3 shadow-xs hover:shadow-xl hover:shadow-amber-500/10 transition-all card-hover-effect relative overflow-hidden group">
+                <div className="w-11 h-11 rounded-2xl bg-amber-100/90 border border-amber-300 text-amber-700 flex items-center justify-center font-black shadow-xs">
                   <GraduationCap className="w-5 h-5" />
                 </div>
-                <div className="text-amber-600 font-black text-xl">Up to 90% Scholarship</div>
-                <div className="text-xs text-slate-700 leading-relaxed font-medium">
+                <div className="text-amber-700 font-black text-xl tracking-tight">Up to 90% Scholarship</div>
+                <div className="text-xs text-slate-700 leading-relaxed font-semibold">
                   Direct admission fee waivers across all EURO Campus classroom courses from a ₹2.5 Cr pool.
                 </div>
               </div>
 
-              <div className="bg-white border border-purple-200/80 hover:border-purple-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center font-black">
+              <div className="bg-gradient-to-br from-purple-50/95 via-fuchsia-50/35 to-white/95 border-2 border-purple-200/90 hover:border-purple-400 p-6 rounded-3xl space-y-3 shadow-xs hover:shadow-xl hover:shadow-purple-500/10 transition-all card-hover-effect relative overflow-hidden group">
+                <div className="w-11 h-11 rounded-2xl bg-purple-100/90 border border-purple-300 text-purple-700 flex items-center justify-center font-black shadow-xs">
                   <Rocket className="w-5 h-5" />
                 </div>
-                <div className="text-purple-600 font-black text-xl">ISRO Educational Tour</div>
-                <div className="text-xs text-slate-700 leading-relaxed font-medium">
+                <div className="text-purple-700 font-black text-xl tracking-tight">ISRO Educational Tour</div>
+                <div className="text-xs text-slate-700 leading-relaxed font-semibold">
                   National top performers qualify for an all-expenses-sponsored educational tour to ISRO satellite centres.
                 </div>
               </div>
 
-              <div className="bg-white border border-emerald-200/80 hover:border-emerald-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-black">
+              <div className="bg-gradient-to-br from-emerald-50/95 via-teal-50/35 to-white/95 border-2 border-emerald-200/90 hover:border-emerald-400 p-6 rounded-3xl space-y-3 shadow-xs hover:shadow-xl hover:shadow-emerald-500/10 transition-all card-hover-effect relative overflow-hidden group">
+                <div className="w-11 h-11 rounded-2xl bg-emerald-100/90 border border-emerald-300 text-emerald-700 flex items-center justify-center font-black shadow-xs">
                   <Trophy className="w-5 h-5" />
                 </div>
-                <div className="text-emerald-600 font-black text-xl">₹10 Lakh Cash Prizes</div>
-                <div className="text-xs text-slate-700 leading-relaxed font-medium">
+                <div className="text-emerald-700 font-black text-xl tracking-tight">₹10 Lakh Cash Prizes</div>
+                <div className="text-xs text-slate-700 leading-relaxed font-semibold">
                   State rankers and merit toppers earn direct monetary honors and academic excellence awards.
                 </div>
               </div>
 
-              <div className="bg-white border border-blue-200/80 hover:border-blue-400 p-5 rounded-2xl space-y-2 shadow-xs hover:shadow-md transition-all card-hover-effect">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-[#0066FF] flex items-center justify-center font-black">
+              <div className="bg-gradient-to-br from-blue-50/95 via-sky-50/35 to-white/95 border-2 border-blue-200/90 hover:border-blue-400 p-6 rounded-3xl space-y-3 shadow-xs hover:shadow-xl hover:shadow-blue-500/10 transition-all card-hover-effect relative overflow-hidden group">
+                <div className="w-11 h-11 rounded-2xl bg-blue-100/90 border border-blue-300 text-[#0066FF] flex items-center justify-center font-black shadow-xs">
                   <BarChart3 className="w-5 h-5" />
                 </div>
-                <div className="text-[#0066FF] font-black text-xl">CSI Diagnostic Report</div>
-                <div className="text-xs text-slate-700 leading-relaxed font-medium">
+                <div className="text-[#0052CC] font-black text-xl tracking-tight">CSI Diagnostic Report</div>
+                <div className="text-xs text-slate-700 leading-relaxed font-semibold">
                   Detailed subject-wise Competitive Success Index, time analysis, and Pune University Certification support.
                 </div>
               </div>
@@ -960,7 +960,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Step 1 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div className="bg-gradient-to-br from-blue-50/90 via-sky-50/30 to-white/95 rounded-3xl p-6 border-2 border-blue-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-lg hover:shadow-blue-500/10 transition-all card-hover-effect">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-blue-50 text-[#0066FF] font-black text-sm flex items-center justify-center border border-blue-200">
                   01
@@ -973,7 +973,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 2 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div className="bg-gradient-to-br from-purple-50/90 via-fuchsia-50/30 to-white/95 rounded-3xl p-6 border-2 border-purple-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-lg hover:shadow-purple-500/10 transition-all card-hover-effect">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 font-black text-sm flex items-center justify-center border border-purple-200">
                   02
@@ -987,7 +987,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 3 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div className="bg-gradient-to-br from-emerald-50/90 via-teal-50/30 to-white/95 rounded-3xl p-6 border-2 border-emerald-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-lg hover:shadow-emerald-500/10 transition-all card-hover-effect">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 font-black text-sm flex items-center justify-center border border-emerald-200">
                   03
@@ -1001,7 +1001,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 4 */}
-            <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+            <div className="bg-gradient-to-br from-amber-50/90 via-orange-50/30 to-white/95 rounded-3xl p-6 border-2 border-amber-200/90 shadow-xs space-y-4 relative overflow-hidden flex flex-col justify-between hover:shadow-lg hover:shadow-amber-500/10 transition-all card-hover-effect">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 font-black text-sm flex items-center justify-center border border-amber-200">
                   04
@@ -1115,7 +1115,13 @@ export default function HomePage() {
                   href={fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-slate-50 hover:bg-white rounded-2xl border border-slate-200 hover:border-blue-500 p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group cursor-pointer block text-left"
+                  className={`rounded-3xl border-2 p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group cursor-pointer block text-left card-hover-effect ${
+                    item.color === 'emerald'
+                      ? 'bg-gradient-to-br from-emerald-50/90 via-teal-50/30 to-white/95 border-emerald-200/90 hover:border-emerald-400 hover:shadow-emerald-500/10'
+                      : item.color === 'indigo'
+                      ? 'bg-gradient-to-br from-indigo-50/90 via-purple-50/30 to-white/95 border-indigo-200/90 hover:border-indigo-400 hover:shadow-indigo-500/10'
+                      : 'bg-gradient-to-br from-blue-50/90 via-sky-50/30 to-white/95 border-blue-200/90 hover:border-blue-400 hover:shadow-blue-500/10'
+                  }`}
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
@@ -1237,7 +1243,13 @@ export default function HomePage() {
                   href={fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white hover:bg-emerald-50/50 rounded-2xl border border-slate-200 hover:border-emerald-500 p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group cursor-pointer block text-left"
+                  className={`rounded-3xl border-2 p-5 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group cursor-pointer block text-left card-hover-effect ${
+                    item.tag === 'Medical'
+                      ? 'bg-gradient-to-br from-emerald-50/90 via-teal-50/30 to-white/95 border-emerald-200/90 hover:border-emerald-400 hover:shadow-emerald-500/10'
+                      : item.tag === 'Engineering'
+                      ? 'bg-gradient-to-br from-blue-50/90 via-indigo-50/30 to-white/95 border-blue-200/90 hover:border-blue-400 hover:shadow-blue-500/10'
+                      : 'bg-gradient-to-br from-teal-50/90 via-sky-50/30 to-white/95 border-teal-200/90 hover:border-teal-400 hover:shadow-teal-500/10'
+                  }`}
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
@@ -1287,7 +1299,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Course 1: JEE Main + Advanced */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-blue-400 transition-all card-hover-effect flex flex-col justify-between">
+            <div className="bg-gradient-to-br from-blue-50/90 via-sky-50/30 to-white/95 rounded-3xl p-6 sm:p-7 border-2 border-blue-200/90 shadow-sm space-y-4 hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/10 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black uppercase tracking-widest font-black text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
@@ -1326,7 +1338,7 @@ export default function HomePage() {
             </div>
 
             {/* Course 2: NEET-UG */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-emerald-400 transition-all card-hover-effect flex flex-col justify-between">
+            <div className="bg-gradient-to-br from-emerald-50/90 via-teal-50/30 to-white/95 rounded-3xl p-6 sm:p-7 border-2 border-emerald-200/90 shadow-sm space-y-4 hover:border-emerald-400 hover:shadow-xl hover:shadow-emerald-500/10 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black uppercase tracking-widest font-black text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
@@ -1365,7 +1377,7 @@ export default function HomePage() {
             </div>
 
             {/* Course 3: MHT-CET */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-purple-400 transition-all card-hover-effect flex flex-col justify-between">
+            <div className="bg-gradient-to-br from-purple-50/90 via-fuchsia-50/30 to-white/95 rounded-3xl p-6 sm:p-7 border-2 border-purple-200/90 shadow-sm space-y-4 hover:border-purple-400 hover:shadow-xl hover:shadow-purple-500/10 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black uppercase tracking-widest font-black text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded border border-purple-200">
@@ -1404,7 +1416,7 @@ export default function HomePage() {
             </div>
 
             {/* Course 4: Pre-Foundation */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4 hover:border-amber-400 transition-all card-hover-effect flex flex-col justify-between">
+            <div className="bg-gradient-to-br from-amber-50/90 via-orange-50/30 to-white/95 rounded-3xl p-6 sm:p-7 border-2 border-amber-200/90 shadow-sm space-y-4 hover:border-amber-400 hover:shadow-xl hover:shadow-amber-500/10 transition-all card-hover-effect flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black uppercase tracking-widest font-black text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">
@@ -1462,7 +1474,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* PCMC Campus */}
-            <div className="bg-slate-50 p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4 card-hover-effect">
+            <div className="bg-gradient-to-br from-blue-50/90 via-sky-50/30 to-white/95 p-6 sm:p-7 rounded-3xl border-2 border-blue-200/90 shadow-sm space-y-4 card-hover-effect hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/10">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 uppercase">
                   CENTRE: PCMC (CHINCHWAD)
@@ -1485,7 +1497,7 @@ export default function HomePage() {
             </div>
 
             {/* Shikrapur Campus */}
-            <div className="bg-slate-50 p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4 card-hover-effect">
+            <div className="bg-gradient-to-br from-indigo-50/90 via-purple-50/30 to-white/95 p-6 sm:p-7 rounded-3xl border-2 border-indigo-200/90 shadow-sm space-y-4 card-hover-effect hover:border-indigo-400 hover:shadow-xl hover:shadow-indigo-500/10">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-black text-[#0066FF] bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 uppercase">
                   CENTRE: SHIKRAPUR
