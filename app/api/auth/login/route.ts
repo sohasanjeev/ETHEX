@@ -50,6 +50,17 @@ export async function POST(req: Request) {
           : 'Registered Student');
       const studentClass = existingApp?.student_class || 'Class 10';
       const studentRoll = existingApp?.roll_number || `ETHEX-2026-${cleanIdentifier.slice(-4) || '8842'}`;
+      const studentId = existingApp?.student_id || `std-${cleanIdentifier.slice(-4) || '2026'}`;
+
+      // Log login event in persistent admin records
+      await dataService.logUserLogin({
+        user_id: studentId,
+        identifier: cleanIdentifier,
+        full_name: studentName,
+        role: 'student',
+        current_class: studentClass,
+        login_method: 'otp',
+      });
 
       return NextResponse.json({
         success: true,
@@ -90,6 +101,15 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Invalid administrator credentials' }, { status: 401 });
       }
 
+      // Log administrator login event
+      await dataService.logUserLogin({
+        user_id: 'admin-super-01',
+        identifier: normalizedEmail,
+        full_name: 'Super Administrator',
+        role: 'super_admin',
+        login_method: 'password',
+      });
+
       return NextResponse.json({
         success: true,
         role: 'super_admin',
@@ -103,6 +123,14 @@ export async function POST(req: Request) {
     }
 
     // Student Password Login
+    await dataService.logUserLogin({
+      user_id: `std-${normalizedEmail.slice(0, 4)}`,
+      identifier: normalizedEmail,
+      full_name: 'Registered Student',
+      role: 'student',
+      login_method: 'password',
+    });
+
     return NextResponse.json({
       success: true,
       role: 'student',

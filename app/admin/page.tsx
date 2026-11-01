@@ -43,6 +43,7 @@ import {
   Star,
   Image as ImageIcon,
   FileCheck2,
+  LogIn,
 } from 'lucide-react';
 import {
   SiteSettings,
@@ -55,6 +56,7 @@ import {
   TeacherAccount,
   ResultChampion,
   Result,
+  UserLoginRecord,
 } from '@/lib/types';
 import CompanyNavbarLogo from '@/components/branding/CompanyNavbarLogo';
 import PdfQuestionConverterModal from '@/components/teacher/PdfQuestionConverterModal';
@@ -62,7 +64,7 @@ import PdfQuestionConverterModal from '@/components/teacher/PdfQuestionConverter
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
-    'settings' | 'sample_papers' | 'results' | 'exams' | 'tests' | 'categories' | 'batches' | 'centres' | 'applications' | 'teachers' | 'metrics' | 'finance'
+    'settings' | 'sample_papers' | 'results' | 'exams' | 'tests' | 'categories' | 'batches' | 'centres' | 'applications' | 'logins' | 'teachers' | 'metrics' | 'finance'
   >('settings');
 
   const [settings, setSettings] = useState<SiteSettings | null>(null);
@@ -117,6 +119,7 @@ export default function AdminDashboardPage() {
   // Core Data Lists
   const [exams, setExams] = useState<Exam[]>([]);
   const [applications, setApplications] = useState<Application[]>([]);
+  const [logins, setLogins] = useState<UserLoginRecord[]>([]);
   const [centres, setCentres] = useState<ExamCentre[]>([]);
   const [categories, setCategories] = useState<ExamCategory[]>([]);
   const [batches, setBatches] = useState<Batch[]>([]);
@@ -259,6 +262,11 @@ export default function AdminDashboardPage() {
       }
       if (eData?.exams) setExams(eData.exams);
       if (aData?.applications) setApplications(aData.applications);
+      try {
+        const logRes = await fetch('/api/admin/logins');
+        const logData = await logRes.json();
+        if (logData?.logins) setLogins(logData.logins);
+      } catch {}
       if (cData?.centres) setCentres(cData.centres);
       if (catData?.categories) setCategories(catData.categories);
       if (bData?.batches) setBatches(bData.batches);
@@ -525,6 +533,47 @@ export default function AdminDashboardPage() {
     }
   };
 
+  
+  const handleExportLoginsCSV = () => {
+    if (!logins || logins.length === 0) {
+      alert('No user login records available to export yet.');
+      return;
+    }
+
+    const headers = [
+      'Timestamp (IST)',
+      'Candidate / User Name',
+      'Mobile Number / Email',
+      'Role',
+      'Class',
+      'Login Method',
+      'Verification Status'
+    ];
+
+    const rows = logins.map((item) => [
+      `"${item.created_at ? new Date(item.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : ''}"`,
+      `"${item.full_name || 'Registered Candidate'}"`,
+      `"${item.identifier || ''}"`,
+      `"${item.role ? item.role.toUpperCase() : 'STUDENT'}"`,
+      `"${item.current_class || 'Class 10'}"`,
+      `"${(item.login_method || 'OTP').toUpperCase()}"`,
+      `"VERIFIED (SUCCESS)"`
+    ]);
+
+    // Use UTF-8 BOM so Microsoft Excel cleanly parses columns, dates, and numbers
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `ETHEX_2026_User_Logins_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showToast('Exported user login records to Excel (CSV) successfully!');
+  };
+
   const handleExportApplicationsCSV = () => {
     if (!applications || applications.length === 0) {
       alert('No student registrations available to export.');
@@ -559,8 +608,9 @@ export default function AdminDashboardPage() {
       `"${(app.selected_mode || 'online').toUpperCase()}"`,
     ]);
 
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
+    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const encodedUri = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
     link.setAttribute('download', `ETHEX_2026_Student_Registrations_${new Date().toISOString().slice(0, 10)}.csv`);
@@ -789,6 +839,7 @@ export default function AdminDashboardPage() {
     { id: 'batches', label: 'Batches & Fees', icon: GraduationCap, desc: 'Course Batches & Seat Limits' },
     { id: 'centres', label: 'Centres & Rooms', icon: Building, desc: 'PCMC, Shikrapur & Seating' },
     { id: 'applications', label: 'Student Applications', icon: Award, desc: 'Roster & Admit Cards' },
+    { id: 'logins', label: 'User Logins & Activity', icon: LogIn, desc: 'Live Logins & Excel Export' },
     { id: 'teachers', label: 'Teacher Accounts', icon: Users, desc: 'Faculty Roles & Permissions' },
     { id: 'metrics', label: 'Live Analytics', icon: Rocket, desc: 'Registrations & Metrics' },
   ];
@@ -2350,6 +2401,157 @@ export default function AdminDashboardPage() {
                         </td>
                       </tr>
                     ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          
+          {/* TAB: USER LOGINS & ACTIVITY */}
+          {activeTab === 'logins' && (
+            <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+              <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h2 className="text-xl font-black text-euro-navy">User Logins & Activity Roster</h2>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Live audit log of candidate and administrator logins with instant one-click Excel export.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 self-start sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      try {
+                        const logRes = await fetch('/api/admin/logins');
+                        const logData = await logRes.json();
+                        if (logData?.logins) setLogins(logData.logins);
+                        showToast('Login roster refreshed!');
+                      } catch {}
+                    }}
+                    className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    <span>Refresh</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleExportLoginsCSV}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-all shadow-md hover:shadow-lg flex items-center gap-1.5"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Export Logins to Excel (CSV)</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Quick Metrics Bar */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Total Logins</span>
+                  <span className="text-2xl font-black text-slate-900 mt-1 block">{logins.length}</span>
+                </div>
+                <div className="bg-blue-50/60 border border-blue-200/60 rounded-2xl p-4">
+                  <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider block">OTP Logins</span>
+                  <span className="text-2xl font-black text-[#0066FF] mt-1 block">
+                    {logins.filter((l) => l.login_method === 'otp').length}
+                  </span>
+                </div>
+                <div className="bg-purple-50/60 border border-purple-200/60 rounded-2xl p-4">
+                  <span className="text-[11px] font-bold text-purple-700 uppercase tracking-wider block">Password Logins</span>
+                  <span className="text-2xl font-black text-purple-700 mt-1 block">
+                    {logins.filter((l) => l.login_method === 'password').length}
+                  </span>
+                </div>
+                <div className="bg-emerald-50/60 border border-emerald-200/60 rounded-2xl p-4">
+                  <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider block">Students Active</span>
+                  <span className="text-2xl font-black text-emerald-700 mt-1 block">
+                    {logins.filter((l) => l.role === 'student').length}
+                  </span>
+                </div>
+              </div>
+
+              {/* Login Log Table */}
+              <div className="overflow-x-auto border border-slate-200 rounded-2xl">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200 text-slate-700 font-extrabold uppercase text-[10px] tracking-wider">
+                      <th className="p-3.5">Candidate / User</th>
+                      <th className="p-3.5">Mobile / Email</th>
+                      <th className="p-3.5">Role</th>
+                      <th className="p-3.5">Class</th>
+                      <th className="p-3.5">Method</th>
+                      <th className="p-3.5">Login Time (IST)</th>
+                      <th className="p-3.5">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {logins.length === 0 ? (
+                      <tr>
+                        <td colSpan={7} className="p-8 text-center text-slate-400">
+                          No login events recorded yet. Once students or admins sign in, events will appear here in real time.
+                        </td>
+                      </tr>
+                    ) : (
+                      logins.map((entry) => (
+                        <tr key={entry.id} className="hover:bg-slate-50/80 transition-colors">
+                          <td className="p-3.5">
+                            <span className="font-extrabold text-slate-900 block text-xs">
+                              {entry.full_name || 'Registered Student'}
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-400">{entry.id}</span>
+                          </td>
+                          <td className="p-3.5 font-medium text-slate-700">
+                            {entry.identifier.includes('@') ? (
+                              <span className="font-mono text-blue-700">{entry.identifier}</span>
+                            ) : (
+                              <span className="font-mono font-bold">+91 {entry.identifier}</span>
+                            )}
+                          </td>
+                          <td className="p-3.5">
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                                entry.role === 'super_admin'
+                                  ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                                  : entry.role === 'teacher'
+                                  ? 'bg-purple-100 text-purple-800 border border-purple-300'
+                                  : 'bg-blue-100 text-blue-800 border border-blue-300'
+                              }`}
+                            >
+                              {entry.role}
+                            </span>
+                          </td>
+                          <td className="p-3.5 font-semibold text-slate-600">
+                            {entry.current_class || 'Class 10'}
+                          </td>
+                          <td className="p-3.5">
+                            <span
+                              className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                                entry.login_method === 'otp'
+                                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                  : 'bg-slate-100 text-slate-700'
+                              }`}
+                            >
+                              {entry.login_method}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-slate-500 font-mono text-[11px]">
+                            {entry.created_at
+                              ? new Date(entry.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+                              : 'Recent'}
+                          </td>
+                          <td className="p-3.5">
+                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              Success
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>

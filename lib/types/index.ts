@@ -368,3 +368,15 @@ export interface TeacherAccount {
   is_active: boolean;
   created_at: string;
 }
+
+export interface UserLoginRecord {
+  id: string;
+  user_id?: string;
+  identifier: string;
+  full_name?: string;
+  role: 'student' | 'teacher' | 'super_admin';
+  current_class?: string;
+  login_method: 'otp' | 'password';
+  ip_address?: string;
+  created_at: string;
+}

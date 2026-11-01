@@ -20,6 +20,7 @@ import {
   ExamTemplate,
   Batch,
   TeacherAccount,
+  UserLoginRecord,
 } from '../types';
 
 // Default initial state matching official EURO Campus ETHEX 2026 specifications
@@ -313,6 +314,52 @@ let questionsState: Record<string, Question[]> = {
     },
   ],
 };
+
+let userLoginsState: UserLoginRecord[] = [];
+
+function loadApplicationsFromDisk(): Application[] {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'applications.json');
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const loaded = JSON.parse(raw);
+      if (Array.isArray(loaded)) return loaded;
+    }
+  } catch {}
+  return [];
+}
+
+function saveApplicationsToDisk(apps: Application[]) {
+  try {
+    const dataDir = path.join(process.cwd(), 'data');
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+    fs.writeFileSync(path.join(dataDir, 'applications.json'), JSON.stringify(apps, null, 2), 'utf-8');
+  } catch (e) {
+    console.warn('Failed saving applications to disk:', e);
+  }
+}
+
+function loadLoginsFromDisk(): UserLoginRecord[] {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'logins.json');
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const loaded = JSON.parse(raw);
+      if (Array.isArray(loaded)) return loaded;
+    }
+  } catch {}
+  return [];
+}
+
+function saveLoginsToDisk(logins: UserLoginRecord[]) {
+  try {
+    const dataDir = path.join(process.cwd(), 'data');
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+    fs.writeFileSync(path.join(dataDir, 'logins.json'), JSON.stringify(logins, null, 2), 'utf-8');
+  } catch (e) {
+    console.warn('Failed saving logins to disk:', e);
+  }
+}
 
 let applicationsState: Application[] = [
   {
@@ -897,6 +944,14 @@ export const dataService = {
 
   // Applications
   getApplications: async (studentId?: string): Promise<Application[]> => {
+    // Merge persisted applications from disk with in-memory state
+    const diskApps = loadApplicationsFromDisk();
+    for (const da of diskApps) {
+      if (!applicationsState.some((a) => a.id === da.id || a.application_number === da.application_number)) {
+        applicationsState.push(da);
+      }
+    }
+
     const apps = studentId
       ? applicationsState.filter((a) => a.student_id === studentId)
       : applicationsState;
@@ -910,7 +965,8 @@ export const dataService = {
   },
 
   getApplicationById: async (id: string): Promise<Application | undefined> => {
-    const app = applicationsState.find((a) => a.id === id);
+    const apps = await dataService.getApplications();
+    const app = apps.find((a) => a.id === id);
     if (!app) return undefined;
     return {
       ...app,
@@ -967,7 +1023,33 @@ export const dataService = {
     };
 
     applicationsState.unshift(newApp);
+    saveApplicationsToDisk(applicationsState);
     return newApp;
+  },
+
+  // Logins & Activity Tracking
+  logUserLogin: async (data: Omit<UserLoginRecord, 'id' | 'created_at'>): Promise<UserLoginRecord> => {
+    const record: UserLoginRecord = {
+      id: `login-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      ...data,
+      created_at: new Date().toISOString(),
+    };
+
+    userLoginsState.unshift(record);
+    saveLoginsToDisk(userLoginsState);
+    return record;
+  },
+
+  getUserLogins: async (): Promise<UserLoginRecord[]> => {
+    const diskLogins = loadLoginsFromDisk();
+    for (const dl of diskLogins) {
+      if (!userLoginsState.some((l) => l.id === dl.id)) {
+        userLoginsState.push(dl);
+      }
+    }
+    return [...userLoginsState].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
   },
 
   confirmPayment: async (applicationId: string, paymentDetails: {
