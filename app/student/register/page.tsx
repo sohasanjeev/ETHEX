@@ -75,16 +75,8 @@ function RegisterForm() {
           setOtpSent(true);
           if (result.otpToken) setOtpToken(result.otpToken);
           setResendCooldown(45);
-          if (result.isLiveSms || result.isFirebase) {
-            setOtpCode('');
-            setOtpNotice(`✓ Live SMS verification code sent to +91 ${formData.phone}. Please check your phone messages.`);
-          } else if (result.previewOtp) {
-            setOtpCode(result.previewOtp);
-            setOtpNotice(`✓ Free verification code activated: ${result.previewOtp} (Auto-filled for quick registration)`);
-          } else {
-            setOtpCode('');
-            setOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${formData.phone}. Please enter the code received on your phone.`);
-          }
+          setOtpCode('');
+          setOtpNotice(`✓ 6-Digit SMS verification code sent to +91 ${formData.phone}. Please check your phone messages.`);
         }
       } else {
         const res = await fetch('/api/auth/send-otp', {

@@ -213,21 +213,13 @@ export default function HomePage() {
         setQuickOtpSent(true);
         if (result.otpToken) setQuickOtpToken(result.otpToken);
         setQuickResendCooldown(45);
-        if (result.isLiveSms || result.isFirebase) {
-          setQuickOtpCode('');
-          setQuickOtpNotice(`✓ Live SMS sent to +91 ${clean}. Please check your phone messages.`);
-        } else if (result.previewOtp) {
-          setQuickOtpCode(result.previewOtp);
-          setQuickOtpNotice(`✓ Free verification code activated: ${result.previewOtp} (Auto-filled)`);
-        } else {
-          setQuickOtpCode('');
-          setQuickOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${clean}.`);
-        }
+        setQuickOtpCode('');
+        setQuickOtpNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${clean}. Please check your phone messages.`);
       }
     } catch {
       setQuickOtpSent(true);
-      setQuickOtpCode('123456');
-      setQuickOtpNotice('✓ Free verification code active: 123456');
+      setQuickOtpCode('');
+      setQuickOtpNotice(`✓ 6-Digit verification code dispatched to +91 ${clean}. Please check your phone.`);
     } finally {
       setQuickOtpSending(false);
     }

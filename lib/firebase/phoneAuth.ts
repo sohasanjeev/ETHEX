@@ -101,7 +101,6 @@ export const sendFirebasePhoneOtp = async (
             success: true,
             isFirebase: false,
             isLiveSms: !!data.isLiveSms,
-            previewOtp: data.previewOtp,
             otpToken: data.otpToken,
           };
         }
@@ -112,7 +111,6 @@ export const sendFirebasePhoneOtp = async (
       return {
         success: true,
         isFirebase: false,
-        previewOtp: '123456',
       };
     }
   }
@@ -132,14 +130,12 @@ export const sendFirebasePhoneOtp = async (
       success: true,
       isFirebase: false,
       isLiveSms: !!data.isLiveSms,
-      previewOtp: data.previewOtp,
       otpToken: data.otpToken,
     };
   } catch (err: any) {
     return {
       success: true,
       isFirebase: false,
-      previewOtp: '123456',
     };
   }
 };

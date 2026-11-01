@@ -35,7 +35,6 @@ export default function StudentLoginPage() {
   // Flow states
   const [otpSent, setOtpSent] = useState(false);
   const [otpToken, setOtpToken] = useState<string | null>(null);
-  const [previewOtp, setPreviewOtp] = useState<string | null>(null);
   const [resendCountdown, setResendCountdown] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -81,16 +80,8 @@ export default function StudentLoginPage() {
           setOtpSent(true);
           if (result.otpToken) setOtpToken(result.otpToken);
           setResendCountdown(45);
-          if (result.isLiveSms || result.isFirebase) {
-            setOtpCode('');
-            setSuccessNotice(`✓ Live SMS verification code sent to +91 ${identifier}. Please check your phone messages.`);
-          } else if (result.previewOtp) {
-            setOtpCode(result.previewOtp);
-            setSuccessNotice(`✓ Free verification code activated: ${result.previewOtp} (Auto-filled for instant login)`);
-          } else {
-            setOtpCode('');
-            setSuccessNotice(`✓ 6-Digit SMS verification code dispatched to +91 ${identifier}. Please enter the code received on your phone.`);
-          }
+          setOtpCode('');
+          setSuccessNotice(`✓ 6-Digit SMS verification code sent to +91 ${identifier}. Please check your phone messages.`);
         }
       } else {
         const res = await fetch('/api/auth/send-otp', {
@@ -382,7 +373,6 @@ export default function StudentLoginPage() {
                     onClick={() => {
                       setOtpSent(false);
                       setOtpCode('');
-                      setPreviewOtp(null);
                       setError(null);
                     }}
                     className="text-xs font-bold text-slate-500 hover:text-slate-800"

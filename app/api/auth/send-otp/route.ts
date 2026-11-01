@@ -107,14 +107,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: isLiveSms
-        ? `Live SMS verification code dispatched to +91 ${cleanIdentifier}`
-        : isPhone
-        ? `6-digit verification code dispatched to +91 ${cleanIdentifier}`
-        : `Verification code sent to Gmail: ${cleanIdentifier}`,
+      message: `6-digit verification code dispatched to +91 ${cleanIdentifier}`,
       identifier: cleanIdentifier,
       otpToken: otpToken,
-      previewOtp: isLiveSms ? undefined : otp,
       isLiveSms: isLiveSms,
     });
   } catch (error: any) {
