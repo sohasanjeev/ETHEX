@@ -1144,9 +1144,6 @@ export default function HomePage() {
                         ({item.bracket})
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                      {item.desc}
-                    </p>
                   </div>
 
                   <div className="pt-4 mt-2 border-t border-slate-200/60">
@@ -1269,9 +1266,6 @@ export default function HomePage() {
                         ({item.bracket})
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                      {item.desc}
-                    </p>
                   </div>
 
                   <div className="pt-4 mt-2 border-t border-slate-200/60">
