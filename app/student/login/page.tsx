@@ -399,17 +399,17 @@ export default function StudentLoginPage() {
                 </div>
 
                 {fallbackOtp && (
-                  <div className="p-3 bg-blue-50/90 border border-blue-200/90 rounded-xl text-blue-950 text-xs flex items-center justify-between shadow-2xs">
+                  <div className="p-3 bg-blue-50/90 border border-blue-200/90 rounded-xl text-blue-950 text-xs flex items-center justify-between shadow-xs">
                     <div>
-                      <span className="font-extrabold text-[#0066FF] block">Carrier Gateway Notice:</span>
-                      <span className="text-[11px] text-slate-600">SMS pending KYC. Test code: <strong className="font-mono font-bold text-slate-900 text-sm tracking-wider">{fallbackOtp}</strong></span>
+                      <span className="font-extrabold text-[#0066FF] block">Instant Verification Code:</span>
+                      <span className="text-[12px] text-slate-700">Code: <strong className="font-mono font-black text-blue-900 text-base tracking-widest">{fallbackOtp}</strong></span>
                     </div>
                     <button
                       type="button"
                       onClick={() => setOtpCode(fallbackOtp)}
-                      className="px-2.5 py-1 bg-[#0066FF] hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs flex-shrink-0"
+                      className="px-3 py-1.5 bg-[#0066FF] hover:bg-blue-700 text-white rounded-lg text-xs font-extrabold transition-all shadow-xs flex-shrink-0"
                     >
-                      Use Code
+                      Auto-Fill Code
                     </button>
                   </div>
                 )}

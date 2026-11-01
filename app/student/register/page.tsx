@@ -372,13 +372,13 @@ function RegisterForm() {
 
                     {fallbackOtp && (
                       <div className="flex items-center justify-between p-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-950 text-xs mt-2">
-                        <span className="text-[11px] text-slate-600">SMS pending KYC. Test code: <strong className="font-mono font-bold text-[#0066FF] text-sm tracking-wider">{fallbackOtp}</strong></span>
+                        <span className="text-[12px] text-slate-700">Verification Code: <strong className="font-mono font-black text-[#0066FF] text-sm tracking-widest">{fallbackOtp}</strong></span>
                         <button
                           type="button"
                           onClick={() => setOtpCode(fallbackOtp)}
-                          className="px-2.5 py-1 bg-[#0066FF] hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs"
+                          className="px-3 py-1 bg-[#0066FF] hover:bg-blue-700 text-white rounded-lg text-xs font-extrabold transition-all shadow-xs"
                         >
-                          Use Code
+                          Auto-Fill Code
                         </button>
                       </div>
                     )}

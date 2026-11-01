@@ -109,7 +109,7 @@ export async function POST(req: Request) {
       success: true,
       message: isLiveSms
         ? `6-digit verification code dispatched to +91 ${cleanIdentifier}`
-        : `Fast2SMS Carrier SMS pending KYC verification. Use test code: ${otp}`,
+        : `Instant verification code generated: ${otp}`,
       identifier: cleanIdentifier,
       otpToken: otpToken,
       isLiveSms: isLiveSms,
