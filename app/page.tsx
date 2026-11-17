@@ -1021,17 +1021,17 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E3EAF3] via-[#E9EFF7] to-[#E1E8F2] border-t border-slate-200/80" id="syllabus">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-[#0066FF] bg-blue-50 px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest font-black">
+            <span className="text-xs font-bold text-[#0066FF] bg-blue-50 px-3.5 py-1 rounded-full border border-blue-200 uppercase tracking-wider inline-block">
               OFFICIAL SYLLABUS (CLASSES 8–12)
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               Exam Syllabus &amp; Template Breakdown
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600">
+            <p className="text-xs sm:text-sm text-slate-600 font-medium">
               Select your class below. The complete official syllabus document / template will open directly in a new tab on your browser.
             </p>
-            <div className="mt-3 p-3 sm:p-4 rounded-xl bg-blue-50/90 border border-blue-200/80 text-blue-950 text-xs sm:text-sm text-center max-w-2xl mx-auto shadow-xs">
-              <span className="font-extrabold text-[#0066FF]">💡 Understanding the Syllabus Logic:</span>{' '}
+            <div className="mt-3 p-3 sm:p-4 rounded-xl bg-blue-50/90 border border-blue-200/80 text-blue-950 text-xs sm:text-sm text-center max-w-2xl mx-auto shadow-xs leading-relaxed">
+              <span className="font-bold text-[#0066FF]">💡 Understanding the Syllabus Logic:</span>{' '}
               Each entrance exam tests the curriculum of the preceding class to qualify students for admission into the next class (e.g. the <strong>Class 9th exam</strong> covers <strong>Class 8th syllabus</strong> for a student currently in Class 8 moving to Class 9).
             </div>
           </div>
@@ -1119,8 +1119,8 @@ export default function HomePage() {
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest font-black">ETHEX 2026</span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100/70 text-euro-royal">
+                      <span className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">ETHEX 2026</span>
+                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200/60 shadow-2xs">
                         {item.tag}
                       </span>
                     </div>
@@ -1128,17 +1128,18 @@ export default function HomePage() {
                       <h3 className="text-base font-black text-slate-950 group-hover:text-euro-royal transition-colors">
                         {item.label}
                       </h3>
-                      <span className="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md inline-block border border-blue-100">
-                        ({item.bracket})
-                      </span>
+                      <p className="text-xs font-semibold text-slate-600 flex items-center gap-1.5 pt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                        <span>{item.bracket}</span>
+                      </p>
                     </div>
                   </div>
 
                   <div className="pt-4 mt-2 border-t border-slate-200/60">
-                    <div className="w-full py-2.5 px-3 rounded-xl bg-euro-royal group-hover:bg-blue-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95">
+                    <div className="w-full py-2.5 px-3 rounded-xl bg-euro-royal group-hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-95">
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>Open Syllabus</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                     </div>
                   </div>
                 </a>
@@ -1152,17 +1153,17 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 bg-gradient-to-b from-[#E1E8F2] via-[#E8EEF6] to-[#E3EAF3] border-t border-slate-200/80" id="sample-papers">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 uppercase tracking-widest font-black">
+            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 uppercase tracking-wider inline-block">
               OFFICIAL SAMPLE PAPERS (CLASSES 8–12)
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
               ETHEX Official Model Question Papers
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600">
+            <p className="text-xs sm:text-sm text-slate-600 font-medium">
               Practice authentic question papers with actual exam marking scheme. Click below to open or download in a new tab.
             </p>
-            <div className="mt-3 p-3 sm:p-4 rounded-xl bg-emerald-50/90 border border-emerald-200/80 text-emerald-950 text-xs sm:text-sm text-center max-w-2xl mx-auto shadow-xs">
-              <span className="font-extrabold text-emerald-800">📝 Target Class Preparation:</span>{' '}
+            <div className="mt-3 p-3 sm:p-4 rounded-xl bg-emerald-50/90 border border-emerald-200/80 text-emerald-950 text-xs sm:text-sm text-center max-w-2xl mx-auto shadow-xs leading-relaxed">
+              <span className="font-bold text-emerald-800">📝 Target Class Preparation:</span>{' '}
               Each sample question paper tests the preceding grade curriculum to evaluate readiness for the target class (e.g. the <strong>Class 9 paper</strong> is for a <strong>Class 8 student moving to Class 9</strong>).
             </div>
           </div>
@@ -1241,8 +1242,8 @@ export default function HomePage() {
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest font-black">SAMPLE PAPER</span>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-800">
+                      <span className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">SAMPLE PAPER</span>
+                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60 shadow-2xs">
                         {item.tag}
                       </span>
                     </div>
@@ -1250,17 +1251,18 @@ export default function HomePage() {
                       <h3 className="text-base font-black text-slate-950 group-hover:text-emerald-700 transition-colors">
                         {item.label}
                       </h3>
-                      <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md inline-block border border-emerald-100">
-                        ({item.bracket})
-                      </span>
+                      <p className="text-xs font-semibold text-slate-600 flex items-center gap-1.5 pt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                        <span>{item.bracket}</span>
+                      </p>
                     </div>
                   </div>
 
                   <div className="pt-4 mt-2 border-t border-slate-200/60">
-                    <div className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 group-hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-95">
+                    <div className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 group-hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-95">
                       <FileText className="w-3.5 h-3.5" />
                       <span>Open Sample Paper</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                     </div>
                   </div>
                 </a>
