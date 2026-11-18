@@ -63,8 +63,8 @@ let siteSettingsState: SiteSettings = {
     class10: '/uploads/ethex_2027_class_10_sample_paper.pdf',
     jee_class11: '/uploads/ethex_2027_class_11_sample_paper.pdf',
     neet_class11: '/uploads/ethex_2027_class_11_sample_paper.pdf',
-    jee_class12: '/branding/syllabus/jee_class12.svg',
-    neet_class12: '/branding/syllabus/neet_class12.svg',
+    jee_class12: '/uploads/ethex_2027_class_12_jee_sample_paper.pdf',
+    neet_class12: '/uploads/ethex_2027_class_12_neet_sample_paper.pdf',
   },
   syllabus_images: {
     class8: '/uploads/ethex_2027_class_8_syllabus.png',

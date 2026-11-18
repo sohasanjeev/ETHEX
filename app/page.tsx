@@ -1226,6 +1226,8 @@ export default function HomePage() {
                 class10: '/uploads/ethex_2027_class_10_sample_paper.pdf',
                 jee_class11: '/uploads/ethex_2027_class_11_sample_paper.pdf',
                 neet_class11: '/uploads/ethex_2027_class_11_sample_paper.pdf',
+                jee_class12: '/uploads/ethex_2027_class_12_jee_sample_paper.pdf',
+                neet_class12: '/uploads/ethex_2027_class_12_neet_sample_paper.pdf',
               };
               const fileUrl =
                 settings?.sample_paper_urls?.[item.key] ||
